@@ -1,0 +1,8 @@
+# Ignore Object files
+*.o
+
+# Ignore ASM files
+*.s
+
+# Ignore Binary file
+*.bin
