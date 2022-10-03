@@ -3,6 +3,7 @@
 //03/10/2022
 
 #include "./include/GameStructs.h"
+#include <random>
 
 enum class MenuStates{
     Exit,
@@ -14,17 +15,18 @@ enum class MenuStates{
 
 int main()
 {
+    std::srand(static_cast<unsigned int>(time(nullptr)));
     int userInput;
     MenuStates currentState;
     
     Missile newMissile;
     
     //test co-ordinates
-    newMissile.target.coordinates.x = 10;
-    newMissile.target.coordinates.y = 10;
+    newMissile.target.coordinates.x = rand() % 21;
+    newMissile.target.coordinates.y = rand() % 21;
 
 do{
-    std::cout << "= 0 = Exit program \n = 1 = Scan for enemy ships = 2 \n= Launch Missile = 3 \n = Choose missile type = 4 \n= Display launch code \n ";
+    std::cout << "= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";
     std::cin >> userInput;
     currentState = static_cast<MenuStates>(userInput);
 
@@ -37,7 +39,6 @@ do{
                 break;
 
             case MenuStates::LaunchMissile:
-            newMissile.launchCode();
             newMissile.acquireTarget();
             newMissile.arm();
             newMissile.checkCollision();
