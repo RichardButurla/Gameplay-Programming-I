@@ -5,6 +5,7 @@ const int maxLines = 15;
 const int maxChars = 80;
 char textArray[maxLines][maxChars];
 bool targetFound = false;
+bool explosion = false;
 
 enum class Warhead
 {NONE,
@@ -53,13 +54,13 @@ struct Missile
     void scanTarget(){
         if(isWithinRange(coordinates,target.coordinates))
         {
-            std::cout << "Target Found! \n";
+            std::cout << "Target Found! ";
             targetFound = true;
             textArray[target.coordinates.y][target.coordinates.x] = '*';
             drawTextArea();
         }
         else{
-            std::cout << "Target not within impact area";
+            std::cout << "\nTarget not within impact area\n";
         }
 
     }
@@ -69,6 +70,17 @@ struct Missile
         std::cin >> coordinates.x;
         std::cout << "Enter target y location: \n";
         std::cin >> coordinates.y;
+    }
+    void setupMap()
+    {     
+        char emptySpace = ' ';
+        for (int y = 0; y < maxLines; y++)
+        {
+            for(int x = 0; x < maxChars; x++)
+            {
+                textArray[y][x] = emptySpace;
+            }
+        }
     }
     void drawTextExplosion(int x, int y, char textArray[][80])
     {
@@ -87,73 +99,29 @@ struct Missile
     }
     void checkCollision()
     {
+        std::cout << "\n";
+        char missileTextSymbol = '!';
 
-        if(coordinates.x == target.coordinates.x && coordinates.y == target.coordinates.y)
-        {
-            std::cout << "Target hit \n";
+        if(coordinates.x == target.coordinates.x && coordinates.y == target.coordinates.y){
+            std::cout << "Target hit ";
         }
-        else
-        {
+        else{
             std::cout << "Missed \n";
         }
 
-        //what if we send text flyiong downwards at the enemy??
-        //We need to make space in the terminal using textGapSize and a delay to make it look appealing.
-        // int textGapSize = 70; //gap for space
-        // int targetTextGapSize = textGapSize + target.coordinates.x; //where missile flies
-        // int missileTextGapSize = textGapSize + coordinates.x;
-        // int numberOfLines = 15;
-
-        // std::string missileTextGap = "";
-        // 
-
-        // for (int i = 0; i < missileTextGapSize; i++)
-        //     {
-        //         missileTextGap += " ";
-        //     }
-        // 
-
-        // for (int i = 0; i < numberOfLines; i++)
-        // {
-        //     std::cout << missileTextGap << "|" << "\n";
-        //     delay(0.5);
-        // }
-        // std::cout << missileTextGap << "V" << "\n";
-        // std::cout << "\n";
-
-        // std::cout << targetTextGap << "*" << "\n";
-
-        char missile = '!';
-        char emptySpace = ' ';
-        bool explosion = false;
-
-        for (int y = 0; y < maxLines; y++)
-        {
-            for(int x = 0; x < maxChars; x++)
-            {
-                textArray[y][x] = emptySpace;
-
-                if (x == coordinates.x && y == coordinates.y){
-                    textArray[y][x] = missile;
-                }
-                if(coordinates.x == target.coordinates.x && 
-                   coordinates.y == target.coordinates.y &&
-                x == coordinates.x && y == coordinates.y){
-                    explosion = true;
-                }
+      
+        textArray[coordinates.y][coordinates.x] = missileTextSymbol;
                 
-            }
+        if(coordinates.x == target.coordinates.x && 
+            coordinates.y == target.coordinates.y){
+            explosion = true;
         }
-        
+
         if(explosion)
         drawTextExplosion(target.coordinates.x,target.coordinates.y,textArray);
 
         //draw text
        drawTextArea();
-       
-        
-        
-    
     }
     void drawTextArea()
     {

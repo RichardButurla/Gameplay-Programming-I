@@ -29,8 +29,10 @@ int main()
     newMissile.target.coordinates.x = rand() % maxXPos + 2;
     newMissile.target.coordinates.y = rand() % maxYPos + 1;
 
+    newMissile.setupMap();
+
 do{
-    std::cout << "= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";
+    std::cout << "\n= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";
     std::cin >> userInput;
     currentState = static_cast<MenuStates>(userInput);
 
