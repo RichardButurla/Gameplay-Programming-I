@@ -26,9 +26,24 @@ int main()
     Missile newMissile;
     
     //test co-ordinates
-    newMissile.target.coordinates.x = rand() % maxXPos + 2;
-    newMissile.target.coordinates.y = rand() % maxYPos + 1;
+    for (int i = 0; i < MAX_ENEMIES; i++)
+    {
+        newMissile.target[0].coordinates.x = 1;
+        newMissile.target[0].coordinates.y = 1;
 
+        newMissile.target[4].coordinates.x = 19;
+        newMissile.target[4].coordinates.y = 13;
+
+        newMissile.target[2].coordinates.x = 1;
+        newMissile.target[2].coordinates.y = 13;
+
+        newMissile.target[3].coordinates.x = 19;
+        newMissile.target[3].coordinates.y = 1;
+
+        newMissile.target[1].coordinates.x = 9;
+        newMissile.target[1].coordinates.y =7;
+
+    }
     newMissile.setupMap();
 
 do{
