@@ -74,16 +74,16 @@ struct Missile
     {
         textArray[y][x - 2] = '&';
         textArray[y][x - 1] = '&';
-        textArray[y][1 + x] = '&';
-        textArray[y][2 + x] = '&';
+        textArray[y][x + 1] = '&';
+        textArray[y][x + 2] = '&';
 
-        textArray[y - 1][x - 1] = '&'; 
-        textArray[y - 1][x] = '&';
-        textArray[y - 1][x + 1] = '&';
-
-        textArray[y + 1][x - 1] = '&'; 
+        textArray[y + 1][x - 1] = '&';
         textArray[y + 1][x] = '&';
         textArray[y + 1][x + 1] = '&';
+        
+        textArray[y - 1][x - 1] = '&';     
+        textArray[y - 1][x] = '&';
+        textArray[y - 1][x + 1] = '&';  
     }
     void checkCollision()
     {
@@ -125,6 +125,7 @@ struct Missile
 
         char missile = '!';
         char emptySpace = ' ';
+        bool explosion = false;
 
         for (int y = 0; y < maxLines; y++)
         {
@@ -138,12 +139,15 @@ struct Missile
                 if(coordinates.x == target.coordinates.x && 
                    coordinates.y == target.coordinates.y &&
                 x == coordinates.x && y == coordinates.y){
-                    drawTextExplosion(x,y,textArray);
+                    explosion = true;
                 }
                 
             }
         }
         
+        if(explosion)
+        drawTextExplosion(target.coordinates.x,target.coordinates.y,textArray);
+
         //draw text
        drawTextArea();
        
@@ -161,6 +165,11 @@ struct Missile
             }
             std::cout << "\n";
        }
+        for (int i = 0; i < 5; i++){ //just for spacing
+        std::cout << "\n";
     }
+    }
+   
+    
 };
 

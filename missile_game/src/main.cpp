@@ -5,6 +5,9 @@
 #include "./include/GameStructs.h"
 #include <random>
 
+int maxXPos = 19;
+int maxYPos = 13;
+
 enum class MenuStates{
     Exit,
     ScanForEnemies,
@@ -23,8 +26,8 @@ int main()
     Missile newMissile;
     
     //test co-ordinates
-    newMissile.target.coordinates.x = rand() % 21;
-    newMissile.target.coordinates.y = rand() % 13;
+    newMissile.target.coordinates.x = rand() % maxXPos + 2;
+    newMissile.target.coordinates.y = rand() % maxYPos + 1;
 
 do{
     std::cout << "= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";

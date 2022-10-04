@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 
-int minXRange = 7;
+int minXRange = 5;
 int minYRange = 5;
 
 typedef struct Position
