@@ -1,26 +1,16 @@
-#include <iostream>
-#include <math.h>
-#include "GameLogic.h"
+#include "./include/GameLogics.h"
+
+
+const int maxLines = 15;
+const int maxChars = 80;
+char textArray[maxLines][maxChars];
+bool targetFound = false;
 
 enum class Warhead
 {NONE,
 EXPLOSIVE,
 NUCLEAR};
 
-
-
-
-typedef struct Position
-{
-    int x = 10;
-    int y = 20;
-
-    void print()
-    {
-        std::cout << x << y;
-    }
-
-}Coordinates;
 
 typedef struct Enemy
 {
@@ -33,7 +23,7 @@ struct Missile
     Coordinates coordinates;
     Target target;
 
-    bool armed;
+    bool armed = false;
 
     void arm(){
         if(armed){
@@ -60,12 +50,40 @@ struct Missile
         }
         payload = static_cast<Warhead>(warheadType);
     }
+    void scanTarget(){
+        if(isWithinRange(coordinates,target.coordinates))
+        {
+            std::cout << "Target Found! \n";
+            targetFound = true;
+            textArray[target.coordinates.y][target.coordinates.x] = '*';
+            drawTextArea();
+        }
+        else{
+            std::cout << "Target not within impact area";
+        }
+
+    }
     void acquireTarget()
     {
         std::cout << "Enter target x location: \n";
         std::cin >> coordinates.x;
         std::cout << "Enter target y location: \n";
         std::cin >> coordinates.y;
+    }
+    void drawTextExplosion(int x, int y, char textArray[][80])
+    {
+        textArray[y][x - 2] = '&';
+        textArray[y][x - 1] = '&';
+        textArray[y][1 + x] = '&';
+        textArray[y][2 + x] = '&';
+
+        textArray[y - 1][x - 1] = '&'; 
+        textArray[y - 1][x] = '&';
+        textArray[y - 1][x + 1] = '&';
+
+        textArray[y + 1][x - 1] = '&'; 
+        textArray[y + 1][x] = '&';
+        textArray[y + 1][x + 1] = '&';
     }
     void checkCollision()
     {
@@ -105,14 +123,9 @@ struct Missile
 
         // std::cout << targetTextGap << "*" << "\n";
 
-        const int maxLines = 15;
-        const int maxChars = 80;
         char missile = '!';
-        char targetText = '*';
         char emptySpace = ' ';
 
-
-        char textArray[maxLines][maxChars];
         for (int y = 0; y < maxLines; y++)
         {
             for(int x = 0; x < maxChars; x++)
@@ -122,30 +135,25 @@ struct Missile
                 if (x == coordinates.x && y == coordinates.y){
                     textArray[y][x] = missile;
                 }
-                if(x == target.coordinates.x && y == target.coordinates.y){
-                    textArray[y][x] = targetText;
-                }
                 if(coordinates.x == target.coordinates.x && 
                    coordinates.y == target.coordinates.y &&
                 x == coordinates.x && y == coordinates.y){
-                    textArray[y - 1][x - 1] = '&'; 
-                    textArray[y - 1][x] = '&';
-                    textArray[y - 1][x + 1] = '&';
-
-                    textArray[y][x - 2] = '&';
-                    textArray[y][x - 1] = '&';
-                    textArray[y][x + 1] = '&';
-                    textArray[y][x + 2] = '&';
-
-                    textArray[y + 1][x - 1] = '&'; 
-                    textArray[y + 1][x] = '&';
-                    textArray[y + 1][x + 1] = '&';
+                    drawTextExplosion(x,y,textArray);
                 }
+                
             }
         }
         
         //draw text
-       for (int y = 0; y < maxLines; y++)
+       drawTextArea();
+       
+        
+        
+    
+    }
+    void drawTextArea()
+    {
+    for (int y = 0; y < maxLines; y++)
        {
             for(int x = 0; x < maxChars; x++)
             {
@@ -153,10 +161,6 @@ struct Missile
             }
             std::cout << "\n";
        }
-       
-        
-        
-    
     }
 };
 
