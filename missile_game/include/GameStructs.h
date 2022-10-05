@@ -63,6 +63,26 @@ struct Missile
         }
         drawTextArea();
     }
+    void setupMapBorder()
+    {
+        //top side
+         for(int x = 0; x < maxChars; x++){
+             textArray[0][x] = '#';
+         }
+         //left side
+         for(int y = 0; y < maxLines; y++){
+             textArray[y][0] = '#';
+         }
+         //bottom side
+         for(int x = 0; x < maxChars; x++){
+             textArray[maxLines - 1][x] = '#';
+         }
+         //right side
+         for(int y = 0; y < maxLines; y++){
+             textArray[y][maxChars - 1] = '#';
+         }
+
+    }
     void acquireTarget()
     {
         std::cout << "Enter target x location: \n";
@@ -73,13 +93,15 @@ struct Missile
     void setupMap()
     {
         char emptySpace = ' ';
+        
         for (int y = 0; y < maxLines; y++)
-        {
+        {            
             for (int x = 0; x < maxChars; x++)
-            {
-                textArray[y][x] = emptySpace;
+            {         
+                textArray[y][x] = emptySpace;           
             }
         }
+    setupMapBorder();
     }
     void drawTextExplosion(int x, int y, char textArray[][80])
     {
@@ -107,7 +129,7 @@ struct Missile
                 std::cout << "Target hit ";
             }
             else {
-                std::cout << "Missed ";
+                std::cout << "Missed \n";
                 textArray[static_cast<unsigned int>(missileCoords.y)][static_cast<unsigned int>(missileCoords.x)] = missileTextSymbol;
             }
         }
