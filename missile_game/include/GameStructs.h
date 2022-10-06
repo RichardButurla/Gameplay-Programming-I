@@ -1,5 +1,5 @@
 #include "GameLogics.h"
-
+#include <random>
 
 const int maxLines = 15;
 const int maxChars = 80;
@@ -7,6 +7,7 @@ const int MAX_ENEMIES = 5;
 char textArray[maxLines][maxChars];
 bool targetFound = false;
 bool explosion = false;
+bool missileTypeChosen = false;
 
 enum class Warhead
 {
@@ -27,16 +28,36 @@ struct Missile
     Coordinates missileCoords;
     Target target[MAX_ENEMIES];
 
-
+    int launchCode = 0;
     bool armed = false;
 
     void arm() {
-        if (armed) {
-            armed = false;
+        if(missileTypeChosen)
+        {
+            //insert launch code function
+            if(armed){
+                    acquireTarget();
+                    checkCollision();
+                }
+            if (armed) {
+                armed = false;
+            }
+            else {
+                armed = true;
+            }
+
+            
         }
-        else {
-            armed = true;
+        else{
+            std::cout << "Must choose missile type first! \n";
         }
+        
+    }
+    void setLaunchCode(){
+        launchCode = rand() % 900 ;
+    }
+    void displayLaunchCode(){
+        std::cout << "Launch Code: " << launchCode << " \n";
     }
     void selectWarhead()
     {
@@ -50,6 +71,7 @@ struct Missile
             std::cin >> warheadType;
         }
         payload = static_cast<Warhead>(warheadType);
+        missileTypeChosen = true;
     }
     void scanTarget() {
 
@@ -164,7 +186,7 @@ struct Missile
             }
             std::cout << "\n";
         }
-        for (int i = 0; i < 5; i++) { //just for spacing
+        for (int i = 0; i < 2; i++) { //just for spacing
             std::cout << "\n";
         }
     }

@@ -4,11 +4,12 @@
 
 #include "./include/GameStructs.h"
 #include <random>
+#include <time.h>
 
 int maxXPos = 19;
 int maxYPos = 13;
 
-enum class MenuStates{
+enum MenuStates{
     Exit,
     ScanForEnemies,
     LaunchMissile,
@@ -20,7 +21,6 @@ int main()
 {
     std::srand(static_cast<unsigned int>(time(nullptr)));
     int userInput;
-    bool firedMissileFirst = false;
     MenuStates currentState;
     
     Missile newMissile;
@@ -45,6 +45,7 @@ int main()
 
     }
     newMissile.setupMap();
+    newMissile.setLaunchCode();
 
 do{
     std::cout << "\n= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";
@@ -57,31 +58,20 @@ do{
                 break;
 
             case MenuStates::ScanForEnemies:
-            if(firedMissileFirst){
                 newMissile.scanTarget();
-            }
-            else{
-                std::cout << "Must fire one missile to configure scan area\n";
-            }
                 break;
-
+                
             case MenuStates::LaunchMissile:
-            if(newMissile.armed){
-                newMissile.acquireTarget();
-                newMissile.checkCollision();
-                firedMissileFirst = true;
-            }
-            else{
-                std::cout << "You must arm a missile with one type first!\n";
-            }
+                newMissile.arm();
                 break;
 
             case MenuStates::ChooseMissileType:
             newMissile.selectWarhead();
-            newMissile.arm();
+
                 break;
 
             case MenuStates::DisplayLaunchCode:
+            newMissile.displayLaunchCode();
                 break;
 
             default:
