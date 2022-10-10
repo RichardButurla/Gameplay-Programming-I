@@ -3,7 +3,7 @@
 //03/10/2022
 
 #include "./include/GameStructs.h"
-#include <random>
+#include <cstdlib>
 #include <time.h>
 
 int maxXPos = 19;
@@ -19,7 +19,7 @@ enum MenuStates{
 
 int main()
 {
-    std::srand(static_cast<unsigned int>(time(nullptr)));
+    std::srand(static_cast<unsigned int>(time(0)));
     int userInput;
     MenuStates currentState;
     

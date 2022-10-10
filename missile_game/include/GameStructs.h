@@ -54,7 +54,7 @@ struct Missile
         
     }
     void setLaunchCode(){
-        launchCode = rand() % 900 ;
+        launchCode = ((rand() % 9) * 1000) + ((rand() % 9) * 100) + ((rand() % 9) * 10) +(rand() % 10) ;
     }
     void displayLaunchCode(){
         std::cout << "Launch Code: " << launchCode << " \n";
