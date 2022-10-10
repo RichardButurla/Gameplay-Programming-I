@@ -6,8 +6,8 @@
 #include <cstdlib>
 #include <time.h>
 
-int maxXPos = 75;
-int maxYPos = 13;
+int maxXPos = 76;
+int maxYPos = 12;
 
 enum MenuStates {
     Exit,
@@ -29,7 +29,9 @@ int main()
     for (int i = 0; i < MAX_ENEMIES; i++)
     {
         newMissile.target[i].coordinates.x = rand() % maxXPos + 4;
-        newMissile.target[i].coordinates.y = rand() % (maxYPos - 3) + 3;
+        newMissile.target[i].coordinates.y = rand() % maxYPos + 1;
+
+        std::cout << "Co-ords of Missile " << i << " X: " <<  newMissile.target[i].coordinates.x << " Y: " << newMissile.target[i].coordinates.y << "\n";
     }
     newMissile.setupMap();
     newMissile.setLaunchCode();

@@ -21,6 +21,7 @@ enum class Warhead
 typedef struct Enemy
 {
     Coordinates coordinates;
+    bool hit = false;
 }Target;
 
 struct Missile
@@ -91,7 +92,7 @@ struct Missile
 
         for (int i = 0; i < MAX_ENEMIES; i++)
         {
-            if (isWithinRange(missileCoords, target[i].coordinates))
+            if (isWithinRange(missileCoords, target[i].coordinates) && !target[i].hit)
             {
                 std::cout << "At least one target found! \n";
                 textArray[static_cast<unsigned int>(target[i].coordinates.y)][static_cast<unsigned int>(target[i].coordinates.x)] = '*';
@@ -162,6 +163,7 @@ struct Missile
         for (int i = 0; i < MAX_ENEMIES; i++)
         {
             if (missileCoords.x == target[i].coordinates.x && missileCoords.y == target[i].coordinates.y) {
+                target[i].hit = true;
                 std::cout << "Target hit ";
             }
             else {
