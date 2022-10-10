@@ -16,6 +16,10 @@ typedef struct Position
 
 }Coordinates;
 
+/// @brief checks whether the missile fired and a target are within range of eacthother using distance formula
+/// @param t_missilePos Missile position
+/// @param t_targetPos Target position
+/// @return a boolean stating whether the parameters are within range of eachother
 bool isWithinRange(struct Position t_missilePos, struct Position t_targetPos)
 {
     float xDistance = t_targetPos.x - t_missilePos.x;

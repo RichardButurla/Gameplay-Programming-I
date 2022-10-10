@@ -10,7 +10,7 @@ bool targetFound = false;
 bool explosion = false;
 bool missileTypeChosen = false;
 
-enum class Warhead
+enum Warhead
 {
     NONE,
     EXPLOSIVE,
@@ -54,6 +54,7 @@ struct Missile
         }
 
     }
+
     void insertLaunchCode()
     {
         int input;
@@ -68,12 +69,17 @@ struct Missile
         }
 
     }
+
+    /// @brief randomizes launch code every time we run the program
     void setLaunchCode() {
         launchCode = ((rand() % 9) * 1000) + ((rand() % 9) * 100) + ((rand() % 9) * 10) + (rand() % 10);
     }
+
     void displayLaunchCode() {
         std::cout << "Launch Code: " << launchCode << " \n";
     }
+
+    //Allows player to change missile type
     void selectWarhead()
     {
         int warheadType;
@@ -88,6 +94,7 @@ struct Missile
         payload = static_cast<Warhead>(warheadType);
         missileTypeChosen = true;
     }
+
     void scanTarget() {
 
         for (int i = 0; i < MAX_ENEMIES; i++)
@@ -95,11 +102,14 @@ struct Missile
             if (isWithinRange(missileCoords, target[i].coordinates) && !target[i].hit)
             {
                 std::cout << "At least one target found! \n";
+                //this is the targets character which is added into the text array
                 textArray[static_cast<unsigned int>(target[i].coordinates.y)][static_cast<unsigned int>(target[i].coordinates.x)] = '*';
             }
         }
         drawTextArea();
     }
+
+    /// @brief sets up the map border
     void setupMapBorder()
     {
         //top side
@@ -120,6 +130,7 @@ struct Missile
         }
 
     }
+
     void acquireTarget()
     {
         std::cout << "Enter target x location: \n";
@@ -127,6 +138,8 @@ struct Missile
         std::cout << "Enter target y location: \n";
         std::cin >> missileCoords.y;
     }
+
+    /// @brief sets up the map with spaces
     void setupMap()
     {
         char emptySpace = ' ';
@@ -140,7 +153,12 @@ struct Missile
         }
         setupMapBorder();
     }
-    void drawTextExplosion(int x, int y, char textArray[][80])
+
+    /// @brief Edits the text array to include explosion characters around the target that was destroyed
+    /// @param x The targets x Position
+    /// @param y The targets y Posiiton
+    /// @param textArray The text Array
+    void insertTextExplosion(int x, int y, char textArray[][80])
     {
         textArray[y][x - 2] = '&';
         textArray[y][x - 1] = '&';
@@ -155,6 +173,8 @@ struct Missile
         textArray[y - 1][x] = '&';
         textArray[y - 1][x + 1] = '&';
     }
+
+    /// @brief checks collison and leaves a missile where fired on the map
     void checkCollision()
     {
         std::cout << "\n";
@@ -172,8 +192,7 @@ struct Missile
             }
         }
 
-
-
+        //loops for all targets
         for (int i = 0; i < MAX_ENEMIES; i++)
         {
             if (missileCoords.x == target[i].coordinates.x &&
@@ -181,17 +200,14 @@ struct Missile
                 explosion = true;
 
                 if (explosion)
-                    drawTextExplosion(target[i].coordinates.x, target[i].coordinates.y, textArray);
+                    insertTextExplosion(target[i].coordinates.x, target[i].coordinates.y, textArray);
             }
         }
-
-
-
-
-
-        //draw text
+        //draw text array
         drawTextArea();
     }
+
+    //Just draws the map
     void drawTextArea()
     {
         for (int y = 0; y < maxLines; y++)

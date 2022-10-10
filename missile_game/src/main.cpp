@@ -6,9 +6,11 @@
 #include <cstdlib>
 #include <time.h>
 
-int maxXPos = 76;
-int maxYPos = 12;
+//Map Size, Max values are actually a bit bigger but we need to avoid 0 and 80 becaus eof our array
+int maxXPos = 76; //Max is 80
+int maxYPos = 12; //Max is 14
 
+// Controls what actions we are performing in the game
 enum MenuStates {
     Exit,
     ScanForEnemies,
@@ -19,20 +21,22 @@ enum MenuStates {
 
 int main()
 {
-    std::srand(static_cast<unsigned int>(time(0)));
+    std::srand(static_cast<unsigned int>(time(0))); //seed for generation
     int userInput;
     MenuStates currentState;
 
     Missile newMissile;
 
-    //test co-ordinates
+    //randomises co-ordinates of targets
     for (int i = 0; i < MAX_ENEMIES; i++)
     {
         newMissile.target[i].coordinates.x = rand() % maxXPos + 4;
         newMissile.target[i].coordinates.y = rand() % maxYPos + 1;
 
-        std::cout << "Co-ords of Missile " << i << " X: " <<  newMissile.target[i].coordinates.x << " Y: " << newMissile.target[i].coordinates.y << "\n";
+        //Testing code
+      //  std::cout << "Co-ords of Missile " << i << " X: " <<  newMissile.target[i].coordinates.x << " Y: " << newMissile.target[i].coordinates.y << "\n";
     }
+    
     newMissile.setupMap();
     newMissile.setLaunchCode();
 
