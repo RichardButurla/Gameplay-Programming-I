@@ -6,10 +6,10 @@
 #include <cstdlib>
 #include <time.h>
 
-int maxXPos = 19;
+int maxXPos = 75;
 int maxYPos = 13;
 
-enum MenuStates{
+enum MenuStates {
     Exit,
     ScanForEnemies,
     LaunchMissile,
@@ -22,63 +22,50 @@ int main()
     std::srand(static_cast<unsigned int>(time(0)));
     int userInput;
     MenuStates currentState;
-    
+
     Missile newMissile;
-    
+
     //test co-ordinates
     for (int i = 0; i < MAX_ENEMIES; i++)
     {
-        newMissile.target[0].coordinates.x = 1;
-        newMissile.target[0].coordinates.y = 1;
-
-        newMissile.target[4].coordinates.x = 19;
-        newMissile.target[4].coordinates.y = 13;
-
-        newMissile.target[2].coordinates.x = 1;
-        newMissile.target[2].coordinates.y = 13;
-
-        newMissile.target[3].coordinates.x = 19;
-        newMissile.target[3].coordinates.y = 1;
-
-        newMissile.target[1].coordinates.x = 9;
-        newMissile.target[1].coordinates.y =7;
-
+        newMissile.target[i].coordinates.x = rand() % maxXPos + 4;
+        newMissile.target[i].coordinates.y = rand() % (maxYPos - 3) + 3;
     }
     newMissile.setupMap();
     newMissile.setLaunchCode();
 
-do{
-    std::cout << "\n= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";
-    std::cin >> userInput;
-    currentState = static_cast<MenuStates>(userInput);
+    do {
+        std::cout << "\n= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";
+        std::cin >> userInput;
+        currentState = static_cast<MenuStates>(userInput);
 
-    switch (currentState)
-            {
-            case MenuStates::Exit:
-                break;
+        switch (currentState)
+        {
+        case MenuStates::Exit:
+            break;
 
-            case MenuStates::ScanForEnemies:
-                newMissile.scanTarget();
-                break;
-                
-            case MenuStates::LaunchMissile:
-                newMissile.arm();
-                break;
+        case MenuStates::ScanForEnemies:
+            newMissile.scanTarget();
+            break;
 
-            case MenuStates::ChooseMissileType:
+        case MenuStates::LaunchMissile:
+            newMissile.arm();
+            break;
+
+        case MenuStates::ChooseMissileType:
             newMissile.selectWarhead();
 
-                break;
+            break;
 
-            case MenuStates::DisplayLaunchCode:
+        case MenuStates::DisplayLaunchCode:
             newMissile.displayLaunchCode();
-                break;
+            break;
 
-            default:
-                break;
-            }
-} while (currentState != MenuStates::Exit);
-        
+        default:
+            break;
+        }
+    } while (currentState != MenuStates::Exit);
+
 
 
     return 0;

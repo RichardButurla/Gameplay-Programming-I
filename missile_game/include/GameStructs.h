@@ -1,3 +1,4 @@
+#pragma once
 #include "GameLogics.h"
 #include <random>
 
@@ -32,31 +33,44 @@ struct Missile
     bool armed = false;
 
     void arm() {
-        if(missileTypeChosen)
+        if (missileTypeChosen)
         {
             //insert launch code function
-            if(armed){
-                    acquireTarget();
-                    checkCollision();
-                }
+            insertLaunchCode();
+            if (armed) {
+                acquireTarget();
+                checkCollision();
+            }
             if (armed) {
                 armed = false;
             }
             else {
                 armed = true;
             }
-
-            
         }
-        else{
+        else {
             std::cout << "Must choose missile type first! \n";
         }
-        
+
     }
-    void setLaunchCode(){
-        launchCode = ((rand() % 9) * 1000) + ((rand() % 9) * 100) + ((rand() % 9) * 10) +(rand() % 10) ;
+    void insertLaunchCode()
+    {
+        int input;
+        std::cout << "Insert Launch Code: \n";
+        std::cin >> input;
+        if(input == launchCode){
+            armed = true;
+        }
+        else{
+            armed = false;
+            std::cout << "Incorrect Launch Code! \n";
+        }
+
     }
-    void displayLaunchCode(){
+    void setLaunchCode() {
+        launchCode = ((rand() % 9) * 1000) + ((rand() % 9) * 100) + ((rand() % 9) * 10) + (rand() % 10);
+    }
+    void displayLaunchCode() {
         std::cout << "Launch Code: " << launchCode << " \n";
     }
     void selectWarhead()
@@ -88,21 +102,21 @@ struct Missile
     void setupMapBorder()
     {
         //top side
-         for(int x = 0; x < maxChars; x++){
-             textArray[0][x] = '#';
-         }
-         //left side
-         for(int y = 0; y < maxLines; y++){
-             textArray[y][0] = '#';
-         }
-         //bottom side
-         for(int x = 0; x < maxChars; x++){
-             textArray[maxLines - 1][x] = '#';
-         }
-         //right side
-         for(int y = 0; y < maxLines; y++){
-             textArray[y][maxChars - 1] = '#';
-         }
+        for (int x = 0; x < maxChars; x++) {
+            textArray[0][x] = '#';
+        }
+        //left side
+        for (int y = 0; y < maxLines; y++) {
+            textArray[y][0] = '#';
+        }
+        //bottom side
+        for (int x = 0; x < maxChars; x++) {
+            textArray[maxLines - 1][x] = '#';
+        }
+        //right side
+        for (int y = 0; y < maxLines; y++) {
+            textArray[y][maxChars - 1] = '#';
+        }
 
     }
     void acquireTarget()
@@ -115,15 +129,15 @@ struct Missile
     void setupMap()
     {
         char emptySpace = ' ';
-        
+
         for (int y = 0; y < maxLines; y++)
-        {            
+        {
             for (int x = 0; x < maxChars; x++)
-            {         
-                textArray[y][x] = emptySpace;           
+            {
+                textArray[y][x] = emptySpace;
             }
         }
-    setupMapBorder();
+        setupMapBorder();
     }
     void drawTextExplosion(int x, int y, char textArray[][80])
     {
