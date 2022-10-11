@@ -14,7 +14,7 @@ enum Warhead
 {
     NONE,
     EXPLOSIVE,
-    NUCLEAR
+    INCENDIARY
 };
 
 
@@ -103,7 +103,11 @@ struct Missile
             {
                 std::cout << "At least one target found! \n";
                 //this is the targets character which is added into the text array
-                textArray[static_cast<unsigned int>(target[i].coordinates.y)][static_cast<unsigned int>(target[i].coordinates.x)] = '*';
+                if(!target[i].hit) // No need to reveal where hit targets are
+                {
+                    textArray[static_cast<unsigned int>(target[i].coordinates.y)][static_cast<unsigned int>(target[i].coordinates.x)] = '*';
+                }
+                
             }
         }
         drawTextArea();
@@ -179,30 +183,56 @@ struct Missile
     {
         std::cout << "\n";
         char missileTextSymbol = '!';
+        int noOfTargetsMissed = 0;
 
-        for (int i = 0; i < MAX_ENEMIES; i++)
+       
+            
+        //Different interactions based on Missile type
+        if(payload == Warhead::EXPLOSIVE)
+        {               
+
+            //area of effect , we can almost reuse the insertTextExplosion() idea for area of effect
+            for (int i = 0; i < MAX_ENEMIES; i++)
+            {
+                if((missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) ||
+                    (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) ||
+                    (missileCoords.x == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
+                    (missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
+                    (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
+                    (missileCoords.x == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y) ||
+                    (missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y) ||
+                    (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y)) //area of effect
+                    {
+                    target[i].hit = true;
+                    std::cout << "Target hit within blast radius! \n";
+                    insertTextExplosion(missileCoords.x, missileCoords.y , textArray);
+                    break;
+                    }
+
+            else if (missileCoords.x == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) //nice little touch when target is hit directly
+                { 
+                    target[i].hit = true;
+                    std::cout << "Target hit directly! \n";
+                    insertTextExplosion(missileCoords.x, missileCoords.y , textArray);
+                }                                          
+                        
+            }   
+        }
+        if(payload == Warhead::INCENDIARY)
         {
-            if (missileCoords.x == target[i].coordinates.x && missileCoords.y == target[i].coordinates.y) {
-                target[i].hit = true;
-                std::cout << "Target hit ";
-            }
-            else {
-                std::cout << "Missed \n";
+
+        }
+        for (int i = 0; i< MAX_ENEMIES; i++)
+        {
+            if(!target[i].hit) 
+            {
+                noOfTargetsMissed++;
                 textArray[static_cast<unsigned int>(missileCoords.y)][static_cast<unsigned int>(missileCoords.x)] = missileTextSymbol;
+
             }
         }
-
-        //loops for all targets
-        for (int i = 0; i < MAX_ENEMIES; i++)
-        {
-            if (missileCoords.x == target[i].coordinates.x &&
-                missileCoords.y == target[i].coordinates.y) {
-                explosion = true;
-
-                if (explosion)
-                    insertTextExplosion(target[i].coordinates.x, target[i].coordinates.y, textArray);
-            }
-        }
+        
+        std::cout << noOfTargetsMissed << " Targets Left \n";
         //draw text array
         drawTextArea();
     }

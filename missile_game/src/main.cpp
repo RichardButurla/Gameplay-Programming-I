@@ -34,7 +34,7 @@ int main()
         newMissile.target[i].coordinates.y = rand() % maxYPos + 1;
 
         //Testing code
-      //  std::cout << "Co-ords of Missile " << i << " X: " <<  newMissile.target[i].coordinates.x << " Y: " << newMissile.target[i].coordinates.y << "\n";
+        std::cout << "Co-ords of Missile " << i << " X: " <<  newMissile.target[i].coordinates.x << " Y: " << newMissile.target[i].coordinates.y << "\n";
     }
     
     newMissile.setupMap();
