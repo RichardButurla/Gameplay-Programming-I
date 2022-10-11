@@ -83,12 +83,12 @@ struct Missile
     void selectWarhead()
     {
         int warheadType;
-        std::cout << "Select Warhead: \n" "1 for Explosive, 2 for Nuclear ";
+        std::cout << "Select Warhead: \n" "1 for Explosive, 2 for Incendiary ";
 
         std::cin >> warheadType;
         while (warheadType != 1 && warheadType != 2)
         {
-            std::cout << "Please select Warhead: \n" "1 for Explosive, 2 for Nuclear";
+            std::cout << "Please select Warhead: \n" "1 for Explosive, 2 for Incendiary";
             std::cin >> warheadType;
         }
         payload = static_cast<Warhead>(warheadType);
@@ -186,42 +186,92 @@ struct Missile
         int noOfTargetsMissed = 0;
 
        
-            
-        //Different interactions based on Missile type
-        if(payload == Warhead::EXPLOSIVE)
-        {               
-
-            //area of effect , we can almost reuse the insertTextExplosion() idea for area of effect
-            for (int i = 0; i < MAX_ENEMIES; i++)
-            {
-                if((missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) ||
-                    (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) ||
-                    (missileCoords.x == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
-                    (missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
-                    (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
-                    (missileCoords.x == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y) ||
-                    (missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y) ||
-                    (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y)) //area of effect
-                    {
-                    target[i].hit = true;
-                    std::cout << "Target hit within blast radius! \n";
-                    insertTextExplosion(missileCoords.x, missileCoords.y , textArray);
-                    break;
-                    }
-
-            else if (missileCoords.x == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) //nice little touch when target is hit directly
-                { 
-                    target[i].hit = true;
-                    std::cout << "Target hit directly! \n";
-                    insertTextExplosion(missileCoords.x, missileCoords.y , textArray);
-                }                                          
-                        
-            }   
-        }
-        if(payload == Warhead::INCENDIARY)
+        for (int i = 0; i < MAX_ENEMIES; i++)
         {
+             //Different interactions based on Missile type. Explosive will have an area of effect
+            if(payload == Warhead::EXPLOSIVE)
+            {               
 
-        }
+                //area of effect , we can almost reuse the insertTextExplosion() idea for area of effect
+                
+                    if((missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) ||
+                        (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) ||
+                        (missileCoords.x == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
+                        (missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
+                        (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y + 1 == target[i].coordinates.y) ||
+                        (missileCoords.x == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y) ||
+                        (missileCoords.x + 1 == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y) ||
+                        (missileCoords.x - 1 == target[i].coordinates.x  && missileCoords.y - 1 == target[i].coordinates.y)) //area of effect
+                        {
+                        target[i].hit = true;
+                        std::cout << "Target hit within blast radius! \n";
+                        insertTextExplosion(missileCoords.x, missileCoords.y , textArray);
+                        break;
+                        }
+
+                else if (missileCoords.x == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) //nice little touch when target is hit directly
+                    { 
+                        target[i].hit = true;
+                        std::cout << "Target hit directly! \n";
+                        insertTextExplosion(missileCoords.x, missileCoords.y , textArray);
+                    }                                          
+                                    
+            }
+            //Incendiary will be a horizontal line "spreading fire" Draw "Fire" first, then check collison and change character"
+            if(payload == Warhead::INCENDIARY)
+            {
+                int fireLineDistance = 6;
+                int plusXOffset = 1;
+                int minusXOffset = 1;
+                for (int f = 0; f < fireLineDistance; f++) //check postively forwards in a line
+                {               
+                    textArray[static_cast<unsigned int>(missileCoords.y)][static_cast<unsigned int>(missileCoords.x + plusXOffset)] = '~';
+                    plusXOffset++;
+                }
+                for (int f = 0; f < fireLineDistance; f++) //check negatively backwards in a line
+                {
+                    textArray[static_cast<unsigned int>(missileCoords.y)][static_cast<unsigned int>(missileCoords.x + minusXOffset)] = '~';                   
+                    minusXOffset--;
+                }
+            }
+        } 
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        for (int i = 0; i < MAX_ENEMIES; i++)
+        {
+            int fireLineDistance = 6;
+            int plusXOffset = 1;
+            int minusXOffset = 1;
+            for (int f = 0; f < fireLineDistance; f++) //check postively forwards in a line
+            {               
+                if(missileCoords.x + plusXOffset == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y)
+                {
+                        textArray[static_cast<unsigned int>(target[i].coordinates.y)][static_cast<unsigned int>(target[i].coordinates.x)] = '@';
+                        target[i].hit = true;
+                        std::cout << "Hit with fire";
+                        break;
+                }
+                plusXOffset++;
+            }
+            for (int f = 0; f < fireLineDistance; f++) //check negatively backwards in a line
+            {
+                if(missileCoords.x + minusXOffset == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y)
+                {
+                    textArray[static_cast<unsigned int>(target[i].coordinates.y)][static_cast<unsigned int>(target[i].coordinates.x)] = '@';
+                    target[i].hit = true;
+                    std::cout << "Hit with fire";
+                }                 
+                minusXOffset--;
+            }
+            if (missileCoords.x == target[i].coordinates.x  && missileCoords.y == target[i].coordinates.y) //nice little touch when target is hit directly
+            { 
+                target[i].hit = true;
+                std::cout << "Target hit directly! \n";
+                insertTextExplosion(missileCoords.x, missileCoords.y , textArray);
+            }            
+        }   
+       
         for (int i = 0; i< MAX_ENEMIES; i++)
         {
             if(!target[i].hit) 
