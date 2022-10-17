@@ -19,7 +19,7 @@ enum class ActionTaken
     None,
     Attacking,
     Blocking,
-    GuardBreak
+    GuardBreak 
 };
 
 
@@ -56,18 +56,5 @@ private:
     WeaponObject* m_computerWeapon;
 
     ActionTaken m_computerAction = ActionTaken::None;
-
-    //Weapon Objects
-    Daggers m_daggers;
-    BattleAxe m_battleAxe;
-    SwordAndShield m_swordAndShield;
-    Bow m_bow;
-
-    //CharacterObjects
-    Rogue m_rogue;
-    Knight m_knight;
-    Archer m_archer;
-    Fighter m_fighter;
-    Orc m_orc;
 
 };

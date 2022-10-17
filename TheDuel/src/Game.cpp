@@ -43,19 +43,19 @@ void Game::chooseWeapon()
     switch (weaponChosen)
     {
     case WeaponTypes::Daggers:
-        m_playerWeapon = &m_daggers;
+        m_playerWeapon = new Daggers();
         break;
 
     case WeaponTypes::SwordAndShield:
-        m_playerWeapon = &m_swordAndShield;
+        m_playerWeapon = new SwordAndShield();
         break;
 
     case WeaponTypes::BattleAxe:
-        m_playerWeapon = &m_battleAxe;
+        m_playerWeapon = new BattleAxe();
         break;
 
     case WeaponTypes::Bow:
-        m_playerWeapon = &m_bow;
+        m_playerWeapon = new Bow();
         break;
 
     default:
@@ -75,23 +75,23 @@ void Game::choosePlayerCharacter()
     switch (characterChosen)
     {
     case CharacterTypes::Rogue:
-        m_player = &m_rogue;
+        m_player = new Rogue();
         break;
 
     case CharacterTypes::Knight:
-        m_player = &m_knight;
+        m_player = new Knight();
         break;
 
     case CharacterTypes::Archer:
-        m_player = &m_archer;
+        m_player = new Archer();
         break;
 
     case CharacterTypes::Fighter:
-        m_player = &m_fighter;
+        m_player = new Fighter();
         break;
 
     case CharacterTypes::Orc:
-        m_player = &m_orc;
+        m_player = new Orc();
         break;
 
     default:
@@ -109,19 +109,19 @@ void Game::randomiseComputerWeapon()
    switch (weaponChosen)
     {
         case WeaponTypes::Daggers:
-        m_computerWeapon = &m_daggers;
+        m_computerWeapon = new Daggers();
         break;
 
         case WeaponTypes::SwordAndShield:
-        m_computerWeapon = &m_swordAndShield;
+        m_computerWeapon = new SwordAndShield();
         break;
 
         case WeaponTypes::BattleAxe:
-        m_computerWeapon = &m_battleAxe;
+        m_computerWeapon = new BattleAxe();
         break;
 
         case WeaponTypes::Bow:
-        m_computerWeapon = &m_bow;
+        m_computerWeapon = new Bow();
         break;
 
         default:
@@ -142,23 +142,23 @@ void Game::randomiseComputerCharacter()
     switch (characterChosen)
     {
     case CharacterTypes::Rogue:
-        m_computerCharacter = &m_rogue;
+        m_computerCharacter = new Rogue();
         break;
 
     case CharacterTypes::Knight:
-        m_computerCharacter = &m_knight;
+        m_computerCharacter = new Knight();
         break;
 
     case CharacterTypes::Archer:
-        m_computerCharacter = &m_archer;
+        m_computerCharacter = new Archer();
         break;
 
     case CharacterTypes::Fighter:
-        m_computerCharacter = &m_fighter;
+        m_computerCharacter = new Fighter();
         break;
 
     case CharacterTypes::Orc:
-        m_computerCharacter = &m_orc;
+        m_computerCharacter = new Orc();
         break;
 
     default:
