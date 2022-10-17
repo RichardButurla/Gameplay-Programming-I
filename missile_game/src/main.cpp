@@ -42,7 +42,13 @@ int main()
 
     do {
         std::cout << "\n= 0 = Exit program\n= 1 = Scan for enemy ships\n= 2 = Launch Missile \n= 3 = Choose missile type\n= 4 = Display launch code \n ";
-        std::cin >> userInput;
+
+        while (!(std::cin >> userInput)){
+                std::cin.clear();
+                while (std::cin.get() != '\n') //Skips over bad data and reads new input
+                continue;
+                std::cout << "Enter a number from 0 - 4: ";  
+                }
         currentState = static_cast<MenuStates>(userInput);
 
         switch (currentState)

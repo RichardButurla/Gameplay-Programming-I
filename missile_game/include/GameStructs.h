@@ -84,14 +84,26 @@ struct Missile
     {
         int warheadType;
         std::cout << "Select Warhead: \n" "1 for Explosive, 2 for Incendiary ";
-
-        std::cin >> warheadType;
-        while (warheadType != 1 && warheadType != 2)
+               
+        
+        while(!(std::cin >> warheadType))
         {
-            std::cout << "Please select Warhead: \n" "1 for Explosive, 2 for Incendiary";
-            std::cin >> warheadType;
+            std::cin.clear();
+            while(std::cin.get() != '\n')
+            {
+                continue;
+            }
+
+            std::cout << "Please select Warhead: \n" "1 for Explosive, 2 for Incendiary ";
         }
+
         payload = static_cast<Warhead>(warheadType);
+        if(payload == Warhead::EXPLOSIVE){
+            std::cout << "Explosive chosen \n";
+        }
+        if(payload == Warhead::INCENDIARY){
+            std::cout << "Incendiary chosen \n";
+        }
         missileTypeChosen = true;
     }
 
@@ -137,10 +149,29 @@ struct Missile
 
     void acquireTarget()
     {
-        std::cout << "Enter target x location: \n";
-        std::cin >> missileCoords.x;
-        std::cout << "Enter target y location: \n";
-        std::cin >> missileCoords.y;
+        std::cout << "Enter target x location between 1 - 80 inclusive: \n";
+        while(!(std::cin >> missileCoords.x))
+        {
+            std::cin.clear();
+            while(std::cin.get() != '\n')
+            {
+                continue;
+            }
+
+            std::cout << "Please enter target x location between 1 - 80 inclusive: \n";
+        }
+        std::cout << "Enter target y location between 1 - 14 inclusive: \n";
+
+        while(!(std::cin >> missileCoords.y))
+        {
+            std::cin.clear();
+            while(std::cin.get() != '\n')
+            {
+                continue;
+            }
+
+            std::cout << "Please enter target y location between 1 - 14 inclusive: \n";
+        }
     }
 
     /// @brief sets up the map with spaces
