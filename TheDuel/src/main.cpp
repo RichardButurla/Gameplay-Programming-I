@@ -7,7 +7,9 @@
 
 int main()
 {
+	std::srand(static_cast<unsigned int>(time(0))); //seed for generation
 	Game game;
+	
 	game.run();
 
 	return 0;

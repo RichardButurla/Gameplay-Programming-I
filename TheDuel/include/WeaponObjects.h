@@ -1,15 +1,6 @@
 #pragma once
 #include <iostream>
 
-enum class StatusEffect
-{
-    None,
-    Poison,
-    Bleed,
-    Stun,
-    Heal
-};
-
 enum class WeaponTypes
 {
     None,
@@ -24,13 +15,13 @@ class WeaponObject
 public:
     WeaponObject() = default;
     virtual void inspect() { std::cout << "inspectWeapon\n"; }
+    virtual inline float returnDamageValue() = 0;
+    virtual inline float returnBlockValue(){return blockValue;}
 
 private:
-    int damage{0};
+    int damageValue{0};
     bool ranged{0};
-    float parryChance{0};
-    float blockChance{0};
-    StatusEffect m_statusEffect = StatusEffect::None;
+    float blockValue{0};
     WeaponTypes m_weaponType = WeaponTypes::None;
 
 
@@ -41,6 +32,8 @@ class Daggers : public WeaponObject
 public:
 
     void inspect() { std::cout << "Shiny dagger\n"; }
+    virtual inline float returnDamageValue() = 0;   
+    
 
 private:
     WeaponTypes m_weaponType = WeaponTypes::Daggers;

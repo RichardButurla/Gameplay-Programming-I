@@ -15,18 +15,16 @@ class GameObject
 public:
     GameObject() = default;
 
-    void attack();
-    void block();
-    void dodge();
+    virtual inline float returnCounterValue(){return counterValue;}
 
-   virtual void printVoiceLine();
+    virtual void printVoiceLine();
     WeaponTypes weaponChosen = WeaponTypes::None;
     WeaponObject m_weaponObject;
     Daggers m_daggerWeapon;
 
 
 private:
-    float dodgechance{0};
+    float counterValue{0};
     float health{ 0 };
     //whatever variables
 
@@ -37,7 +35,7 @@ class Rogue : public GameObject
 public:
     void printVoiceLine();
 private:
-    float dodgechance = 10;
+    float counterValue = 7;
 };
 
 class Knight : public GameObject
@@ -45,7 +43,7 @@ class Knight : public GameObject
 public:
     void printVoiceLine();
 private:
-    float dodgechance = 5;
+    float counterValue = 6;
 };
 
 class Archer : public GameObject
@@ -53,7 +51,7 @@ class Archer : public GameObject
 public:
     void printVoiceLine();
 private:
-    float dodgechance = 3;
+    float counterValue = 3;
 };
 
 class Fighter : public GameObject
@@ -61,7 +59,7 @@ class Fighter : public GameObject
 public:
     void printVoiceLine();
 private:
-    float dodgechance = 7;
+    float counterValue = 8;
 };
 
 class Orc : public GameObject
@@ -69,5 +67,5 @@ class Orc : public GameObject
 public:
     void printVoiceLine();
 private:
-    float dodgechance = 5;
+    float counterValue = 5;
 };

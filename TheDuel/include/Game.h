@@ -1,5 +1,8 @@
 #pragma once
 #include "GameObjects.h"
+#include <random>
+#include <time.h>
+#include <string>
 
 enum class GameStates
 {
@@ -9,6 +12,14 @@ enum class GameStates
     PlayersTurn,
     ComputersTurn,
     GameOver
+};
+
+enum class ActionTaken
+{
+    None,
+    Attacking,
+    Blocking,
+    GuardBreak
 };
 
 
@@ -22,6 +33,13 @@ public:
     void chooseWeapon();
     void choosePlayerCharacter();
 
+    void randomiseComputerWeapon();
+    void randomiseComputerCharacter();
+
+    void chooseAction();
+    void randomiseComputerAction( );
+
+    void compareActions();
 
 
 
@@ -30,6 +48,14 @@ private:
     //Player pointers
     GameObject* m_player;
     WeaponObject* m_playerWeapon;
+
+    ActionTaken m_playerAction = ActionTaken::None;
+
+    //Computer pointers
+    GameObject* m_computerCharacter;
+    WeaponObject* m_computerWeapon;
+
+    ActionTaken m_computerAction = ActionTaken::None;
 
     //Weapon Objects
     Daggers m_daggers;
