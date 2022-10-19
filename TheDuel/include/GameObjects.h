@@ -6,7 +6,7 @@ enum class CharacterTypes
     None,
     Rogue,
     Knight,
-    Archer,
+    Monk,
     Fighter,
     Orc
 };
@@ -47,7 +47,7 @@ private:
     float counterValue = 6;
 };
 
-class Archer : public GameObject
+class Monk : public GameObject
 {
 public:
     void printVoiceLine();

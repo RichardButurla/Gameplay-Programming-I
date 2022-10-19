@@ -20,9 +20,9 @@ void Fighter::printVoiceLine()
 	std::cout << "Ferocious Fighter here\n";
 }
 
-void Archer::printVoiceLine()
+void Monk::printVoiceLine()
 {
-	std::cout << "Accurate Archer here\n";
+	std::cout << "Monkey Monk here\n";
 }
 
 void Orc::printVoiceLine()

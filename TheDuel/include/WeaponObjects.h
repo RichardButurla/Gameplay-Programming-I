@@ -7,7 +7,7 @@ enum class WeaponTypes
     Daggers,
     SwordAndShield,
     BattleAxe,
-    Bow
+    Staff
 };
 
 class WeaponObject
@@ -38,6 +38,8 @@ public:
 
 private:
     WeaponTypes m_weaponType = WeaponTypes::Daggers;
+     int damageValue = 10;
+     int blockValue = 2;
 
 };
 
@@ -51,19 +53,23 @@ public:
 
 private:
     WeaponTypes m_weaponType = WeaponTypes::SwordAndShield;
+    int damageValue = 8;
+    int blockValue = 10;
 
 };
 
-class Bow : public WeaponObject
+class Staff : public WeaponObject
 {
 public:
 
-    void inspect() { std::cout << "Shiny Bow\n"; }
+    void inspect() { std::cout << "Shiny Staff\n"; }
     virtual inline float returnDamageValue(){return this->damageValue;} 
     virtual inline float returnBlockValue(){return this->blockValue;}
 
 private:
-    WeaponTypes m_weaponType = WeaponTypes::Bow;
+    WeaponTypes m_weaponType = WeaponTypes::Staff;
+    int damageValue = 5;
+    int blockValue = 5;
 
 };
 
@@ -77,5 +83,7 @@ public:
 
 private:
     WeaponTypes m_weaponType = WeaponTypes::BattleAxe;
+    int damageValue = 9;
+    int blockValue = 7;
 
 };
