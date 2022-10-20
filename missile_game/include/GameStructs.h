@@ -150,7 +150,8 @@ struct Missile
     void acquireTarget()
     {
         std::cout << "Enter target x location between 1 - 80 inclusive: \n";
-        while(!(std::cin >> missileCoords.x))
+
+        while(!(std::cin >> missileCoords.x) || missileCoords.x < 1 || missileCoords.x > 80)
         {
             std::cin.clear();
             while(std::cin.get() != '\n')
@@ -162,7 +163,7 @@ struct Missile
         }
         std::cout << "Enter target y location between 1 - 14 inclusive: \n";
 
-        while(!(std::cin >> missileCoords.y))
+        while(!(std::cin >> missileCoords.y) || missileCoords.y < 1 || missileCoords.y > 14)
         {
             std::cin.clear();
             while(std::cin.get() != '\n')
