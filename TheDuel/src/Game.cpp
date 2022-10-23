@@ -4,12 +4,10 @@ void Game::run()
 {
         chooseWeapon();
         choosePlayerCharacter();
-
         std::cout << "Player Character: " << m_player->returnCharacterType() << ", Player Weapon: " << m_playerWeapon->returnWeaponName() << "\n";
 
         randomiseComputerCharacter();
         randomiseComputerWeapon();
-
         std::cout << "Opponent Character: " << m_computerCharacter->returnCharacterType() << ", Opponent Weapon: " << m_computerWeapon->returnWeaponName() << "\n";
 
     while (m_currentGameState != GameStates::GameOver)
@@ -17,6 +15,17 @@ void Game::run()
         chooseAction();
         compareActions();
         compareHealth();
+
+        if(m_currentGameState == GameStates::Restart)
+        {
+            chooseWeapon();
+            choosePlayerCharacter();
+            std::cout << "Player Character: " << m_player->returnCharacterType() << ", Player Weapon: " << m_playerWeapon->returnWeaponName() << "\n";
+
+            randomiseComputerCharacter();
+            randomiseComputerWeapon();
+            std::cout << "Opponent Character: " << m_computerCharacter->returnCharacterType() << ", Opponent Weapon: " << m_computerWeapon->returnWeaponName() << "\n";
+        }
     }
 }
 
@@ -159,13 +168,13 @@ void Game::randomiseComputerCharacter()
 void Game::chooseAction()
 {
     int input;
-    std::cout << "Choose your action \n";
+    std::cout << "Choose your action: \n\n";
 
-    std::cout << "-1- Attack\n -2- Block\n -3-Guard Break\n";
+    std::cout << "-1- Attack\n -2- Block\n -3-Guard Break\n\n";
     std::cin >> input;
 
     
-    // 1 = Attack, 2 = Block, 3 = Dodge 
+    // 1 = Attack, 2 = Block, 3 = guardBreak
     switch (input)
     {
     case 1:
@@ -232,7 +241,7 @@ void Game::compareActions()
             m_player->takeDamage(m_computerWeapon->returnBlockValue());
         break;
         case ActionTaken::GuardBreak:
-            std::cout << "Player hit through Opponents guard break!, opponent hit for " + std::to_string(m_computerWeapon->returnDamageValue()) + " Damage!\n";
+            std::cout << "Player hit through Opponents guard break!, opponent hit for " + std::to_string(m_playerWeapon->returnDamageValue()) + " Damage!\n";
             m_computerCharacter->takeDamage(m_playerWeapon->returnDamageValue());
         break;
         default:
@@ -268,7 +277,7 @@ void Game::compareActions()
             m_player->takeDamage(m_computerWeapon->returnDamageValue());
             break;
         case ActionTaken::Blocking:
-        std::cout << "Oppoents guard is broken and is counter-attacked for! " + std::to_string(m_player->returnCounterValue()) +  " Damage!\n";
+        std::cout << "Oppoents guard is broken and is counter-attacked for " + std::to_string(m_player->returnCounterValue()) + " Damage!\n";
         m_computerCharacter->takeDamage(m_player->returnCounterValue());
         break;
 
@@ -283,21 +292,27 @@ void Game::compareActions()
 
 void Game::compareHealth()
 {
+    int input = 0;
+
     if(m_player->returnHealthValue() <= 0)
     {
         std::cout << "Player died\nGAME OVER!";
-        m_currentGameState = GameStates::GameOver;
+        std::cout << "1 FOR EXIT, 2 TO RESTART\n";
+        std::cin >> input;
+        m_currentGameState = static_cast<GameStates>(input);
     }
     if(m_computerCharacter->returnHealthValue() <= 0)
     {
         std::cout << "Computer died\nGAME OVER!";
-        m_currentGameState = GameStates::GameOver;
+        std::cout << "1 FOR EXIT, 2 TO RESTART\n";
+        std::cin >> input;
+        m_currentGameState = static_cast<GameStates>(input);
     }
-    else
+    else if(input == 0)
     {
-        int input = 0;
+        
         std::cout << "Player health: " << m_player->returnHealthValue() << "\t Opponent Health: " << m_computerCharacter->returnHealthValue() << "\n\n";
-        std::cout << "5 FOR EXIT, 1 TO CONTINUE\n";
+        std::cout << "1 FOR EXIT, 3 TO CONTINUE\n";
         std::cin >> input;
         m_currentGameState = static_cast<GameStates>(input);
     }

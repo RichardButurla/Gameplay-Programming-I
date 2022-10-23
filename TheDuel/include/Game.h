@@ -7,11 +7,9 @@
 enum class GameStates
 {
     None,
-    PlayerCharacterSelect,
-    ComputerCharacterSelect,
-    PlayersTurn,
-    ComputersTurn,
-    GameOver
+    GameOver,
+    Restart,
+    Game
 };
 
 enum class ActionTaken
