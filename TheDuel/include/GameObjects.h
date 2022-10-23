@@ -29,7 +29,7 @@ public:
 protected:
     float counterValue{0};
     float healthValue{ 50 };
-    std::string characterName = " Opponent";
+    std::string characterName = "Opponent";
     std::string characterType = " ";
     //whatever variables
 
@@ -49,7 +49,7 @@ public:
 private:
     float counterValue = 15;
     float healthValue = 35;
-    std::string characterName = " ";
+    std::string characterName = "Opponent ";
     std::string characterType = "Rogue";
 };
 
@@ -66,7 +66,7 @@ public:
 private:
     float counterValue = 8;
     float healthValue = 50;
-    std::string characterName = " ";
+    std::string characterName = "Opponent";
     std::string characterType = "Knight";
 };
 
@@ -83,7 +83,7 @@ public:
 private:
     float counterValue = 5;
     float healthValue = 45;
-    std::string characterName = " ";
+    std::string characterName = "Opponent";
     std::string characterType = "Monk";
 };
 
@@ -100,7 +100,7 @@ public:
 private:
     float counterValue = 8;
     float healthValue = 45;
-    std::string characterName = " ";
+    std::string characterName = "Opponent";
     std::string characterType = "Fighter";
 };
 
@@ -117,6 +117,6 @@ public:
 private:
     float counterValue = 8;
     float healthValue = 60;
-    std::string characterName = " ";
+    std::string characterName = "Opponent";
     std::string characterType = "Orc";
 };

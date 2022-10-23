@@ -34,11 +34,11 @@ void Game::runSinglePlayer()
     chooseCharacter();
     addName(m_playerOneObject);
     system("clear");
-    std::cout << "Player Character: " << m_playerOneObject->returnCharacterName() << ", Player Weapon: " << m_PlayerOneWeapon->returnWeaponName() << "\n";
+    std::cout << "Player Character: " << m_playerOneObject->returnCharacterType() << ", Player Weapon: " << m_PlayerOneWeapon->returnWeaponName() << "\n";
 
     randomiseComputerCharacter();
     randomiseComputerWeapon();
-    std::cout << "Opponent Character: " << m_computerCharacter->returnCharacterName() << ", Opponent Weapon: " << m_computerWeapon->returnWeaponName() << "\n";
+    std::cout << "Opponent Character: " << m_computerCharacter->returnCharacterType() << ", Opponent Weapon: " << m_computerWeapon->returnWeaponName() << "\n";
 
     while (m_currentGameState != GameStates::GameOver)
     {
@@ -398,7 +398,7 @@ void Game::compareActions(GameObject* t_objectOne, GameObject* t_objectTwo, Weap
             t_objectOne->takeDamage(t_weaponObjectTwo->returnBlockValue());
             break;
         case ActionTaken::GuardBreak:
-            std::cout << t_objectOne->returnCharacterName() << " hit through " << t_objectTwo->returnCharacterName() << "'s guard break!, opponent hit for " + std::to_string(t_weaponObjectOne->returnDamageValue()) + " Damage!\n";
+            std::cout << t_objectOne->returnCharacterName() << " hit through " << t_objectTwo->returnCharacterName() << "'s guard break! " << t_objectTwo->returnCharacterName() << " hit for " + std::to_string(t_weaponObjectOne->returnDamageValue()) + " Damage!\n";
             t_objectTwo->takeDamage(t_weaponObjectOne->returnDamageValue());
             break;
         default:
