@@ -62,7 +62,6 @@ public:
 
     void passTurn();
     void addName(GameObject*& t_playerObject);
-    void clearTerminal();
 
 private:
 

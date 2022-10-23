@@ -2,12 +2,13 @@
 
 void Game::run()
 {
+    system("clear");
     int input = 0;
     std::cout << "Choose Game Mode: \n -1- Single Player\n -2- Two Player\n";
     std::cin >> input;
     m_gameMode = static_cast<GameMode>(input);
     m_playerTurn = PlayerTurn::PlayerOneTurn;
-    clearTerminal();
+    system("clear");
 
     switch (m_gameMode)
     {
@@ -32,7 +33,7 @@ void Game::runSinglePlayer()
     chooseWeapon();
     chooseCharacter();
     addName(m_playerOneObject);
-    clearTerminal();
+    system("clear");
     std::cout << "Player Character: " << m_playerOneObject->returnCharacterName() << ", Player Weapon: " << m_PlayerOneWeapon->returnWeaponName() << "\n";
 
     randomiseComputerCharacter();
@@ -64,7 +65,7 @@ void Game::runTwoPlayer()
     chooseWeapon();
     chooseCharacter();
     addName(m_playerOneObject);
-    clearTerminal();
+    system("clear");
     std::cout << "Player One Character: " << m_playerOneObject->returnCharacterType() << ", Player One Weapon: " << m_PlayerOneWeapon->returnWeaponName() << "\n";
 
     passTurn();
@@ -72,7 +73,7 @@ void Game::runTwoPlayer()
     chooseWeapon();
     chooseCharacter();
     addName(m_playerTwoObject);
-    clearTerminal();
+    system("clear");
     std::cout << "Player One Character: " << m_playerOneObject->returnCharacterType() << ", Player One Weapon: " << m_PlayerOneWeapon->returnWeaponName() << "\n";
     std::cout << "Player Two Character: " << m_playerTwoObject->returnCharacterType() << ", Player Two Weapon: " << m_PlayerTwoWeapon->returnWeaponName() << "\n";
 
@@ -292,7 +293,7 @@ void Game::selectAction(ActionTaken& t_playerAction,GameObject* t_player)
 
     std::cout << "-1- Attack\n-2- Block\n-3-Guard Break\n\n";
     std::cin >> input;
-    clearTerminal();
+    system("clear");
 
     // 1 = Attack, 2 = Block, 3 = guardBreak
     switch (input)
@@ -472,16 +473,7 @@ void Game::compareHealth(GameObject* t_objectOne, GameObject* t_objectTwo)
         std::cin >> input;
         m_currentGameState = static_cast<GameStates>(input);
     }
-    clearTerminal();
+    system("clear");
 
 }
 
-/// @brief This functions clears the terminal so the other player cannot see what action was taken and used also to skip past old info
-void Game::clearTerminal()
-{
-    for (int i = 0; i < 22; i++)
-    {
-        std::cout << "\n";
-    }
-    
-}
