@@ -8,9 +8,9 @@ MSG_CLEAN	:= "Cleaning up"
 BUILD_DIR	:= ./bin
 SRC_DIR		:= ./src
 
-TARGET		:= ${BUILD_DIR}/calculator.exe
+TARGET		:= ${BUILD_DIR}/main.exe
 
-SRC			:= ${SRC_DIR}/main.cpp ${SRC_DIR}/Game.cpp ${SRC_DIR}/GameObjects.cpp
+SRC			:= ${SRC_DIR}/main.cpp ${SRC_DIR}/Game.cpp 
 
 all			:= build
 

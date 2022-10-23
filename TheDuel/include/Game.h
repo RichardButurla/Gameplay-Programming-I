@@ -41,6 +41,8 @@ public:
 
     void compareActions();
 
+    void compareHealth();
+
 
 
 private:

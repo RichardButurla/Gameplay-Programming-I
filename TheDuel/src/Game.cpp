@@ -2,34 +2,21 @@
 
 void Game::run()
 {
-    int input = 0;
-
         chooseWeapon();
         choosePlayerCharacter();
 
-        m_playerWeapon->inspect();
-        m_player->printVoiceLine();
+        std::cout << "Player Character: " << m_player->returnCharacterType() << ", Player Weapon: " << m_playerWeapon->returnWeaponName() << "\n";
 
         randomiseComputerCharacter();
         randomiseComputerWeapon();
 
-        std::cout << "The computer is a ";
-        m_computerCharacter->printVoiceLine();
-        std::cout << "And has a ";
-        m_computerWeapon->inspect();
-
-        
+        std::cout << "Opponent Character: " << m_computerCharacter->returnCharacterType() << ", Opponent Weapon: " << m_computerWeapon->returnWeaponName() << "\n";
 
     while (m_currentGameState != GameStates::GameOver)
     {
         chooseAction();
         compareActions();
-
-        std::cout << "5 FOR EXIT, 1 TO CONTINUE\n";
-        std::cin >> input;
-        m_currentGameState = static_cast<GameStates>(input);
-
-
+        compareHealth();
     }
 }
 
@@ -37,7 +24,7 @@ void Game::run()
 void Game::chooseWeapon()
 {
     int input;
-    std::cout << "Choose Weapon: \n -1- Daggers \n -2- Sword and Shield \n -3- Battle Axe\n -4- Staff\n";
+    std::cout << "\n Choose Weapon: \n -1- Daggers \n -2- Sword and Shield \n -3- Battle Axe\n -4- Staff\n";
 
     std::cin >> input;
     WeaponTypes weaponChosen = static_cast<WeaponTypes>(input);
@@ -242,9 +229,11 @@ void Game::compareActions()
             break;
         case ActionTaken::Blocking:
             std::cout << "Opponent blocked Players attack! Player is staggered and counter-attacked for! " + std::to_string(m_computerWeapon->returnBlockValue()) +  "\n";
+            m_player->takeDamage(m_computerWeapon->returnBlockValue());
         break;
         case ActionTaken::GuardBreak:
             std::cout << "Player hit through Opponents guard break!, opponent hit for " + std::to_string(m_computerWeapon->returnDamageValue()) + " Damage!\n";
+            m_computerCharacter->takeDamage(m_playerWeapon->returnDamageValue());
         break;
         default:
             break;
@@ -255,14 +244,16 @@ void Game::compareActions()
         switch (m_computerAction)
         {
         case ActionTaken::Attacking:
-            std::cout << "Player blocked Opponents attack! Opoonent is staggered and counter-attacked for " + std::to_string(m_computerWeapon->returnDamageValue()) +  " Damage!\n";
+            std::cout << "Player blocked Opponents attack! Oponent is staggered and counter-attacked for " + std::to_string(m_playerWeapon->returnBlockValue()) +  " Damage!\n";
+            m_computerCharacter->takeDamage(m_playerWeapon->returnBlockValue());
             break;
         case ActionTaken::Blocking:
             std::cout << "Player and Opponent both blocked. \n";
         break;
 
         case ActionTaken::GuardBreak:
-        std::cout << "Players guard is broken and is counter-attacked for! " + std::to_string(m_computerWeapon->returnBlockValue()) +  " Damage!\n";
+        std::cout << "Players guard is broken and is counter-attacked for! " + std::to_string(m_computerCharacter->returnCounterValue()) +  " Damage!\n";
+        m_player->takeDamage(m_computerCharacter->returnCounterValue());
         break;
         default:
             break;
@@ -274,9 +265,11 @@ void Game::compareActions()
         {
         case ActionTaken::Attacking:
             std::cout << "Opponent hit through Players guard break!, player hit for " + std::to_string(m_computerWeapon->returnDamageValue()) + " Damage!\n";
+            m_player->takeDamage(m_computerWeapon->returnDamageValue());
             break;
         case ActionTaken::Blocking:
-        std::cout << "Oppoents guard is broken and is counter-attacked for! " + std::to_string(m_computerWeapon->returnBlockValue()) +  " Damage!\n";
+        std::cout << "Oppoents guard is broken and is counter-attacked for! " + std::to_string(m_player->returnCounterValue()) +  " Damage!\n";
+        m_computerCharacter->takeDamage(m_player->returnCounterValue());
         break;
 
         case ActionTaken::GuardBreak:
@@ -286,4 +279,28 @@ void Game::compareActions()
             break;
         }
     }
+}
+
+void Game::compareHealth()
+{
+    if(m_player->returnHealthValue() <= 0)
+    {
+        std::cout << "Player died\nGAME OVER!";
+        m_currentGameState = GameStates::GameOver;
+    }
+    if(m_computerCharacter->returnHealthValue() <= 0)
+    {
+        std::cout << "Computer died\nGAME OVER!";
+        m_currentGameState = GameStates::GameOver;
+    }
+    else
+    {
+        int input = 0;
+        std::cout << "Player health: " << m_player->returnHealthValue() << "\t Opponent Health: " << m_computerCharacter->returnHealthValue() << "\n\n";
+        std::cout << "5 FOR EXIT, 1 TO CONTINUE\n";
+        std::cin >> input;
+        m_currentGameState = static_cast<GameStates>(input);
+    }
+
+
 }
