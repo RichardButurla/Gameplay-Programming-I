@@ -1,12 +1,13 @@
 #include "../include/Game.h"
 
+/// @brief starts the loop for then game and checks what game mode is picked.
 void Game::run()
 {
     system("clear");
     int input = 0;
     std::cout << "Choose Game Mode: \n -1- Single Player\n -2- Two Player\n";
     std::cin >> input;
-    m_gameMode = static_cast<GameMode>(input);
+    m_gameMode = GameMode(input);
     m_playerTurn = PlayerTurn::PlayerOneTurn;
     system("clear");
 
@@ -26,8 +27,10 @@ void Game::run()
 
 }
 
+/// @brief Computer versus Player
 void Game::runSinglePlayer()
 {
+    //Setup Player
     m_playerTurn = PlayerTurn::PlayerOneTurn;
     std::cout << "Player 1 ";
     chooseWeapon();
@@ -36,10 +39,12 @@ void Game::runSinglePlayer()
     system("clear");
     std::cout << "Player Character: " << m_playerOneObject->returnCharacterType() << ", Player Weapon: " << m_PlayerOneWeapon->returnWeaponName() << "\n";
 
+    //Setup Computer
     randomiseComputerCharacter();
     randomiseComputerWeapon();
     std::cout << "Opponent Character: " << m_computerCharacter->returnCharacterType() << ", Opponent Weapon: " << m_computerWeapon->returnWeaponName() << "\n";
 
+    //Game Loop
     while (m_currentGameState != GameStates::GameOver)
     {
         chooseAction();
@@ -59,6 +64,7 @@ void Game::runSinglePlayer()
     }
 }
 
+/// @brief Player vs Player
 void Game::runTwoPlayer()
 {
     std::cout << "Player 1 ";
@@ -102,6 +108,8 @@ void Game::runTwoPlayer()
     }
 }
 
+/// @brief Morphs a player pointer into a specific class
+/// @param t_playerObject player pointer
 void Game::selectCharacter(GameObject** t_playerObject)
 {
     int input;
@@ -137,6 +145,8 @@ void Game::selectCharacter(GameObject** t_playerObject)
     }
 }
 
+/// @brief Morphs a player pointer into a specific weapon class
+/// @param t_playerWeapon 
 void Game::selectWeapon(WeaponObject** t_playerWeapon)
 {
     int input;
@@ -168,6 +178,7 @@ void Game::selectWeapon(WeaponObject** t_playerWeapon)
     }
 }
 
+/// @brief Control method for selecting characters based on the current player
 void Game::chooseCharacter()
 {
     GameObject** pP_gameObject;
@@ -189,6 +200,7 @@ void Game::chooseCharacter()
     }
 }
 
+/// @brief Control method for selecting weapons based on the current player
 void Game::chooseWeapon()
 {
     WeaponObject** pP_weaponObject;
@@ -210,6 +222,7 @@ void Game::chooseWeapon()
     }
 }
 
+/// @brief Computer picks a weapon randomly
 void Game::randomiseComputerWeapon()
 {
     int randNum = std::rand() % 4 + 1; //1,2,3,4,5
@@ -243,6 +256,7 @@ void Game::randomiseComputerWeapon()
 
 }
 
+/// @brief Computer picks a character randomly
 void Game::randomiseComputerCharacter()
 {
     int randNum = std::rand() % 5 + 1; //1,2,3,4,5
@@ -277,6 +291,7 @@ void Game::randomiseComputerCharacter()
     }
 }
 
+/// @brief Control method for current player to pick an action
 void Game::chooseAction()
 {
     switch (m_playerTurn)
@@ -294,6 +309,9 @@ void Game::chooseAction()
     }
 }
 
+/// @brief Player picks an action, i.e, rock, paper, scissors
+/// @param t_playerAction enum class for controlling games outcome
+/// @param t_player Gameobject player pointer. I only use it here to personalise a message
 void Game::selectAction(ActionTaken& t_playerAction,GameObject* t_player)
 {
     int input;
@@ -323,6 +341,7 @@ void Game::selectAction(ActionTaken& t_playerAction,GameObject* t_player)
     }
 }
 
+/// @brief Swap turns between player 1 and player 2
 void Game::passTurn()
 {
     if (m_playerTurn == PlayerTurn::PlayerOneTurn) {
@@ -333,6 +352,8 @@ void Game::passTurn()
     }
 }
 
+/// @brief Add name to string "characterName" within pointer
+/// @param t_playerObject player pointer
 void Game::addName(GameObject*& t_playerObject)
 {
     std::cout << "Enter name \n";
@@ -341,6 +362,7 @@ void Game::addName(GameObject*& t_playerObject)
     t_playerObject->setGameObjectName(nameInputted);
 }
 
+/// @brief Randomises computer action
 void Game::randomiseComputerAction()
 {
     int randNum = std::rand() % 3 + 1; //1,2,3
@@ -370,7 +392,7 @@ void Game::randomiseComputerAction()
 
 }
 
-
+/// @brief Control method to check and send in appropriate parameters for game based on the game mode
 void Game::checkGameMode()
 {
     switch (m_gameMode)
@@ -390,9 +412,10 @@ void Game::checkGameMode()
     }
 }
 /// @brief Compare Actions of computer and player and decide what happens
+/// Essentially this is rock, paper, scissors but some variables of the character and weapon classes have special
+/// values that affect for example, "how well does rock beat scissors? Is it a small rock versus garden shears?" 
 void Game::compareActions(GameObject* t_objectOne, GameObject* t_objectTwo, WeaponObject* t_weaponObjectOne, WeaponObject* t_weaponObjectTwo, ActionTaken& t_objectActionTakenOne, ActionTaken& t_objectActionTakenTwo)
 {
-
 
     if (t_objectActionTakenOne == ActionTaken::Attacking)
     {
@@ -455,6 +478,9 @@ void Game::compareActions(GameObject* t_objectOne, GameObject* t_objectTwo, Weap
     }
 }
 
+/// @brief Check health values of player 1 and either or Computer/Player 2.
+/// @param t_objectOne Player 1
+/// @param t_objectTwo Player 2 or Computer
 void Game::compareHealth(GameObject* t_objectOne, GameObject* t_objectTwo)
 {
     int input = 0;
