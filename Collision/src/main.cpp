@@ -63,6 +63,7 @@ int main()
         std::cout << "No Collision\n";
     }
 
+    //Collision use on line 231 in GameStructs
     ///////////////////////////////////////////
 
 
