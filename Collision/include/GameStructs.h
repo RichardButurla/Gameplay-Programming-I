@@ -1,5 +1,6 @@
 #pragma once
 #include "GameLogics.h"
+#include "Circle.h"
 #include "Rectangle.h"
 #include <random>
 
