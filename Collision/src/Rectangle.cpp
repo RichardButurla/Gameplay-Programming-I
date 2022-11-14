@@ -1,6 +1,11 @@
 #include <iostream>
 #include "../include/Rectangle.h"
 
+ Rectangle::Rectangle(float t_x, float t_y, float t_width, float t_height) : x(t_x), y(t_y), width(t_width), height(t_height)
+ {
+
+ }
+
  bool Rectangle::rectangle_to_rectangle( Rectangle* b)
  {
      bool xOverlap;
