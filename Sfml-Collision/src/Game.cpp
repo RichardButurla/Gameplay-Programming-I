@@ -1,9 +1,6 @@
 /// <summary>
-/// @author Peter Lowe
-/// @date May 2019
-///
-/// you need to change the above lines or lose marks
-/// </summary>
+/// @author Richard Buturla
+/// C00272345
 
 #include "../include/Game.h"
 #include <iostream>
