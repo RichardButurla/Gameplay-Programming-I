@@ -1,5 +1,4 @@
 #pragma once
-#include "../include/cute_c2.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -16,9 +15,12 @@ public:
 
 	float getX(){return m_position.x;}
 	float getY(){return m_position.y;}
+	float getWidth(){return width;}
+	float getHeight(){return height;}
 
 	void setWidth(float t_width){width = t_width;}
 	void setHeight(float t_height){height = t_height;}
+	void setSize(float t_width, float t_height){m_rectangleShape.setSize({t_width,t_height});}
 
 
 	void update();

@@ -30,8 +30,11 @@ private:
 	Circle circleOne;
 	Circle circleTwo;
 
-	Box boxOne;
-	Box boxTwo;
+	Box player;
+	Box enemy;
+
+	c2AABB enemyAABB;
+	c2Capsule playerCapsule;
 
 	//Tetsing shapes
 

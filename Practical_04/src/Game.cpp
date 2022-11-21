@@ -3,6 +3,7 @@
 /// C00272345
 
 #include "../include/Game.h"
+#include "../include/cute_c2.h"
 #include <iostream>
 
 
@@ -104,8 +105,8 @@ void Game::update(sf::Time t_deltaTime)
 	circleOne.update();
 	circleTwo.update();
 
-	boxOne.update();
-	boxTwo.update();
+	player.update();
+	enemy.update();
 	
 	//Test collisions
 	
@@ -126,7 +127,25 @@ void Game::update(sf::Time t_deltaTime)
 	// capsule.b = pointB;
 	// capsule.r = 5;
 
-	//Make Player, set sprite pos to something and sprite width/height to shape w/h.
+	//update Player Collider, set sprite pos to something and sprite width/height to shape w/h.
+	playerCapsule.a = {player.getX(),player.getY()};
+	playerCapsule.b = {player.getX(),player.getY() + player.getHeight()}; //capsule.b is second point which is lower down.
+	playerCapsule.r = player.getWidth();
+
+	//update Enemy Collider
+	enemyAABB.min = {enemy.getX(),enemy.getY()};
+	enemyAABB.max = {enemy.getX() + enemy.getWidth(),enemy.getY() + enemy.getY()};
+
+	//check collision
+	c2Manifold m;
+
+	c2CapsuletoCapsuleManifold(playerCapsule,playerCapsule,&m);
+
+	// if(CUTE_C2_API::c2CapsuletoCapsule(playerCapsule,playerCapsule)) //if true
+	// {
+	// 	player.setVelocity({-player.getVelocity().x,player.getVelocity().y});
+	// }
+	
 
 
 }
@@ -141,8 +160,8 @@ void Game::render()
 	circleOne.render(m_window);
 	circleTwo.render(m_window);
 
-	boxOne.render(m_window);
-	boxTwo.render(m_window);
+	player.render(m_window);
+	enemy.render(m_window);
 
 	m_window.display();
 }
@@ -182,12 +201,28 @@ void Game::setupSprite()
 	circleTwo.setVelocity({ -2,0 });
 
 	//Rectangles now
-	boxOne.setupRectangle(sf::Color::Black);
-	boxTwo.setupRectangle(sf::Color::Green);
+	player.setupRectangle(sf::Color::Black);
+	enemy.setupRectangle(sf::Color::Green);
 
-	boxOne.setPosition({ 100, 300 });
-	boxTwo.setPosition({ 600, 300 });
+	player.setPosition({ 100, 300 });
+	enemy.setPosition({ 600, 300 });
 
-	boxOne.setVelocity({ 2,0 });
-	boxTwo.setVelocity({ -2,0 });
+	player.setVelocity({ 2,0 });
+	enemy.setVelocity({ -2,0 });
+
+	
+	enemy.setWidth(20);
+	enemy.setHeight(40);
+	enemy.setSize(20,40);
+
+	player.setWidth(40);
+	player.setHeight(100);
+	player.setSize(40,100);
+
+
+	//setup collision shapes.
+	playerCapsule.a = {player.getX(),player.getY()};
+	playerCapsule.b = {player.getX(),player.getY() - player.getHeight()}; //capsule.b is second point which is lower down.
+	playerCapsule.r = player.getWidth();
+
 }
