@@ -1,0 +1,32 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+
+class Circle {
+
+public:
+
+	Circle() = default;
+	Circle(float t_x, float t_y, float t_radius);
+	Circle(sf::Vector2f t_position, float t_radius);
+	
+
+	void update();
+	void render(sf::RenderWindow& t_window);
+	void move();
+
+	void setVelocity(sf::Vector2f t_velocity) { m_velocityVector = t_velocity; }
+	void setPosition(sf::Vector2f t_position) { m_position = t_position; }
+
+	sf::Vector2f getVelocity() { return m_velocityVector; }
+
+	void setupCircle(sf::Color t_color);
+	bool circle_to_circle(Circle* b);
+
+private:
+
+	float radius{ 50 };
+	sf::CircleShape circleShape;
+	sf::Vector2f m_position{ 0.0f,0.0f };
+	sf::Vector2f m_velocityVector{ 2,2 };
+
+};
