@@ -3,7 +3,9 @@
 /// C00272345
 
 #include "../include/Game.h"
+#define CUTE_C2_IMPLEMENTATION
 #include "../include/cute_c2.h"
+
 #include <iostream>
 
 
@@ -101,12 +103,11 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-
-	circleOne.update();
-	circleTwo.update();
-
 	player.update();
-	enemy.update();
+	enemyBox.update();
+
+	playerCircle.update();
+	enemyCircle.update();
 	
 	//Test collisions
 	
@@ -127,24 +128,80 @@ void Game::update(sf::Time t_deltaTime)
 	// capsule.b = pointB;
 	// capsule.r = 5;
 
-	//update Player Collider, set sprite pos to something and sprite width/height to shape w/h.
-	playerCapsule.a = {player.getX(),player.getY()};
-	playerCapsule.b = {player.getX(),player.getY() + player.getHeight()}; //capsule.b is second point which is lower down.
-	playerCapsule.r = player.getWidth();
+	//update Player Collider and enemy Colliders based on Tests
+	switch (m_currentCollisionTest)
+	{
+	case CollisionType::AABBToCapsule:
 
-	//update Enemy Collider
-	enemyAABB.min = {enemy.getX(),enemy.getY()};
-	enemyAABB.max = {enemy.getX() + enemy.getWidth(),enemy.getY() + enemy.getY()};
+		playerCapsule.a = {player.getX(),player.getY()};
+		playerCapsule.b = {player.getX(),player.getY() + player.getHeight()}; //capsule.b is second point which is lower down.
+		playerCapsule.r = player.getWidth();
 
-	//check collision
-	c2Manifold m;
+		//update Enemy Collider
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
 
-	c2CapsuletoCapsuleManifold(playerCapsule,playerCapsule,&m);
+		//check collision AABB TO CAPSULE
+	 	if(c2AABBtoCapsule(enemyAABB,playerCapsule)) //if true
+	 	{
+	 		player.setVelocity({-player.getVelocity().x,player.getVelocity().y});
+			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
+	 	}
+		break;
+	case CollisionType::AABBToPolygon:
+		playerPolygon.count = 1;
+		playerPolygon.verts[0] = {playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius()}; //above radius so x is same as center point
+		playerPolygon.verts[1] = {playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the left of the centre
+		playerPolygon.verts[2] = {playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the right of the centre
+		playerPolygon.norms[0] = {playerCircle.getPosition().x,playerCircle.getPosition().y}; //only one normal on our 2d polygon at centre point
 
-	// if(CUTE_C2_API::c2CapsuletoCapsule(playerCapsule,playerCapsule)) //if true
-	// {
-	// 	player.setVelocity({-player.getVelocity().x,player.getVelocity().y});
-	// }
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		if(c2AABBtoPoly(enemyAABB,&playerPolygon,nullptr))
+		{
+			player.setVelocity({-player.getVelocity().x,player.getVelocity().y});
+			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
+		}
+
+		break;
+	case CollisionType::AABBToRay:
+	
+		break;
+	case CollisionType::CircleToAABB:
+	
+		break;
+	case CollisionType::CircleToCircle:
+	
+		break;
+	case CollisionType::CircleToRay:
+	
+		break;
+	case CollisionType::CircleToCapsule:
+	
+		break;
+	case CollisionType::CircleToPolygon:
+	
+		break;
+	case CollisionType::RayToAABB:
+	
+		break;
+	case CollisionType::RayToCapsule:
+	
+		break;
+	case CollisionType::RayToCircle:
+	
+		break;
+	case CollisionType::RayToPoly:
+	
+		break;									
+	default:
+		break;
+	}
+	
+
+	 //Check collisionh AABB TO POLYGON
+	  
 	
 
 
@@ -157,11 +214,54 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 
-	circleOne.render(m_window);
-	circleTwo.render(m_window);
+	switch (m_currentCollisionTest)
+	{
+	case CollisionType::AABBToCapsule:
+		player.render(m_window);
+		enemyBox.render(m_window);
+		break;
 
-	player.render(m_window);
-	enemy.render(m_window);
+	case CollisionType::AABBToPolygon:
+		enemyBox.render(m_window);
+		playerCircle.render(m_window);
+		break;
+	case CollisionType::AABBToRay:
+
+		break;
+	case CollisionType::CircleToAABB:
+	
+		break;
+	case CollisionType::CircleToCircle:
+	
+		break;
+	case CollisionType::CircleToRay:
+	
+		break;
+	case CollisionType::CircleToCapsule:
+	
+		break;
+	case CollisionType::CircleToPolygon:
+	
+		break;
+	case CollisionType::RayToAABB:
+	
+		break;
+	case CollisionType::RayToCapsule:
+	
+		break;
+	case CollisionType::RayToCircle:
+	
+		break;
+	case CollisionType::RayToPoly:
+	
+		break;									
+	default:
+		break;
+	}
+
+	
+	//enemyCircle.render(m_window);
+	//playerCircle.render(m_window);
 
 	m_window.display();
 }
@@ -191,38 +291,110 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
-	circleOne.setupCircle(sf::Color::Red);
-	circleTwo.setupCircle(sf::Color::Blue);
-
-	circleOne.setPosition({ 100,100 });
-	circleTwo.setPosition({ 600,100 });
-
-	circleOne.setVelocity({ 2,0 });
-	circleTwo.setVelocity({ -2,0 });
-
 	//Rectangles now
 	player.setupRectangle(sf::Color::Black);
-	enemy.setupRectangle(sf::Color::Green);
+	enemyBox.setupRectangle(sf::Color::Green);
+	enemyCircle.setupCircle(sf::Color::Red);
+	playerCircle.setupCircle(sf::Color::Blue);
 
-	player.setPosition({ 100, 300 });
-	enemy.setPosition({ 600, 300 });
+	player.setVelocity({ 1,0 });
+	enemyBox.setVelocity({ -1,0 });
+	enemyCircle.setVelocity({ 1,0 });
+	playerCircle.setVelocity({-1,0});
 
-	player.setVelocity({ 2,0 });
-	enemy.setVelocity({ -2,0 });
 
 	
-	enemy.setWidth(20);
-	enemy.setHeight(40);
-	enemy.setSize(20,40);
+
+	//if enemy == Circle
+	enemyCircle.setRadius( 50);
+
+	enemyBox.setWidth(20);
+	enemyBox.setHeight(40);
+	enemyBox.setSize(20,40);
 
 	player.setWidth(40);
 	player.setHeight(100);
 	player.setSize(40,100);
 
+	switch (m_currentCollisionTest)
+	{
+	case CollisionType::AABBToCapsule:
+		enemyBox.setPosition({ 600, 100 });
+		player.setPosition({ 100, 100 });
 
-	//setup collision shapes.
-	playerCapsule.a = {player.getX(),player.getY()};
-	playerCapsule.b = {player.getX(),player.getY() - player.getHeight()}; //capsule.b is second point which is lower down.
-	playerCapsule.r = player.getWidth();
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		
+
+		playerCapsule.a = {player.getX(),player.getY()};
+		playerCapsule.b = {player.getX(),player.getY() - player.getHeight()}; //capsule.b is second point which is lower down.
+		playerCapsule.r = player.getWidth();	
+		break;
+
+	case CollisionType::AABBToPolygon:
+		playerCircle.setPointCount(3);
+
+		playerCircle.setPosition({600,100});
+		enemyBox.setPosition({100,100});
+
+		enemyBox.setVelocity({1,0});
+		playerCircle.setVelocity({-1,0});
+
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		playerPolygon.count = 1;
+		playerPolygon.verts[0] = {playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius()}; //above radius so x is same as center point
+		playerPolygon.verts[1] = {playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the left of the centre
+		playerPolygon.verts[2] = {playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the right of the centre
+		playerPolygon.norms[0] = {playerCircle.getPosition().x,playerCircle.getPosition().y};
+		break;
+	case CollisionType::AABBToRay:
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		break;
+	case CollisionType::CircleToAABB:
+	
+		break;
+	case CollisionType::CircleToCircle:
+	
+		break;
+	case CollisionType::CircleToRay:
+	
+		break;
+	case CollisionType::CircleToCapsule:
+	
+		break;
+	case CollisionType::CircleToPolygon:
+	
+		break;
+	case CollisionType::RayToAABB:
+	
+		break;
+	case CollisionType::RayToCapsule:
+	
+		break;
+	case CollisionType::RayToCircle:
+	
+		break;
+	case CollisionType::RayToPoly:
+	
+		break;									
+	default:
+		break;
+	}
+
+
 
 }

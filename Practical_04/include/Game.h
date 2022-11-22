@@ -3,6 +3,23 @@
 #include "../include/Rectangle.h"
 #include "../include/cute_c2.h"
 
+enum class CollisionType
+{
+	None,
+	AABBToCapsule,
+	AABBToPolygon,
+	AABBToRay,
+	CircleToAABB,
+	CircleToCircle,
+ 	CircleToRay,
+ 	CircleToCapsule,
+ 	CircleToPolygon,
+ 	RayToAABB,
+ 	RayToCapsule,
+	RayToCircle,
+ 	RayToPoly
+};
+
 class Game
 {
 public:
@@ -27,14 +44,18 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
-	Circle circleOne;
-	Circle circleTwo;
+	CollisionType m_currentCollisionTest = CollisionType::AABBToPolygon; //Defaulted to first test
 
 	Box player;
-	Box enemy;
+	Circle playerCircle;
+
+	Box enemyBox;
+	Circle enemyCircle;
 
 	c2AABB enemyAABB;
 	c2Capsule playerCapsule;
+	c2Poly playerPolygon;
+	c2Ray playerRay;
 
 	//Tetsing shapes
 

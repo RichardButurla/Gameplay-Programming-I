@@ -10,8 +10,17 @@ public:
 	Circle(sf::Vector2f t_position, float t_radius);
 	
 
+	float getX(){return m_position.x;}
+	float getY(){return m_position.y;}
+	float getRadius(){return radius;}
+	sf::Vector2f getPosition(){return m_position;}
+
+	void setRadius(float t_radius){circleShape.setRadius(t_radius);}
+	void setPointCount(int t_points){circleShape.setPointCount(t_points);}
+
+
 	void update();
-	void render(sf::RenderWindow& t_window);
+	void render(sf::RenderWindow & t_window);
 	void move();
 
 	void setVelocity(sf::Vector2f t_velocity) { m_velocityVector = t_velocity; }
