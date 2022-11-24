@@ -103,7 +103,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	player.update();
+	playerBox.update();
 	enemyBox.update();
 
 	playerCircle.update();
@@ -133,9 +133,9 @@ void Game::update(sf::Time t_deltaTime)
 	{
 	case CollisionType::AABBToCapsule:
 
-		playerCapsule.a = {player.getX(),player.getY()};
-		playerCapsule.b = {player.getX(),player.getY() + player.getHeight()}; //capsule.b is second point which is lower down.
-		playerCapsule.r = player.getWidth();
+		playerCapsule.a = {playerBox.getX(),playerBox.getY()};
+		playerCapsule.b = {playerBox.getX(),playerBox.getY() + playerBox.getHeight()}; //capsule.b is second point which is lower down.
+		playerCapsule.r = playerBox.getWidth();
 
 		//update Enemy Collider
 		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
@@ -144,7 +144,7 @@ void Game::update(sf::Time t_deltaTime)
 		//check collision AABB TO CAPSULE
 	 	if(c2AABBtoCapsule(enemyAABB,playerCapsule)) //if true
 	 	{
-	 		player.setVelocity({-player.getVelocity().x,player.getVelocity().y});
+	 		playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
 			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
 	 	}
 		break;
@@ -158,15 +158,52 @@ void Game::update(sf::Time t_deltaTime)
 		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
 		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
 
-		if(c2AABBtoPoly(enemyAABB,&playerPolygon,nullptr))
+		c2r collisionAngles;
+		collisionAngles.c = 1;
+		collisionAngles.s = 0;
+
+		c2v collisionCheckPoint;
+		collisionCheckPoint.x = 1;
+		collisionCheckPoint.y = 1;
+
+		c2x idk;
+		idk.p = collisionCheckPoint;
+		idk.r = collisionAngles;
+
+
+
+
+		if(c2AABBtoPoly(enemyAABB,&playerPolygon,&idk))
 		{
-			player.setVelocity({-player.getVelocity().x,player.getVelocity().y});
+			playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
 			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
 		}
 
 		break;
+
 	case CollisionType::AABBToRay:
-	
+
+		playerRay.t = 250; //the distance of the ray
+		playerRay.p.x = playerBox.getX();
+		playerRay.p.y = playerBox.getY();
+		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
+		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+
+		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
+		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+
+		c2Raycast raycast;
+		raycast.n.x = 1; //normal of surface at impact (unit length)
+		raycast.n.y = 1;
+		raycast.t = 1; //time of impact
+
+		if(c2RaytoAABB(playerRay,enemyAABB,&raycast))
+		{
+			playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
+			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
+		}
+
+
 		break;
 	case CollisionType::CircleToAABB:
 	
@@ -217,7 +254,7 @@ void Game::render()
 	switch (m_currentCollisionTest)
 	{
 	case CollisionType::AABBToCapsule:
-		player.render(m_window);
+		playerBox.render(m_window);
 		enemyBox.render(m_window);
 		break;
 
@@ -226,7 +263,8 @@ void Game::render()
 		playerCircle.render(m_window);
 		break;
 	case CollisionType::AABBToRay:
-
+		enemyBox.render(m_window);
+		playerBox.render(m_window);
 		break;
 	case CollisionType::CircleToAABB:
 	
@@ -292,12 +330,12 @@ void Game::setupFontAndText()
 void Game::setupSprite()
 {
 	//Rectangles now
-	player.setupRectangle(sf::Color::Black);
+	playerBox.setupRectangle(sf::Color::Black);
 	enemyBox.setupRectangle(sf::Color::Green);
 	enemyCircle.setupCircle(sf::Color::Red);
 	playerCircle.setupCircle(sf::Color::Blue);
 
-	player.setVelocity({ 1,0 });
+	playerBox.setVelocity({ 1,0 });
 	enemyBox.setVelocity({ -1,0 });
 	enemyCircle.setVelocity({ 1,0 });
 	playerCircle.setVelocity({-1,0});
@@ -312,15 +350,15 @@ void Game::setupSprite()
 	enemyBox.setHeight(40);
 	enemyBox.setSize(20,40);
 
-	player.setWidth(40);
-	player.setHeight(100);
-	player.setSize(40,100);
+	playerBox.setWidth(40);
+	playerBox.setHeight(100);
+	playerBox.setSize(40,100);
 
 	switch (m_currentCollisionTest)
 	{
 	case CollisionType::AABBToCapsule:
 		enemyBox.setPosition({ 600, 100 });
-		player.setPosition({ 100, 100 });
+		playerBox.setPosition({ 100, 100 });
 
 		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
 		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
@@ -330,9 +368,9 @@ void Game::setupSprite()
 
 		
 
-		playerCapsule.a = {player.getX(),player.getY()};
-		playerCapsule.b = {player.getX(),player.getY() - player.getHeight()}; //capsule.b is second point which is lower down.
-		playerCapsule.r = player.getWidth();	
+		playerCapsule.a = {playerBox.getX(),playerBox.getY()};
+		playerCapsule.b = {playerBox.getX(),playerBox.getY() - playerBox.getHeight()}; //capsule.b is second point which is lower down.
+		playerCapsule.r = playerBox.getWidth();	
 		break;
 
 	case CollisionType::AABBToPolygon:
@@ -357,6 +395,20 @@ void Game::setupSprite()
 		playerPolygon.norms[0] = {playerCircle.getPosition().x,playerCircle.getPosition().y};
 		break;
 	case CollisionType::AABBToRay:
+		enemyBox.setPosition({ 600, 100 });
+		playerBox.setPosition({ 100, 99 });
+
+	//player will be skinny rectangle that looks like ray
+		playerBox.setWidth(250);
+		playerBox.setHeight(1);
+		playerBox.setSize(250,1);
+
+		playerRay.t = 250; //the distance of the ray
+		playerRay.p.x = playerBox.getX();
+		playerRay.p.y = playerBox.getY();
+		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
+		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+
 		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
 		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
 
