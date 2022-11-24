@@ -149,6 +149,9 @@ void Game::update(sf::Time t_deltaTime)
 	 	}
 		break;
 	case CollisionType::AABBToPolygon:
+
+		std::cout << "Collision x: " << playerPolygon.verts[0].x << "Collision y: " << playerPolygon.verts[0].y << "\n"; 
+
 		playerPolygon.count = 1;
 		playerPolygon.verts[0] = {playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius()}; //above radius so x is same as center point
 		playerPolygon.verts[1] = {playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the left of the centre
@@ -163,21 +166,20 @@ void Game::update(sf::Time t_deltaTime)
 		collisionAngles.s = 0;
 
 		c2v collisionCheckPoint;
-		collisionCheckPoint.x = 1;
-		collisionCheckPoint.y = 1;
+		collisionCheckPoint.x = playerCircle.getX();
+		collisionCheckPoint.y = playerCircle.getY();
 
 		c2x idk;
 		idk.p = collisionCheckPoint;
 		idk.r = collisionAngles;
-
-
-
 
 		if(c2AABBtoPoly(enemyAABB,&playerPolygon,&idk))
 		{
 			playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
 			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
 		}
+
+		
 
 		break;
 
@@ -377,7 +379,7 @@ void Game::setupSprite()
 		playerCircle.setPointCount(3);
 
 		playerCircle.setPosition({600,100});
-		enemyBox.setPosition({100,100});
+		enemyBox.setPosition({100,120});
 
 		enemyBox.setVelocity({1,0});
 		playerCircle.setVelocity({-1,0});
