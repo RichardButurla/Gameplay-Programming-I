@@ -6,25 +6,25 @@
 class Box
 {
 public:
-    Box() = default;
-    Box(float t_x, float t_y, float t_width, float t_height);
+	Box() = default;
+	Box(float t_x, float t_y, float t_width, float t_height);
 	Box(sf::Vector2f t_position, float t_width, float t_height);
 
-    bool rectangle_to_rectangle(Box* b);
-    bool valueInRange(float value, float min, float max);
+	bool rectangle_to_rectangle(Box* b);
+	bool valueInRange(float value, float min, float max);
 
-	float getX(){return m_position.x;}
-	float getY(){return m_position.y;}
-	float getWidth(){return width;}
-	float getHeight(){return height;}
+	float getX() { return m_position.x; }
+	float getY() { return m_position.y; }
+	float getWidth() { return width; }
+	float getHeight() { return height; }
 
-	void setWidth(float t_width){width = t_width;}
-	void setHeight(float t_height){height = t_height;}
-	void setSize(float t_width, float t_height){m_rectangleShape.setSize({t_width,t_height});}
+	void setWidth(float t_width) { width = t_width; }
+	void setHeight(float t_height) { height = t_height; }
+	void setSize(float t_width, float t_height) { m_rectangleShape.setSize({ t_width,t_height }); }
 
 
 	void update();
-	void render(sf::RenderWindow & t_window);
+	void render(sf::RenderWindow& t_window);
 	void move();
 
 	void setVelocity(sf::Vector2f t_velocity) { m_velocityVector = t_velocity; }
@@ -41,4 +41,28 @@ private:
 	sf::RectangleShape m_rectangleShape;
 	sf::Vector2f m_position{ 0.0f,0.0f };
 	sf::Vector2f m_velocityVector{ 2,2 };
+};
+
+class RayLine
+{
+public:
+
+	RayLine(sf::Vector2f t_start, sf::Vector2f t_end);
+	RayLine();
+
+	void draw(sf::RenderWindow& t_window);
+	sf::Vector2f getStartPoint() const;
+	sf::Vector2f getDirection() const;
+	float getDistance()const;
+	void setColor(sf::Color t_color);
+	void setStartPoint(sf::Vector2f t_position);
+	void setEndPoint(sf::Vector2f t_position);
+	void setPrimitiveType(sf::PrimitiveType t_type) { m_line.setPrimitiveType(t_type); }
+
+
+private:
+	sf::VertexArray m_line;
+	sf::Vector2f m_points[2]; //2 beacuse a line has 2 points
+
+
 };

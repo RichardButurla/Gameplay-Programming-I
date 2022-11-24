@@ -18,7 +18,7 @@
 /// </summary>
 Game::Game() :
 	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
-	m_exitGame{false} //when true game will exit
+	m_exitGame{ false } //when true game will exit
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
@@ -41,7 +41,7 @@ Game::~Game()
 /// if updates run slow then don't render frames
 /// </summary>
 void Game::run()
-{	
+{
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	const float fps{ 60.0f };
@@ -69,7 +69,7 @@ void Game::processEvents()
 	sf::Event newEvent;
 	while (m_window.pollEvent(newEvent))
 	{
-		if ( sf::Event::Closed == newEvent.type) // window message
+		if (sf::Event::Closed == newEvent.type) // window message
 		{
 			m_exitGame = true;
 		}
@@ -103,41 +103,41 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	
-	
+
+
 
 	//update Player Collider and enemy Colliders based on Tests
 	switch (m_currentCollisionTest)
 	{
 	case CollisionType::AABBToCapsule:
 
-		playerCapsule.a = {playerBox.getX(),playerBox.getY()};
-		playerCapsule.b = {playerBox.getX(),playerBox.getY() + playerBox.getHeight()}; //capsule.b is second point which is lower down.
+		playerCapsule.a = { playerBox.getX(),playerBox.getY() };
+		playerCapsule.b = { playerBox.getX(),playerBox.getY() + playerBox.getHeight() }; //capsule.b is second point which is lower down.
 		playerCapsule.r = playerBox.getWidth();
 
 		//update Enemy Collider
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
 		//check collision AABB TO CAPSULE
-	 	if(c2AABBtoCapsule(enemyAABB,playerCapsule)) //if true
-	 	{
-	 		playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
-			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
-	 	}
+		if (c2AABBtoCapsule(enemyAABB, playerCapsule)) //if true
+		{
+			playerBox.setVelocity({ -playerBox.getVelocity().x,playerBox.getVelocity().y });
+			enemyBox.setVelocity({ -enemyBox.getVelocity().x,enemyBox.getVelocity().y });
+		}
 		break;
 	case CollisionType::AABBToPolygon:
 
-		std::cout << "Collision x: " << playerPolygon.verts[0].x << "Collision y: " << playerPolygon.verts[0].y << "\n"; 
+		std::cout << "Collision x: " << playerPolygon.verts[0].x << "Collision y: " << playerPolygon.verts[0].y << "\n";
 
 		playerPolygon.count = 1;
-		playerPolygon.verts[0] = {playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius()}; //above radius so x is same as center point
-		playerPolygon.verts[1] = {playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the left of the centre
-		playerPolygon.verts[2] = {playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the right of the centre
-		playerPolygon.norms[0] = {playerCircle.getPosition().x,playerCircle.getPosition().y}; //only one normal on our 2d polygon at centre point
+		playerPolygon.verts[0] = { playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius() }; //above radius so x is same as center point
+		playerPolygon.verts[1] = { playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the left of the centre
+		playerPolygon.verts[2] = { playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the right of the centre
+		playerPolygon.norms[0] = { playerCircle.getPosition().x,playerCircle.getPosition().y }; //only one normal on our 2d polygon at centre point
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
 		// c2r collisionAngles;
 		// collisionAngles.c = 1;
@@ -157,30 +157,30 @@ void Game::update(sf::Time t_deltaTime)
 		// 	enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
 		// }
 
-		
+
 
 		break;
 
 	case CollisionType::AABBToRay:
 
-		playerRay.t = 250; //the distance of the ray
-		playerRay.p.x = playerBox.getX();
-		playerRay.p.y = playerBox.getY();
-		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+		playerRayCollider.t = playerRayLine->getDistance(); //the distance of the ray
+		playerRayCollider.p.x = playerRayLine->getStartPoint().x;
+		playerRayCollider.p.y = playerRayLine->getStartPoint().y;
+		playerRayCollider.d.x = playerRayLine->getDirection().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerRayLine->getDirection().y; //direction vector(normalised) use default velocity for now
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
 		c2Raycast raycast;
 		raycast.n.x = 1; //normal of surface at impact (unit length)
 		raycast.n.y = 1;
 		raycast.t = 1; //time of impact
 
-		if(c2RaytoAABB(playerRay,enemyAABB,&raycast))
+		if (c2RaytoAABB(playerRayCollider, enemyAABB, &raycast))
 		{
-			playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
-			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
+			playerBox.setVelocity({ -playerBox.getVelocity().x,playerBox.getVelocity().y });
+			enemyBox.setVelocity({ -enemyBox.getVelocity().x,enemyBox.getVelocity().y });
 		}
 
 
@@ -195,7 +195,7 @@ void Game::update(sf::Time t_deltaTime)
 		enemyAABB.min.y = enemyBox.getY() + enemyBox.getHeight();
 
 		enemyAABB.max.x = enemyAABB.min.x + enemyBox.getWidth();
-		enemyAABB.max.y = enemyBox.getY(); 
+		enemyAABB.max.y = enemyBox.getY();
 
 
 		//std::cout << "Circle Sprite x: " << playerCircle.getX() << "Circle Collider X: " << playerCircleCollider.p.x << "\n";
@@ -204,10 +204,10 @@ void Game::update(sf::Time t_deltaTime)
 		std::cout << "Box Sprite x: " << enemyBox.getX() << "Box Collider min X: " << enemyAABB.min.x << "\n";
 		std::cout << "Box Sprite y: " << enemyBox.getY() + enemyBox.getHeight() << "Box Collider y: " << enemyAABB.min.y << "\n";
 
-		if(c2CircletoAABB(playerCircleCollider,enemyAABB))
+		if (c2CircletoAABB(playerCircleCollider, enemyAABB))
 		{
-			playerCircle.setVelocity({-playerCircle.getVelocity().x,playerCircle.getVelocity().y});
-			enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
+			playerCircle.setVelocity({ -playerCircle.getVelocity().x,playerCircle.getVelocity().y });
+			enemyBox.setVelocity({ -enemyBox.getVelocity().x,enemyBox.getVelocity().y });
 		}
 
 		break;
@@ -220,20 +220,20 @@ void Game::update(sf::Time t_deltaTime)
 		enemyCircleCollider.p.y = enemyCircle.getPosition().y;
 		enemyCircleCollider.r = enemyCircle.getRadius();
 
-		if(c2CircletoCircle(playerCircleCollider,enemyCircleCollider))
+		if (c2CircletoCircle(playerCircleCollider, enemyCircleCollider))
 		{
-			playerCircle.setVelocity({-playerCircle.getVelocity().x,playerCircle.getVelocity().y});
-			enemyCircle.setVelocity({-enemyCircle.getVelocity().x,enemyCircle.getVelocity().y});
+			playerCircle.setVelocity({ -playerCircle.getVelocity().x,playerCircle.getVelocity().y });
+			enemyCircle.setVelocity({ -enemyCircle.getVelocity().x,enemyCircle.getVelocity().y });
 		}
 
 		break;
 	case CollisionType::CircleToRay:
 
-		playerRay.t = 250; //the distance of the ray
-		playerRay.p.x = playerBox.getX();
-		playerRay.p.y = playerBox.getY();
-		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+		playerRayCollider.t = 250; //the distance of the ray
+		playerRayCollider.p.x = playerBox.getX();
+		playerRayCollider.p.y = playerBox.getY();
+		playerRayCollider.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
 
 		c2Raycast raycast2;
 		raycast2.n.x = 1; //normal of surface at impact (unit length)
@@ -242,27 +242,27 @@ void Game::update(sf::Time t_deltaTime)
 
 		enemyCircleCollider.p.x = enemyCircle.getPosition().x;
 		enemyCircleCollider.p.y = enemyCircle.getPosition().y;
-		enemyCircleCollider.r = enemyCircle.getRadius();	
+		enemyCircleCollider.r = enemyCircle.getRadius();
 
-		if(c2RaytoCircle(playerRay,enemyCircleCollider,&raycast2))
+		if (c2RaytoCircle(playerRayCollider, enemyCircleCollider, &raycast2))
 		{
-			playerBox.setVelocity({-playerCircle.getVelocity().x,playerCircle.getVelocity().y});
-			enemyCircle.setVelocity({-enemyCircle.getVelocity().x,enemyCircle.getVelocity().y});
+			playerBox.setVelocity({ -playerCircle.getVelocity().x,playerCircle.getVelocity().y });
+			enemyCircle.setVelocity({ -enemyCircle.getVelocity().x,enemyCircle.getVelocity().y });
 		}
 
 		std::cout << "Enemy Circle x: " << enemyCircle.getPosition().x << "\n";
 
 		break;
 	case CollisionType::CircleToCapsule:
-	
+
 		break;
 	case CollisionType::CircleToPolygon:
 
 		playerPolygon.count = 1;
-		playerPolygon.verts[0] = {playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius()}; //above radius so x is same as center point
-		playerPolygon.verts[1] = {playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the left of the centre
-		playerPolygon.verts[2] = {playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the right of the centre
-		playerPolygon.norms[0] = {playerCircle.getPosition().x,playerCircle.getPosition().y};
+		playerPolygon.verts[0] = { playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius() }; //above radius so x is same as center point
+		playerPolygon.verts[1] = { playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the left of the centre
+		playerPolygon.verts[2] = { playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the right of the centre
+		playerPolygon.norms[0] = { playerCircle.getPosition().x,playerCircle.getPosition().y };
 
 		c2r collisionAngles;
 		collisionAngles.c = 1;
@@ -281,54 +281,54 @@ void Game::update(sf::Time t_deltaTime)
 		enemyCircleCollider.r = enemyCircle.getRadius();
 
 
-		if(c2CircletoPoly(enemyCircleCollider,&playerPolygon,&idk))
+		if (c2CircletoPoly(enemyCircleCollider, &playerPolygon, &idk))
 		{
-			playerCircle.setVelocity({-playerCircle.getVelocity().x,playerCircle.getVelocity().y});
-			enemyCircle.setVelocity({-enemyCircle.getVelocity().x,enemyCircle.getVelocity().y});
+			playerCircle.setVelocity({ -playerCircle.getVelocity().x,playerCircle.getVelocity().y });
+			enemyCircle.setVelocity({ -enemyCircle.getVelocity().x,enemyCircle.getVelocity().y });
 		}
 
 
 		break;
 
 	case CollisionType::RayToCapsule:
-		
-		playerRay.t = 250; //the distance of the ray
-		playerRay.p.x = playerBox.getX();
-		playerRay.p.y = playerBox.getY();
-		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
 
-		
+		playerRayCollider.t = 250; //the distance of the ray
+		playerRayCollider.p.x = playerBox.getX();
+		playerRayCollider.p.y = playerBox.getY();
+		playerRayCollider.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+
+
 		raycast3.n.x = 1; //normal of surface at impact (unit length)
 		raycast3.n.y = 1;
 		raycast3.t = 1; //time of impact
 
 		enemyCircleCollider.p.x = enemyCircle.getPosition().x;
 		enemyCircleCollider.p.y = enemyCircle.getPosition().y;
-		enemyCircleCollider.r = enemyCircle.getRadius();	
+		enemyCircleCollider.r = enemyCircle.getRadius();
 
-		if(c2RaytoCapsule(playerRay,enemyCapsule,&raycast3))
+		if (c2RaytoCapsule(playerRayCollider, enemyCapsule, &raycast3))
 		{
-			playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
-			enemyBox.setVelocity({-enemyBox.getVelocity().x,playerBox.getVelocity().y});
+			playerBox.setVelocity({ -playerBox.getVelocity().x,playerBox.getVelocity().y });
+			enemyBox.setVelocity({ -enemyBox.getVelocity().x,playerBox.getVelocity().y });
 			std::cout << "collision";
 		}
 
 		break;
 
 	case CollisionType::RayToPoly:
-	
-		break;	
+
+		break;
 
 	default:
 		break;
 	}
-	
 
-	 //Check collisionh AABB TO POLYGON
-	  
-	
-    playerBox.update();
+
+	//Check collisionh AABB TO POLYGON
+
+
+	playerBox.update();
 	enemyBox.update();
 
 	playerCircle.update();
@@ -356,7 +356,7 @@ void Game::render()
 		break;
 	case CollisionType::AABBToRay:
 		enemyBox.render(m_window);
-		playerBox.render(m_window);
+		playerRayLine->draw(m_window);
 		break;
 	case CollisionType::CircleToAABB:
 		playerCircle.render(m_window);
@@ -384,13 +384,13 @@ void Game::render()
 		break;
 
 	case CollisionType::RayToPoly:
-	
-		break;									
+
+		break;
 	default:
 		break;
 	}
 
-	
+
 	//enemyCircle.render(m_window);
 	//playerCircle.render(m_window);
 
@@ -431,21 +431,21 @@ void Game::setupSprite()
 	playerBox.setVelocity({ 1,0 });
 	enemyBox.setVelocity({ -1,0 });
 	enemyCircle.setVelocity({ 1,0 });
-	playerCircle.setVelocity({-1,0});
+	playerCircle.setVelocity({ -1,0 });
 
+	playerRayLine = new RayLine({ 100.f,100.f }, { 350.f,100.0f });
 
-	
 
 	//if enemy == Circle
-	enemyCircle.setRadius( 50);
+	enemyCircle.setRadius(50);
 
 	enemyBox.setWidth(20);
 	enemyBox.setHeight(40);
-	enemyBox.setSize(20,40);
+	enemyBox.setSize(20, 40);
 
 	playerBox.setWidth(40);
 	playerBox.setHeight(100);
-	playerBox.setSize(40,100);
+	playerBox.setSize(40, 100);
 
 	switch (m_currentCollisionTest)
 	{
@@ -453,79 +453,79 @@ void Game::setupSprite()
 		enemyBox.setPosition({ 600, 100 });
 		playerBox.setPosition({ 100, 100 });
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
-		
 
-		playerCapsule.a = {playerBox.getX(),playerBox.getY()};
-		playerCapsule.b = {playerBox.getX(),playerBox.getY() - playerBox.getHeight()}; //capsule.b is second point which is lower down.
-		playerCapsule.r = playerBox.getWidth();	
+
+		playerCapsule.a = { playerBox.getX(),playerBox.getY() };
+		playerCapsule.b = { playerBox.getX(),playerBox.getY() - playerBox.getHeight() }; //capsule.b is second point which is lower down.
+		playerCapsule.r = playerBox.getWidth();
 		break;
 
 	case CollisionType::AABBToPolygon:
 		playerCircle.setPointCount(3);
 
-		playerCircle.setPosition({600,100});
-		enemyBox.setPosition({100,120});
+		playerCircle.setPosition({ 600,100 });
+		enemyBox.setPosition({ 100,120 });
 
-		enemyBox.setVelocity({1,0});
-		playerCircle.setVelocity({-1,0});
+		enemyBox.setVelocity({ 1,0 });
+		playerCircle.setVelocity({ -1,0 });
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
 		playerPolygon.count = 1;
-		playerPolygon.verts[0] = {playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius()}; //above radius so x is same as center point
-		playerPolygon.verts[1] = {playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the left of the centre
-		playerPolygon.verts[2] = {playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the right of the centre
-		playerPolygon.norms[0] = {playerCircle.getPosition().x,playerCircle.getPosition().y};
+		playerPolygon.verts[0] = { playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius() }; //above radius so x is same as center point
+		playerPolygon.verts[1] = { playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the left of the centre
+		playerPolygon.verts[2] = { playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the right of the centre
+		playerPolygon.norms[0] = { playerCircle.getPosition().x,playerCircle.getPosition().y };
 		break;
 	case CollisionType::AABBToRay:
 		enemyBox.setPosition({ 600, 100 });
-		playerBox.setPosition({ 100, 100 });
 
-	//player will be skinny rectangle that looks like ray
-		playerBox.setWidth(250);
-		playerBox.setHeight(1);
-		playerBox.setSize(250,1);
+		playerRayLine->setPrimitiveType(sf::LinesStrip);
+		playerRayLine->setStartPoint({ 100,100 });
+		playerRayLine->setEndPoint({ 400,100 });
+		playerRayLine->setColor(sf::Color::Black);
 
-		playerRay.t = 250; //the distance of the ray
-		playerRay.p.x = playerBox.getX();
-		playerRay.p.y = playerBox.getY();
-		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		playerRayCollider.t = playerRayLine->getDistance(); //the distance of the ray
+		playerRayCollider.p.x = playerRayLine->getStartPoint().x;
+		playerRayCollider.p.y = playerRayLine->getStartPoint().y;
+		playerRayCollider.d.x = playerRayLine->getDirection().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerRayLine->getDirection().y; //direction vector(normalised) use default velocity for now
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
+
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
 		break;
 	case CollisionType::CircleToAABB:
 
-		playerCircle.setPosition({600,100});
+		playerCircle.setPosition({ 600,100 });
 		enemyBox.setPosition({ 100, 100 });
 
-		playerCircle.setVelocity({-1,0});
-		enemyBox.setVelocity({1,0});
+		playerCircle.setVelocity({ -1,0 });
+		enemyBox.setVelocity({ 1,0 });
 
 		enemyBox.setWidth(20);
 		enemyBox.setHeight(40);
-		enemyBox.setSize(20,40);
+		enemyBox.setSize(20, 40);
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
-		enemyAABB.min = {enemyBox.getX(),enemyBox.getY()};
-		enemyAABB.max = {enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY()};
+		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
+		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
 		playerCircle.setRadius(50);
 
@@ -537,11 +537,11 @@ void Game::setupSprite()
 
 		break;
 	case CollisionType::CircleToCircle:
-		playerCircle.setPosition({600,100});
-		enemyCircle.setPosition({100,100});
+		playerCircle.setPosition({ 600,100 });
+		enemyCircle.setPosition({ 100,100 });
 
-		playerCircle.setVelocity({-1,0});
-		enemyCircle.setVelocity({1,0});
+		playerCircle.setVelocity({ -1,0 });
+		enemyCircle.setVelocity({ 1,0 });
 
 		playerCircle.setRadius(50);
 		enemyCircle.setRadius(50);
@@ -558,52 +558,52 @@ void Game::setupSprite()
 		break;
 	case CollisionType::CircleToRay:
 		playerBox.setPosition({ 100, 120 });
-		enemyCircle.setPosition({600,100});
+		enemyCircle.setPosition({ 600,100 });
 
-		playerBox.setVelocity({1,0});
-		enemyCircle.setVelocity({-1,0});
+		playerBox.setVelocity({ 1,0 });
+		enemyCircle.setVelocity({ -1,0 });
 
-	//player will be skinny rectangle that looks like ray
+		//player will be skinny rectangle that looks like ray
 		playerBox.setWidth(250);
 		playerBox.setHeight(1);
-		playerBox.setSize(250,1);
+		playerBox.setSize(250, 1);
 
 		enemyCircle.setRadius(50);
 
-		playerRay.t = 250; //the distance of the ray
-		playerRay.p.x = playerBox.getX();
-		playerRay.p.y = playerBox.getY();
-		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+		playerRayCollider.t = 250; //the distance of the ray
+		playerRayCollider.p.x = playerBox.getX();
+		playerRayCollider.p.y = playerBox.getY();
+		playerRayCollider.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
 
 
 		enemyCircleCollider.p.x = enemyCircle.getPosition().x;
 		enemyCircleCollider.p.y = enemyCircle.getPosition().y;
-		enemyCircleCollider.r = enemyCircle.getRadius();		
-		
+		enemyCircleCollider.r = enemyCircle.getRadius();
+
 
 
 
 		break;
 	case CollisionType::CircleToCapsule:
-	
+
 		break;
 	case CollisionType::CircleToPolygon:
-	
+
 		playerCircle.setPointCount(3);
 		//enemy circle is a full circle
 
-		playerCircle.setPosition({600,100});
-		enemyCircle.setPosition({100,120});
+		playerCircle.setPosition({ 600,100 });
+		enemyCircle.setPosition({ 100,120 });
 
-		enemyCircle.setVelocity({1,0});
-		playerCircle.setVelocity({-1,0});
+		enemyCircle.setVelocity({ 1,0 });
+		playerCircle.setVelocity({ -1,0 });
 
 		playerPolygon.count = 1;
-		playerPolygon.verts[0] = {playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius()}; //above radius so x is same as center point
-		playerPolygon.verts[1] = {playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the left of the centre
-		playerPolygon.verts[2] = {playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius()}; //to the right of the centre
-		playerPolygon.norms[0] = {playerCircle.getPosition().x,playerCircle.getPosition().y};
+		playerPolygon.verts[0] = { playerCircle.getPosition().x, playerCircle.getPosition().y - playerCircle.getRadius() }; //above radius so x is same as center point
+		playerPolygon.verts[1] = { playerCircle.getPosition().x - playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the left of the centre
+		playerPolygon.verts[2] = { playerCircle.getPosition().x + playerCircle.getRadius(), playerCircle.getPosition().y + playerCircle.getRadius() }; //to the right of the centre
+		playerPolygon.norms[0] = { playerCircle.getPosition().x,playerCircle.getPosition().y };
 
 		enemyCircleCollider.p.x = enemyCircle.getPosition().x;
 		enemyCircleCollider.p.y = enemyCircle.getPosition().y;
@@ -613,41 +613,41 @@ void Game::setupSprite()
 
 	case CollisionType::RayToCapsule:
 		playerBox.setPosition({ 100, 120 });
-		enemyBox.setPosition({600,100});
+		enemyBox.setPosition({ 600,100 });
 
-		playerBox.setVelocity({1,0});
-		enemyBox.setVelocity({-1,0});
+		playerBox.setVelocity({ 1,0 });
+		enemyBox.setVelocity({ -1,0 });
 		//player will be skinny rectangle that looks like ray
 		playerBox.setWidth(250);
 		playerBox.setHeight(1);
-		playerBox.setSize(250,1);
+		playerBox.setSize(250, 1);
 
 		enemyBox.setWidth(30);
 		enemyBox.setHeight(60);
-		enemyBox.setSize(30,60);
+		enemyBox.setSize(30, 60);
 
 
-		playerRay.t = 250; //the distance of the ray
-		playerRay.p.x = playerBox.getX();
-		playerRay.p.y = playerBox.getY();
-		playerRay.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRay.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+		playerRayCollider.t = 250; //the distance of the ray
+		playerRayCollider.p.x = playerBox.getX();
+		playerRayCollider.p.y = playerBox.getY();
+		playerRayCollider.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
 
 		c2Raycast raycast3;
 		raycast3.n.x = 1; //normal of surface at impact (unit length)
 		raycast3.n.y = 1;
 		raycast3.t = 1; //time of impact
 
-		enemyCapsule.a = {playerBox.getX(),playerBox.getY()};
-		enemyCapsule.b = {playerBox.getX(),playerBox.getY() - playerBox.getHeight()}; //capsule.b is second point which is lower down.
-		enemyCapsule.r = playerBox.getWidth();	
+		enemyCapsule.a = { playerBox.getX(),playerBox.getY() };
+		enemyCapsule.b = { playerBox.getX(),playerBox.getY() - playerBox.getHeight() }; //capsule.b is second point which is lower down.
+		enemyCapsule.r = playerBox.getWidth();
 		break;
 
 		break;
 
 	case CollisionType::RayToPoly:
-		
-		break;									
+
+		break;
 	default:
 		break;
 	}
