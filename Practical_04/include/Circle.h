@@ -15,8 +15,9 @@ public:
 	float getRadius(){return radius;}
 	sf::Vector2f getPosition(){return m_position;}
 
-	void setRadius(float t_radius){circleShape.setRadius(t_radius);}
+	void setRadius(float t_radius){circleShape.setRadius(t_radius); radius = t_radius;}
 	void setPointCount(int t_points){circleShape.setPointCount(t_points);}
+	sf::CircleShape returnShape(){return circleShape;}
 
 
 	void update();
@@ -36,6 +37,6 @@ private:
 	float radius{ 50 };
 	sf::CircleShape circleShape;
 	sf::Vector2f m_position{ 0.0f,0.0f };
-	sf::Vector2f m_velocityVector{ 2,2 };
+	sf::Vector2f m_velocityVector{ 0,0 };
 
 };

@@ -14,9 +14,7 @@ enum class CollisionType
  	CircleToRay,
  	CircleToCapsule,
  	CircleToPolygon,
- 	RayToAABB,
  	RayToCapsule,
-	RayToCircle,
  	RayToPoly
 };
 
@@ -44,7 +42,7 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
-	CollisionType m_currentCollisionTest = CollisionType::AABBToPolygon; //Defaulted to first test
+	CollisionType m_currentCollisionTest = CollisionType::CircleToPolygon; //Defaulted to first test
 
 	Box playerBox;
 	Circle playerCircle;
@@ -54,8 +52,13 @@ private:
 
 	c2AABB enemyAABB;
 	c2Capsule playerCapsule;
+	c2Capsule enemyCapsule;
 	c2Poly playerPolygon;
 	c2Ray playerRay;
+	c2Circle playerCircleCollider;
+	c2Circle enemyCircleCollider;
+
+	c2Raycast raycast3;
 
 	//Tetsing shapes
 
