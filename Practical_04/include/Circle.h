@@ -40,3 +40,4 @@ private:
 	sf::Vector2f m_velocityVector{ 0,0 };
 
 };
+

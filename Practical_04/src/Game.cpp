@@ -255,6 +255,21 @@ void Game::update(sf::Time t_deltaTime)
 		break;
 	case CollisionType::CircleToCapsule:
 
+		playerCircleCollider.p.x = enemyCircle.getPosition().x;
+		playerCircleCollider.p.y = enemyCircle.getPosition().y;
+		playerCircleCollider.r = enemyCircle.getRadius();
+
+		enemyCapsule.a = { enemyBox.getX(),enemyBox.getY() };
+		enemyCapsule.b = { enemyBox.getX(),enemyBox.getY() - enemyBox.getHeight() }; //capsule.b is second point which is lower down.
+		enemyCapsule.r = enemyBox.getWidth();
+
+		std::cout << "check";
+
+		if(c2CircletoCapsule(playerCircleCollider,enemyCapsule))
+		{
+			std::cout << "Collision";
+		}
+
 		break;
 	case CollisionType::CircleToPolygon:
 
@@ -416,7 +431,8 @@ void Game::render()
 		enemyCircle.render(m_window);
 		break;
 	case CollisionType::CircleToCapsule:
-
+		playerCircle.render(m_window);
+		enemyBox.render(m_window);
 		break;
 	case CollisionType::CircleToPolygon:
 		enemyCircle.render(m_window);
@@ -632,6 +648,30 @@ void Game::setupSprite()
 
 		break;
 	case CollisionType::CircleToCapsule:
+		//since i cant get this to work ima pretend a circle is a polygon
+
+		//enemy circle is a full circle
+		enemyBox.setPosition({100,100});
+		enemyBox.setVelocity({1,0});
+		
+		enemyBox.setWidth(30);
+		enemyBox.setHeight(60);
+		enemyBox.setSize(30, 60);
+
+
+		playerCircle.setPosition({600,100});
+		playerCircle.setVelocity({-1,0});
+
+
+		playerCircleCollider.p.x = enemyCircle.getPosition().x;
+		playerCircleCollider.p.y = enemyCircle.getPosition().y;
+		playerCircleCollider.r = enemyCircle.getRadius();
+
+		enemyCapsule.a = { enemyBox.getX(),enemyBox.getY() };
+		enemyCapsule.b = { enemyBox.getX(),enemyBox.getY() - enemyBox.getHeight() }; //capsule.b is second point which is lower down.
+		enemyCapsule.r = enemyBox.getWidth();
+
+		
 
 		break;
 	case CollisionType::CircleToPolygon:
