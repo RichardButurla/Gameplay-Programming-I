@@ -21,6 +21,7 @@ public:
 	void setWidth(float t_width) { width = t_width; }
 	void setHeight(float t_height) { height = t_height; }
 	void setSize(float t_width, float t_height) { m_rectangleShape.setSize({ t_width,t_height }); }
+	void setColor(sf::Color t_color) { m_rectangleShape.setFillColor(t_color);}
 
 
 	void update();
@@ -51,6 +52,7 @@ public:
 	RayLine();
 
 	void draw(sf::RenderWindow& t_window);
+	sf::Vector2f getEndPoint() const;
 	sf::Vector2f getStartPoint() const;
 	sf::Vector2f getDirection() const;
 	float getDistance()const;
@@ -66,3 +68,30 @@ private:
 
 
 };
+
+class Polygon
+{
+public:
+
+	Polygon() = default;
+	Polygon(sf::Vector2f t_position, sf::Vector2f t_size);
+	void draw(sf::RenderWindow& t_window);
+	void update();
+	void setPrimitiveType(sf::PrimitiveType t_type) { m_polygonPoints.setPrimitiveType(t_type); }
+	sf::Vector2f getCenterPos(){return m_centerPoint;}
+	sf::Vector2f getPointPosition(int t_pointIndex);
+	void setColor(sf::Color t_color);
+
+private:
+	sf::Color m_color;
+	sf::Vector2f m_centerPoint = {0,0};
+	sf::Vector2f m_velocity{-1,0};
+	sf::VertexArray m_polygonPoints; //we will only making a triangle polygon for now
+	sf::Vector2f m_pointPositions[3]; //same here
+
+
+
+};
+
+
+

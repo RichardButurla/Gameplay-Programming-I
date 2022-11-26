@@ -291,21 +291,25 @@ void Game::update(sf::Time t_deltaTime)
 		break;
 
 	case CollisionType::RayToCapsule:
+		playerRayLine->setPrimitiveType(sf::LinesStrip);
+		playerRayLine->setStartPoint({ 100,100 });
+		playerRayLine->setEndPoint({ 400,100 });
+		playerRayLine->setColor(sf::Color::Black);
 
-		playerRayCollider.t = 250; //the distance of the ray
-		playerRayCollider.p.x = playerBox.getX();
-		playerRayCollider.p.y = playerBox.getY();
-		playerRayCollider.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRayCollider.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+		playerRayCollider.t = playerRayLine->getDistance(); //the distance of the ray
+		playerRayCollider.p.x = playerRayLine->getStartPoint().x;
+		playerRayCollider.p.y = playerRayLine->getStartPoint().y;
+		playerRayCollider.d.x = playerRayLine->getDirection().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerRayLine->getDirection().y; //direction vector(normalised) use default velocity for now
 
-
+		c2Raycast raycast3;
 		raycast3.n.x = 1; //normal of surface at impact (unit length)
 		raycast3.n.y = 1;
 		raycast3.t = 1; //time of impact
 
-		enemyCircleCollider.p.x = enemyCircle.getPosition().x;
-		enemyCircleCollider.p.y = enemyCircle.getPosition().y;
-		enemyCircleCollider.r = enemyCircle.getRadius();
+		enemyCapsule.a = { enemyBox.getX(),enemyBox.getY() };
+		enemyCapsule.b = { enemyBox.getX(),enemyBox.getY() - enemyBox.getHeight() }; //capsule.b is second point which is lower down.
+		enemyCapsule.r = enemyBox.getWidth() / 2;
 
 		if (c2RaytoCapsule(playerRayCollider, enemyCapsule, &raycast3))
 		{
@@ -317,6 +321,45 @@ void Game::update(sf::Time t_deltaTime)
 		break;
 
 	case CollisionType::RayToPoly:
+
+		playerRayCollider.t = playerRayLine->getDistance(); //the distance of the ray
+		playerRayCollider.p.x = playerRayLine->getStartPoint().x;
+		playerRayCollider.p.y = playerRayLine->getStartPoint().y;
+		playerRayCollider.d.x = playerRayLine->getDirection().x; //direction vector(normalised)
+		playerRayCollider.d.y = playerRayLine->getDirection().y; //direction vector(normalised) 
+
+		c2Raycast raycast4;
+		raycast4.n.x = 1; //normal of surface at impact (unit length)
+		raycast4.n.y = 1;
+		raycast4.t = 1; //time of impact
+
+		enemyPolyCollider.count = 3;
+		for (int i = 0; i < 3; i++)
+		{
+			enemyPolyCollider.norms[i].x = 1;//there is only one normal on out 2d triangle;
+			enemyPolyCollider.norms[i].x = 1;//there is only one normal on out 2d triangle;
+
+			enemyPolyCollider.verts[i].x = enemyPolygonShape->getPointPosition(i).x;
+			enemyPolyCollider.verts[i].y = enemyPolygonShape->getPointPosition(i).y;
+		}
+
+		//Dont ask, dont know
+		c2r rotation;
+		rotation.c = -0.95 + (enemyPolygonShape->getCenterPos().x - playerRayLine->getEndPoint().x) / 1000; //every 1xPos unit == 0.001 cos
+		rotation.s = 0;
+
+		c2v transfromPos;
+		transfromPos.x = enemyPolygonShape->getCenterPos().x;
+		transfromPos.y = enemyPolygonShape->getCenterPos().y;
+
+		c2x transform;
+		transform.p = transfromPos;
+		transform.r = rotation;
+
+		if(c2RaytoPoly(playerRayCollider,&enemyPolyCollider,&transform,&raycast4))
+		{
+			std::cout << "Collision";
+		}
 
 		break;
 
@@ -333,6 +376,8 @@ void Game::update(sf::Time t_deltaTime)
 
 	playerCircle.update();
 	enemyCircle.update();
+
+	enemyPolygonShape->update();
 
 }
 
@@ -379,12 +424,13 @@ void Game::render()
 		break;
 
 	case CollisionType::RayToCapsule:
-		playerBox.render(m_window);
+		playerRayLine->draw(m_window);
 		enemyBox.render(m_window);
 		break;
 
 	case CollisionType::RayToPoly:
-
+		playerRayLine->draw(m_window);
+		enemyPolygonShape->draw(m_window);
 		break;
 	default:
 		break;
@@ -612,42 +658,80 @@ void Game::setupSprite()
 		break;
 
 	case CollisionType::RayToCapsule:
-		playerBox.setPosition({ 100, 120 });
 		enemyBox.setPosition({ 600,100 });
-
-		playerBox.setVelocity({ 1,0 });
 		enemyBox.setVelocity({ -1,0 });
-		//player will be skinny rectangle that looks like ray
-		playerBox.setWidth(250);
-		playerBox.setHeight(1);
-		playerBox.setSize(250, 1);
 
 		enemyBox.setWidth(30);
 		enemyBox.setHeight(60);
 		enemyBox.setSize(30, 60);
 
+		enemyBox.setColor(sf::Color::Red);
 
-		playerRayCollider.t = 250; //the distance of the ray
-		playerRayCollider.p.x = playerBox.getX();
-		playerRayCollider.p.y = playerBox.getY();
-		playerRayCollider.d.x = playerBox.getVelocity().x; //direction vector(normalised) use default velocity for now
-		playerRayCollider.d.y = playerBox.getVelocity().y; //direction vector(normalised) use default velocity for now
+		playerRayLine->setPrimitiveType(sf::LinesStrip);
+		playerRayLine->setStartPoint({ 100,100 });
+		playerRayLine->setEndPoint({ 400,100 });
+		playerRayLine->setColor(sf::Color::Black);
+
+		playerRayCollider.t = playerRayLine->getDistance(); //the distance of the ray
+		playerRayCollider.p.x = playerRayLine->getStartPoint().x;
+		playerRayCollider.p.y = playerRayLine->getStartPoint().y;
+		playerRayCollider.d.x = playerRayLine->getDirection().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerRayLine->getDirection().y; //direction vector(normalised) use default velocity for now
 
 		c2Raycast raycast3;
 		raycast3.n.x = 1; //normal of surface at impact (unit length)
 		raycast3.n.y = 1;
 		raycast3.t = 1; //time of impact
 
-		enemyCapsule.a = { playerBox.getX(),playerBox.getY() };
-		enemyCapsule.b = { playerBox.getX(),playerBox.getY() - playerBox.getHeight() }; //capsule.b is second point which is lower down.
-		enemyCapsule.r = playerBox.getWidth();
+		enemyCapsule.a = { enemyBox.getX(),enemyBox.getY() };
+		enemyCapsule.b = { enemyBox.getX(),enemyBox.getY() - enemyBox.getHeight() }; //capsule.b is second point which is lower down.
+		enemyCapsule.r = enemyBox.getWidth();
+		
 		break;
 
 		break;
 
 	case CollisionType::RayToPoly:
+	{
 
+		playerRayLine->setPrimitiveType(sf::LinesStrip);
+		playerRayLine->setStartPoint({ 100,100 });
+		playerRayLine->setEndPoint({ 400,100 });
+		playerRayLine->setColor(sf::Color::Black);
+
+		playerRayCollider.t = playerRayLine->getDistance(); //the distance of the ray
+		playerRayCollider.p.x = playerRayLine->getStartPoint().x;
+		playerRayCollider.p.y = playerRayLine->getStartPoint().y;
+		playerRayCollider.d.x = playerRayLine->getDirection().x; //direction vector(normalised) use default velocity for now
+		playerRayCollider.d.y = playerRayLine->getDirection().y; //direction vector(normalised) use default velocity for now
+
+		c2Raycast raycast4;
+		raycast4.n.x = 1; //normal of surface at impact (unit length)
+		raycast4.n.y = 1;
+		raycast4.t = 1; //time of impact
+
+		//Polygon using vertewx array;
+		sf::Vector2f pos = {1000,60};
+		sf::Vector2f size = {75,75};
+
+		enemyPolygonShape = new Polygon(pos , size);
+		enemyPolygonShape->setColor(sf::Color::Blue);
+		enemyPolygonShape->setPrimitiveType(sf::Triangles);
+
+		enemyPolyCollider.count = 3;
+
+		for (int i = 0; i < 3; i++)
+		{
+			enemyPolyCollider.norms[i].x = 1;//there is only one normal on out 2d triangle;
+			enemyPolyCollider.norms[i].x = 2;//there is only one normal on out 2d triangle;
+
+			enemyPolyCollider.verts[i].x = enemyPolygonShape->getPointPosition(i).x;
+			enemyPolyCollider.verts[i].y = enemyPolygonShape->getPointPosition(i).y;
+		}
+
+	}
 		break;
+
 	default:
 		break;
 	}

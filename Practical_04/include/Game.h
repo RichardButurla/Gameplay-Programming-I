@@ -42,11 +42,13 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
-	CollisionType m_currentCollisionTest = CollisionType::AABBToRay; //Defaulted to first test
+	CollisionType m_currentCollisionTest = CollisionType::RayToPoly; //Defaulted to first test
 
 	Box playerBox;
 	Circle playerCircle;
+
 	RayLine* playerRayLine;
+	Polygon* enemyPolygonShape;
 
 	Box enemyBox;
 	Circle enemyCircle;
@@ -58,6 +60,8 @@ private:
 	c2Ray playerRayCollider;
 	c2Circle playerCircleCollider;
 	c2Circle enemyCircleCollider;
+
+	c2Poly enemyPolyCollider;
 
 	c2Raycast raycast3;
 

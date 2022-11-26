@@ -78,6 +78,11 @@ sf::Vector2f RayLine::getStartPoint() const
     return m_points[0];
 }
 
+sf::Vector2f RayLine::getEndPoint() const
+{
+    return m_points[1];
+}
+
 sf::Vector2f RayLine::getDirection() const
 {
     const sf::Vector2f distanceVector = m_points[1] - m_points[0];
@@ -119,4 +124,47 @@ void RayLine::setEndPoint(sf::Vector2f t_position)
     m_line.append({ m_points[1], rayColor });
 }
 
+
+Polygon::Polygon(sf::Vector2f t_position, sf::Vector2f t_size) : m_pointPositions{
+        {t_position.x + (t_size.x / 2.0f), t_position.y},
+        {t_position.x + t_size.x, t_position.y + t_size.y},
+        {t_position.x, t_position.y + t_size.y}}, m_centerPoint(t_position)
+{
+    m_polygonPoints.append({ {m_pointPositions[0]}, sf::Color::Black });
+    m_polygonPoints.append({ {m_pointPositions[1]}, sf::Color::Black });
+    m_polygonPoints.append({ {m_pointPositions[2]}, sf::Color::Black });
+}
+
+void Polygon::update()
+{
+    m_pointPositions[0] += m_velocity;
+    m_pointPositions[1] += m_velocity;
+    m_pointPositions[2] += m_velocity;
+
+    m_polygonPoints.clear();
+    for (int i = 0; i < 3; i++)
+    {
+        m_polygonPoints.append({ m_pointPositions[i], m_color });
+    }
+}
+
+void Polygon::draw(sf::RenderWindow& t_window)
+{
+    t_window.draw(m_polygonPoints);
+}
+
+sf::Vector2f Polygon::getPointPosition(int t_pointIndex)
+{
+    return m_pointPositions[t_pointIndex];
+}
+
+void Polygon::setColor(sf::Color t_color)
+{
+    m_color = t_color;
+    m_polygonPoints.clear();
+    for (int i = 0; i < 3; i++)
+    {
+        m_polygonPoints.append({ m_pointPositions[i], m_color });
+    }
+}
 
