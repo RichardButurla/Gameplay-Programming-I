@@ -20,16 +20,10 @@ PlayerState* JumpThrowAttackPlayerState::handleInput(gpp::Events& input)
 		DEBUG_MSG("JumpThrowAttackPlayerState -> GlidePlayerState");
 		return new GlideRunningRightPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::THROW_STOP_EVENT)
-	{
-		DEBUG_MSG("JumpThrowAttackPlayerState -> GlidePlayerState");
-		return new GlidePlayerState();
-	}
-	
 	return nullptr;
 }
 void JumpThrowAttackPlayerState::update(Player& player) {
-	DEBUG_MSG("JumpThrowAttackPlayerState -> IdlePlayerState");
+	DEBUG_MSG("JumpThrowAttackPlayerState -> GlidePlayerState");
 	if (m_clock.getElapsedTime().asSeconds() > 0.3f) {
 		PlayerState* temp = player.getPlayerState();
 		PlayerState* state = new GlidePlayerState();
