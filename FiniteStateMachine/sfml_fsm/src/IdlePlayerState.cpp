@@ -10,6 +10,7 @@
 #include <JumpPlayerState.h>
 #include <DiedPlayerState.h>
 #include <ShovelPlayerState.h>
+#include <HammeringPlayerState.h>
 
 
 PlayerState* IdlePlayerState::handleInput(gpp::Events& input) {
@@ -50,7 +51,7 @@ PlayerState* IdlePlayerState::handleInput(gpp::Events& input) {
 	}
 	else if (input.getCurrent() == gpp::Events::Event::HAMMERING_START_EVENT) {
 		DEBUG_MSG("IdlePlayerState -> HammeringPlayerState");
-		return new ShovelPlayerState();
+		return new HammeringPlayerState();
 	}
 	return nullptr;
 }
