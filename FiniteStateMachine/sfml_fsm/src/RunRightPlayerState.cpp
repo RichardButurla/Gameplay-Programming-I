@@ -10,6 +10,7 @@
 #include <JumpPlayerState.h>
 #include <DiedPlayerState.h>
 #include <SlidePlayerState.h>
+#include <JumpRunningRightPlayerState.h>
 
 PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 {
@@ -38,8 +39,12 @@ PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 		DEBUG_MSG("RunRightPlayerState -> DecendLadderPlayerState");
 		return new DecendLadderPlayerState();
 	}
+	else if (input.getCurrent() == gpp::Events::Event::JUMP_UP_RUN_RIGHT_EVENT) {
+		DEBUG_MSG("RunRightPlayerState -> JumpRunRightPlayerState");
+		return new JumpRunningRightPlayerState();
+	}
 	else if (input.getCurrent() == gpp::Events::Event::JUMP_UP_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> JumpPlayerState");
+		DEBUG_MSG("RunRightPlayerState -> JumpPlayerState");
 		return new JumpPlayerState();
 	}
 	else if (input.getCurrent() == gpp::Events::Event::SLIDE_EVENT) {

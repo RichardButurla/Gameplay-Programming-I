@@ -127,7 +127,7 @@ int main()
 					 sf::Keyboard::isKeyPressed(sf::Keyboard::Space)))
 				{
 					DEBUG_MSG("gpp::Events::Event::JUMP_UP_EVENT");
-					input.setCurrent(gpp::Events::Event::JUMP_UP_EVENT);
+					input.setCurrent(gpp::Events::Event::JUMP_UP_RUN_RIGHT_EVENT);
 				}
 				// Jump Event
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))

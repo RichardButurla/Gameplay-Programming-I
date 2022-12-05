@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "{ \"typescript.suggest.paths\": false }": "",
+        "system_error": "cpp"
+    }
+}
