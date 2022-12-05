@@ -172,6 +172,12 @@ int main()
 					input.setCurrent(gpp::Events::Event::SHOVEL_START_EVENT);
 				}
 				//Shovelling Event
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+				{
+					DEBUG_MSG("gpp::Events::Event::HAMMERING_START_EVENT");
+					input.setCurrent(gpp::Events::Event::HAMMERING_END_EVENT);
+				}
+				//Shovelling Event
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 				{
 					DEBUG_MSG("Hammering");
@@ -206,6 +212,11 @@ int main()
 				{
 					DEBUG_MSG("gpp::Events::Event::THROW_STOP_EVENT");
 					input.setCurrent(gpp::Events::Event::THROW_STOP_EVENT);
+				}
+				else if (event.key.code == sf::Keyboard::J)
+				{
+					DEBUG_MSG("gpp::Events::Event::HAMMERING_END_EVENT");
+					input.setCurrent(gpp::Events::Event::HAMMERING_END_EVENT);
 				}
 				// Stop Running Right
 				else if (event.key.code == sf::Keyboard::Right)

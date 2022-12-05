@@ -48,6 +48,10 @@ PlayerState* IdlePlayerState::handleInput(gpp::Events& input) {
 		DEBUG_MSG("IdlePlayerState -> ShovelPlayerState");
 		return new ShovelPlayerState();
 	}
+	else if (input.getCurrent() == gpp::Events::Event::HAMMERING_START_EVENT) {
+		DEBUG_MSG("IdlePlayerState -> HammeringPlayerState");
+		return new ShovelPlayerState();
+	}
 	return nullptr;
 }
 
