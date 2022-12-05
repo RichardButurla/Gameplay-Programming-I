@@ -42,7 +42,7 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
-	CollisionType m_currentCollisionTest = CollisionType::CircleToCapsule; //Defaulted to first test
+	CollisionType m_currentCollisionTest = CollisionType::RayToCapsule; //Defaulted to first test
 
 	Box playerBox;
 	Circle playerCircle;

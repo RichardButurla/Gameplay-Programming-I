@@ -139,23 +139,23 @@ void Game::update(sf::Time t_deltaTime)
 		enemyAABB.min = { enemyBox.getX(),enemyBox.getY() };
 		enemyAABB.max = { enemyBox.getX() + enemyBox.getWidth(),enemyBox.getY() + enemyBox.getY() };
 
-		// c2r collisionAngles;
-		// collisionAngles.c = 1;
-		// collisionAngles.s = 0;
+		//  c2r collisionAngles;
+		//  collisionAngles.c = 1;
+		//  collisionAngles.s = 0;
 
-		// c2v collisionCheckPoint;
-		// collisionCheckPoint.x = playerCircle.getX();
-		// collisionCheckPoint.y = playerCircle.getY();
+		//  c2v collisionCheckPoint;
+		//  collisionCheckPoint.x = playerCircle.getX();
+		//  collisionCheckPoint.y = playerCircle.getY();
 
-		// c2x idk;
-		// idk.p = collisionCheckPoint;
-		// idk.r = collisionAngles;
+		//  c2x idk;
+		//  idk.p = collisionCheckPoint;
+		//  idk.r = collisionAngles;
 
-		// if(c2AABBtoPoly(enemyAABB,&playerPolygon,&idk))
-		// {
-		// 	playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
-		// 	enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
-		// }
+		//  if(c2AABBtoPoly(enemyAABB,&playerPolygon,&idk))
+		//  {
+		//  	playerBox.setVelocity({-playerBox.getVelocity().x,playerBox.getVelocity().y});
+		//  	enemyBox.setVelocity({-enemyBox.getVelocity().x,enemyBox.getVelocity().y});
+		//  }
 
 
 
@@ -263,7 +263,7 @@ void Game::update(sf::Time t_deltaTime)
 		enemyCapsule.b = { enemyBox.getX(),enemyBox.getY() - enemyBox.getHeight() }; //capsule.b is second point which is lower down.
 		enemyCapsule.r = enemyBox.getWidth();
 
-		std::cout << "check";
+		
 
 		if(c2CircletoCapsule(playerCircleCollider,enemyCapsule))
 		{
@@ -392,7 +392,7 @@ void Game::update(sf::Time t_deltaTime)
 	playerCircle.update();
 	enemyCircle.update();
 
-	enemyPolygonShape->update();
+	//enemyPolygonShape->update();
 
 }
 
