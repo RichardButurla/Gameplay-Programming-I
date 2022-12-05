@@ -4,6 +4,7 @@
 
 #include <DiedPlayerState.h>
 #include <IdlePlayerState.h>
+#include <RunRightPlayerState.h>
 
 PlayerState* GlidePlayerState::handleInput(gpp::Events& input)
 {
@@ -20,7 +21,7 @@ PlayerState* GlidePlayerState::handleInput(gpp::Events& input)
 	return nullptr;
 }
 void GlidePlayerState::update(Player& player) {
-	DEBUG_MSG("GlidePlayerState -> IdlePlayerState");
+	DEBUG_MSG("GlidePlayerState -> RunRightPlayerState");
 	if (m_clock.getElapsedTime().asSeconds() > 1.2f) {
 		PlayerState* temp = player.getPlayerState();
 		PlayerState* state = new IdlePlayerState();
@@ -51,6 +52,6 @@ void GlidePlayerState::enter(Player& player)
 }
 void GlidePlayerState::exit(Player& player)
 {
-	DEBUG_MSG("Exiting RevivedPlayerState");
+	DEBUG_MSG("Exiting GlidePlayerState");
 	DEBUG_MSG(typeid(player).name());
 }

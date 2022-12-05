@@ -1,10 +1,9 @@
-#ifndef JUMP_ATTACK_PLAYER_STATE_H
-#define JUMP_ATTACK_PLAYER_STATE_H
+#pragma once
 
 #include <Player.h>
 #include <PlayerState.h>
 
-class JumpAttackPlayerState : public PlayerState {
+class RunningJumpAttack : public PlayerState {
 public:
 	virtual PlayerState* handleInput(gpp::Events& input);
 	virtual void update(Player&);
@@ -13,5 +12,3 @@ public:
 private:
 	sf::Clock m_clock;
 };
-
-#endif

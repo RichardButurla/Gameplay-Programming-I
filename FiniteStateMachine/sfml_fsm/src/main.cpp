@@ -31,7 +31,7 @@ int main()
 	Player npc(player_animated_sprite);
 
 	gpp::Events input;
-	gpp::Events ai;
+	//gpp::Events ai;
 
 	// Start the game loop
 	while (window.isOpen())
@@ -62,12 +62,12 @@ int main()
 				}
 				// Running attack
 				else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
-						  sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) ||
-						 (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) &&
-						  sf::Keyboard::isKeyPressed(sf::Keyboard::Z)))
+						  sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) ||
+						 (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) &&
+						  sf::Keyboard::isKeyPressed(sf::Keyboard::Space)))
 				{
 					DEBUG_MSG("gpp::Events::Event::ATTACK_START");
-					input.setCurrent(gpp::Events::Event::ATTACK_START_EVENT);
+					input.setCurrent(gpp::Events::Event::JUMP_ATTACK_EVENT);
 				}
 				// Attack
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
@@ -254,7 +254,7 @@ int main()
 		}
 
 		// Update AI
-		ai.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+		//ai.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
 		//npc.handleInput(ai);
 
 		// Update the Player

@@ -7,6 +7,8 @@
 #include <JumpThrowAttackPlayerState.h>
 #include <GlideRunningRightPlayerState.h>
 #include <RunRightPlayerState.h>
+#include <RunningJumpThrowPlayerState.h>
+#include <RunningJumpAttack.h>
 
 PlayerState* JumpRunningRightPlayerState::handleInput(gpp::Events& input)
 {
@@ -17,12 +19,12 @@ PlayerState* JumpRunningRightPlayerState::handleInput(gpp::Events& input)
 	else if (input.getCurrent() == gpp::Events::Event::ATTACK_START_EVENT)
 	{
 		DEBUG_MSG("JumpRunningRightPlayerState -> JumpAttackPlayerState");
-		return new JumpAttackPlayerState();
+		return new RunningJumpAttack();
 	}
 	else if (input.getCurrent() == gpp::Events::Event::THROW_START_EVENT)
 	{
-		DEBUG_MSG("JumpRunningRightPlayerState -> JumpThrowAttackPlayerState");
-		return new JumpThrowAttackPlayerState();
+		DEBUG_MSG("JumpRunningRightPlayerState -> RunningJumpThrowPlayerState");
+		return new RunningJumpThrowPlayerState();
 	}
 	return nullptr;
 }

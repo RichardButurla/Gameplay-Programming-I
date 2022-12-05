@@ -1,36 +1,43 @@
 #include <Events.h>
 
-#include <JumpAttackPlayerState.h>
+#include <RunningJumpAttack.h>
 
+#include <DiedPlayerState.h>
+#include <JumpAttackPlayerState.h>
+#include <RunningJumpThrowPlayerState.h>
+#include <GlideRunningRightPlayerState.h>
 #include <RunRightPlayerState.h>
 #include <GlidePlayerState.h>
-#include <DiedPlayerState.h>
 
-PlayerState* JumpAttackPlayerState::handleInput(gpp::Events& input)
+PlayerState* RunningJumpAttack::handleInput(gpp::Events& input)
 {
 	if (input.getCurrent() == gpp::Events::Event::DIED_EVENT) {
-		DEBUG_MSG("JumpAttackPlayerState -> DiedPlayerState");
+		DEBUG_MSG("RunningJumpAttack -> DiedPlayerState");
 		return new DiedPlayerState();
 	}
+	else if (input.getCurrent() == gpp::Events::Event::THROW_STOP_EVENT)
+	{
+		DEBUG_MSG("RunningJumpAttack -> GlidePlayerState");
+		return new GlidePlayerState();
+	}
+	
 	return nullptr;
 }
-void JumpAttackPlayerState::update(Player& player) {
-	DEBUG_MSG("JumpAttackPlayerState::update");
-
-	DEBUG_MSG("JumpThrowAttackPlayerState -> GlidePlayerState");
-	if (m_clock.getElapsedTime().asSeconds() > 0.3f) {
+void RunningJumpAttack::update(Player& player) {
+	
+    DEBUG_MSG("RunningJumpAttack -> GlideRunningRightPlayerState");
+	if (m_clock.getElapsedTime().asSeconds() > 0.6f) {
 		PlayerState* temp = player.getPlayerState();
-		PlayerState* state = new GlidePlayerState();
+		PlayerState* state = new GlideRunningRightPlayerState();
 		player.getPlayerState()->exit(player);
 		player.setPlayerState(state);
 		player.getPlayerState()->enter(player);
 		delete temp;
 	}
-	DEBUG_MSG(typeid(player).name());
 }
-void JumpAttackPlayerState::enter(Player& player)
+void RunningJumpAttack::enter(Player& player)
 {
-	DEBUG_MSG("Entering JumpAttackPlayerState");
+	DEBUG_MSG("Entering RunningJumpAttack");
 	player.getAnimatedSprite().clearFrames();
 
 	player.getAnimatedSprite().addFrame(sf::IntRect(1329, 1992, 504, 522));
@@ -46,8 +53,9 @@ void JumpAttackPlayerState::enter(Player& player)
 
 	player.getAnimatedSprite().setTime(seconds(0.06f));
 }
-void JumpAttackPlayerState::exit(Player& player)
+void RunningJumpAttack::exit(Player& player)
 {
-	DEBUG_MSG("Exiting JumpAttackPlayerState");
-	DEBUG_MSG(typeid(player).name());
+	DEBUG_MSG("Exiting RunningJumpAttack");
+	player.getAnimatedSprite().setPlayed(false);
+	player.getAnimatedSprite().setLooped(true);
 }

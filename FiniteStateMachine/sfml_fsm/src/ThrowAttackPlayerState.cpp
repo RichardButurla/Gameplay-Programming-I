@@ -27,7 +27,7 @@ PlayerState *ThrowAttackPlayerState::handleInput(gpp::Events &input)
 }
 void ThrowAttackPlayerState::update(Player &player)
 {
-	DEBUG_MSG("ThrowAttackPlayerState::update");
+	
 	DEBUG_MSG(typeid(player).name());
 }
 
