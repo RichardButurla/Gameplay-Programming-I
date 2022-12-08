@@ -13,6 +13,7 @@ class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
 	AnimatedSprite(const Texture&);
+	AnimatedSprite(const Texture*);
 	AnimatedSprite(const Texture&, const IntRect&);
 	~AnimatedSprite();
 

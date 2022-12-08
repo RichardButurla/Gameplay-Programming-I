@@ -1,0 +1,119 @@
+﻿  AccendLadderPlayerState.cpp
+  AttackPlayerState.cpp
+  DecendLadderPlayerState.cpp
+  GlidePlayerState.cpp
+  GlideRunningRightPlayerState.cpp
+  HammeringPlayerState.cpp
+  IdlePlayerState.cpp
+  JumpAttackPlayerState.cpp
+  JumpPlayerState.cpp
+  JumpRunningRightPlayerState.cpp
+  JumpThrowAttackPlayerState.cpp
+  RunRightPlayerState.cpp
+  RunningJumpAttack.cpp
+  RunningJumpThrowPlayerState.cpp
+  ShovelPlayerState.cpp
+  SlidePlayerState.cpp
+  ThrowAttackPlayerState.cpp
+  Generating Code...
+RunRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+ShovelPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+SlidePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+ThrowAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+JumpThrowAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+RevivedPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+RunningJumpAttack.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+RunningJumpThrowPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+IdlePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+JumpAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+JumpPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+JumpRunningRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+Game.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+GlidePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+GlideRunningRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+HammeringPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+ClimbPausePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+ClimbUpPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+DecendLadderPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+DiedPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+AccendLadderPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+AnimatedSprite.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+AttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+ClimbDownPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) class sf::Time __cdecl sf::seconds(float)" (__imp_?seconds@sf@@YA?AVTime@1@M@Z)
+AnimatedSprite.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Sprite::Sprite(void)" (__imp_??0Sprite@sf@@QAE@XZ) referenced in function "public: __thiscall AnimatedSprite::AnimatedSprite(void)" (??0AnimatedSprite@@QAE@XZ)
+AnimatedSprite.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Sprite::setTexture(class sf::Texture const &,bool)" (__imp_?setTexture@Sprite@sf@@QAEXABVTexture@2@_N@Z) referenced in function "public: __thiscall AnimatedSprite::AnimatedSprite(class sf::Texture const &)" (??0AnimatedSprite@@QAE@ABVTexture@sf@@@Z)
+AnimatedSprite.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual __thiscall sf::Sprite::~Sprite(void)" (__imp_??1Sprite@sf@@UAE@XZ) referenced in function __unwindfunclet$??0AnimatedSprite@@QAE@XZ$0
+Player.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: virtual __thiscall sf::Sprite::~Sprite(void)" (__imp_??1Sprite@sf@@UAE@XZ)
+AnimatedSprite.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) bool __cdecl sf::operator>(class sf::Time,class sf::Time)" (__imp_??Osf@@YA_NVTime@0@0@Z) referenced in function "public: void __thiscall AnimatedSprite::update(void)" (?update@AnimatedSprite@@QAEXXZ)
+Game.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) bool __cdecl sf::operator>(class sf::Time,class sf::Time)" (__imp_??Osf@@YA_NVTime@0@0@Z)
+RunningJumpAttack.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+RunningJumpThrowPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+RunRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+JumpAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+JumpPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+JumpRunningRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+JumpThrowAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+AnimatedSprite.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+DiedPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+Game.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+IdlePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ)
+RunningJumpAttack.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+RunningJumpThrowPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+SlidePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+JumpPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+JumpRunningRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+JumpThrowAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+RevivedPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+AnimatedSprite.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+GlidePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+GlideRunningRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+JumpAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ)
+AnimatedSprite.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::restart(void)" (__imp_?restart@Clock@sf@@QAE?AVTime@2@XZ) referenced in function "public: void __thiscall AnimatedSprite::update(void)" (?update@AnimatedSprite@@QAEXXZ)
+Game.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::restart(void)" (__imp_?restart@Clock@sf@@QAE?AVTime@2@XZ)
+RevivedPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::restart(void)" (__imp_?restart@Clock@sf@@QAE?AVTime@2@XZ)
+AnimatedSprite.obj : error LNK2001: unresolved external symbol "private: virtual void __thiscall sf::Sprite::draw(class sf::RenderTarget &,class sf::RenderStates)const " (?draw@Sprite@sf@@EBEXAAVRenderTarget@2@VRenderStates@2@@Z)
+Player.obj : error LNK2001: unresolved external symbol "private: virtual void __thiscall sf::Sprite::draw(class sf::RenderTarget &,class sf::RenderStates)const " (?draw@Sprite@sf@@EBEXAAVRenderTarget@2@VRenderStates@2@@Z)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) class sf::Time & __cdecl sf::operator+=(class sf::Time &,class sf::Time)" (__imp_??Ysf@@YAAAVTime@0@AAV10@V10@@Z) referenced in function "public: void __thiscall Game::run(void)" (?run@Game@@QAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) class sf::Time & __cdecl sf::operator-=(class sf::Time &,class sf::Time)" (__imp_??Zsf@@YAAAVTime@0@AAV10@V10@@Z) referenced in function "public: void __thiscall Game::run(void)" (?run@Game@@QAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::String::String(char const *,class std::locale const &)" (__imp_??0String@sf@@QAE@PBDABVlocale@std@@@Z) referenced in function "public: __thiscall Game::Game(void)" (??0Game@@QAE@XZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::String::~String(void)" (__imp_??1String@sf@@QAE@XZ) referenced in function "public: __thiscall Game::Game(void)" (??0Game@@QAE@XZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: static bool __cdecl sf::Keyboard::isKeyPressed(enum sf::Keyboard::Key)" (__imp_?isKeyPressed@Keyboard@sf@@SA_NW4Key@12@@Z) referenced in function "private: void __thiscall Game::processKeyRelease(class sf::Event)" (?processKeyRelease@Game@@AAEXVEvent@sf@@@Z)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::VideoMode::VideoMode(unsigned int,unsigned int,unsigned int)" (__imp_??0VideoMode@sf@@QAE@III@Z) referenced in function "public: __thiscall Game::Game(void)" (??0Game@@QAE@XZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Window::close(void)" (__imp_?close@Window@sf@@QAEXXZ) referenced in function "private: void __thiscall Game::processEvents(void)" (?processEvents@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: bool __thiscall sf::Window::isOpen(void)const " (__imp_?isOpen@Window@sf@@QBE_NXZ) referenced in function "public: void __thiscall Game::run(void)" (?run@Game@@QAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: bool __thiscall sf::Window::pollEvent(class sf::Event &)" (__imp_?pollEvent@Window@sf@@QAE_NAAVEvent@2@@Z) referenced in function "private: void __thiscall Game::processEvents(void)" (?processEvents@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Window::display(void)" (__imp_?display@Window@sf@@QAEXXZ) referenced in function "private: void __thiscall Game::render(void)" (?render@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Transformable::setPosition(float,float)" (__imp_?setPosition@Transformable@sf@@QAEXMM@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Texture::Texture(void)" (__imp_??0Texture@sf@@QAE@XZ) referenced in function "private: void __thiscall Game::setupSprite(void)" (?setupSprite@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Texture::~Texture(void)" (__imp_??1Texture@sf@@QAE@XZ) referenced in function "private: void __thiscall Game::setupSprite(void)" (?setupSprite@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Font::Font(void)" (__imp_??0Font@sf@@QAE@XZ) referenced in function "public: __thiscall Game::Game(void)" (??0Game@@QAE@XZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Font::~Font(void)" (__imp_??1Font@sf@@QAE@XZ) referenced in function __unwindfunclet$??0Game@@QAE@XZ$3
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::RenderTarget::clear(class sf::Color const &)" (__imp_?clear@RenderTarget@sf@@QAEXABVColor@2@@Z) referenced in function "private: void __thiscall Game::render(void)" (?render@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::RenderWindow::RenderWindow(class sf::VideoMode,class sf::String const &,unsigned int,struct sf::ContextSettings const &)" (__imp_??0RenderWindow@sf@@QAE@VVideoMode@1@ABVString@1@IABUContextSettings@1@@Z) referenced in function "public: __thiscall Game::Game(void)" (??0Game@@QAE@XZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual __thiscall sf::RenderWindow::~RenderWindow(void)" (__imp_??1RenderWindow@sf@@UAE@XZ) referenced in function __unwindfunclet$??0Game@@QAE@XZ$2
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Text::Text(void)" (__imp_??0Text@sf@@QAE@XZ) referenced in function "public: __thiscall Game::Game(void)" (??0Game@@QAE@XZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Text::setString(class sf::String const &)" (__imp_?setString@Text@sf@@QAEXABVString@2@@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Text::setFont(class sf::Font const &)" (__imp_?setFont@Text@sf@@QAEXABVFont@2@@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Text::setCharacterSize(unsigned int)" (__imp_?setCharacterSize@Text@sf@@QAEXI@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Text::setStyle(unsigned int)" (__imp_?setStyle@Text@sf@@QAEXI@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Text::setFillColor(class sf::Color const &)" (__imp_?setFillColor@Text@sf@@QAEXABVColor@2@@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Text::setOutlineColor(class sf::Color const &)" (__imp_?setOutlineColor@Text@sf@@QAEXABVColor@2@@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Text::setOutlineThickness(float)" (__imp_?setOutlineThickness@Text@sf@@QAEXM@Z) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: virtual __thiscall sf::Text::~Text(void)" (__imp_??1Text@sf@@UAE@XZ) referenced in function __unwindfunclet$??0Game@@QAE@XZ$4
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: static class sf::Time const sf::Time::Zero" (__imp_?Zero@Time@sf@@2V12@B) referenced in function "public: void __thiscall Game::run(void)" (?run@Game@@QAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: static class sf::Color const sf::Color::Black" (__imp_?Black@Color@sf@@2V12@B) referenced in function "private: void __thiscall Game::render(void)" (?render@Game@@AAEXXZ)
+Game.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: static class sf::Color const sf::Color::Red" (__imp_?Red@Color@sf@@2V12@B) referenced in function "private: void __thiscall Game::setupFontAndText(void)" (?setupFontAndText@Game@@AAEXXZ)
+RunningJumpThrowPlayerState.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ) referenced in function "protected: void __thiscall std::time_get<wchar_t,class std::istreambuf_iterator<wchar_t,struct std::char_traits<wchar_t> > >::_Getvals<wchar_t>(wchar_t,class std::_Locinfo const &)" (??$_Getvals@_W@?$time_get@_WV?$istreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@IAEX_WABV_Locinfo@1@@Z)
+SlidePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+JumpRunningRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+JumpThrowAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+RevivedPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+RunningJumpAttack.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+GlidePlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+GlideRunningRightPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+JumpAttackPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+JumpPlayerState.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ)
+Player.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: void __thiscall sf::Sprite::setTextureRect(class sf::Rect<int> const &)" (__imp_?setTextureRect@Sprite@sf@@QAEXABV?$Rect@H@2@@Z) referenced in function "public: class AnimatedSprite & __thiscall Player::getAnimatedSpriteFrame(void)" (?getAnimatedSpriteFrame@Player@@QAEAAVAnimatedSprite@@XZ)
+Player.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Sprite::Sprite(class sf::Sprite const &)" (__imp_??0Sprite@sf@@QAE@ABV01@@Z) referenced in function "public: __thiscall AnimatedSprite::AnimatedSprite(class AnimatedSprite const &)" (??0AnimatedSprite@@QAE@ABV0@@Z)
+Player.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: class sf::Sprite & __thiscall sf::Sprite::operator=(class sf::Sprite const &)" (__imp_??4Sprite@sf@@QAEAAV01@ABV01@@Z) referenced in function "public: class AnimatedSprite & __thiscall AnimatedSprite::operator=(class AnimatedSprite const &)" (??4AnimatedSprite@@QAEAAV0@ABV0@@Z)
+C:\Users\C00272345\Desktop\GamePlay\Gameplay-Programming-I\GamePlayProject\NinjaRunner\Debug\NinjaRunner.exe : fatal error LNK1120: 43 unresolved externals

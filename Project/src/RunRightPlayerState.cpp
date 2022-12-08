@@ -10,6 +10,8 @@
 #include <JumpPlayerState.h>
 #include <DiedPlayerState.h>
 #include <SlidePlayerState.h>
+#include <JumpRunningRightPlayerState.h>
+#include <RunningJumpThrowPlayerState.h>
 
 PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 {
@@ -20,7 +22,7 @@ PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 	}
 	if (input.getCurrent() == gpp::Events::Event::THROW_START_EVENT)
 	{
-		DEBUG_MSG("RunRightPlayerState -> ThrowAttackPlayerState");
+		DEBUG_MSG("RunRightPlayerState -> RunningJumpThrowPlayerState");
 		return new ThrowAttackPlayerState();
 	}
 	else if (input.getCurrent() == gpp::Events::Event::HIT_WALL_EVENT || input.getCurrent() == gpp::Events::Event::RUN_RIGHT_STOP_EVENT)
@@ -38,8 +40,12 @@ PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 		DEBUG_MSG("RunRightPlayerState -> DecendLadderPlayerState");
 		return new DecendLadderPlayerState();
 	}
+	else if (input.getCurrent() == gpp::Events::Event::JUMP_UP_RUN_RIGHT_EVENT) {
+		DEBUG_MSG("RunRightPlayerState -> JumpRunRightPlayerState");
+		return new JumpRunningRightPlayerState();
+	}
 	else if (input.getCurrent() == gpp::Events::Event::JUMP_UP_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> JumpPlayerState");
+		DEBUG_MSG("RunRightPlayerState -> JumpPlayerState");
 		return new JumpPlayerState();
 	}
 	else if (input.getCurrent() == gpp::Events::Event::SLIDE_EVENT) {

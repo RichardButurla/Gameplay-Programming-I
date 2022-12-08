@@ -23,7 +23,18 @@ PlayerState* HammeringPlayerState::handleInput(gpp::Events& input)
 
 void HammeringPlayerState::update(Player &player)
 {
-    // DEBUG_MSG(typeid(player).name());
+    player.getAnimatedSprite().addFrame(sf::IntRect(0, 1485, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(1072, 990, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(536, 990, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(0, 990, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(1072, 495, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(536, 495, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(0, 495, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(1072, 0, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(536, 0, 536, 495));
+    player.getAnimatedSprite().addFrame(sf::IntRect(0, 0, 536, 495));
+	
+	player.getAnimatedSprite().setTime(seconds(0.1f));
 }
 
 void HammeringPlayerState::enter(Player &player)

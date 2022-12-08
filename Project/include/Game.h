@@ -28,7 +28,8 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
-	
+	AnimatedSprite * player_animated_sprite;
+	Player * player;
 
 	gpp::Events input;
 	gpp::Events ai;

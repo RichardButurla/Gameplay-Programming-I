@@ -6,6 +6,7 @@
 #include <JumpAttackPlayerState.h>
 #include <JumpThrowAttackPlayerState.h>
 #include <GlidePlayerState.h>
+#include <RunRightPlayerState.h>
 
 PlayerState* JumpPlayerState::handleInput(gpp::Events& input)
 {

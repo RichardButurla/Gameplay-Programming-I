@@ -334,7 +334,7 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::Black);
-
+	m_window.draw(player.getAnimatedSpriteFrame());
 
 	m_window.display();
 }
@@ -376,10 +376,9 @@ void Game::setupSprite()
 	// }
 
 	// Setup Players Default Animated Sprite
-	AnimatedSprite player_animated_sprite(player_texture);
+	player_animated_sprite =  AnimatedSprite(player_texture);
 
-	Player player(player_animated_sprite);
-	Player npc(player_animated_sprite);
+	player = Player(player_animated_sprite);
 	//examples
 	//window.draw(player.getAnimatedSpriteFrame());
 	//ai.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);

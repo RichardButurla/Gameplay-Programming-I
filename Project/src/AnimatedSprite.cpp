@@ -16,6 +16,12 @@ AnimatedSprite::AnimatedSprite(const sf::Texture &t) : AnimatedSprite()
 	this->setTexture(t);
 }
 
+AnimatedSprite::AnimatedSprite(const sf::Texture *t) : AnimatedSprite()
+{
+	DEBUG_MSG("AnimatedSprite(const Texture&)");
+	this->setTexture(t);
+}
+
 AnimatedSprite::AnimatedSprite(const sf::Texture &t, const sf::IntRect &rect) : AnimatedSprite(t)
 {
 	DEBUG_MSG("AnimatedSprite(const Texture&, const IntRect&)");

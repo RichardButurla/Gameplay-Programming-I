@@ -12,15 +12,20 @@ PlayerState* JumpAttackPlayerState::handleInput(gpp::Events& input)
 		DEBUG_MSG("JumpAttackPlayerState -> DiedPlayerState");
 		return new DiedPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::ATTACK_STOP_EVENT)
-	{
-		DEBUG_MSG("JumpAttackPlayerState -> GlidePlayerState");
-		return new GlidePlayerState();
-	}
 	return nullptr;
 }
 void JumpAttackPlayerState::update(Player& player) {
 	DEBUG_MSG("JumpAttackPlayerState::update");
+
+	DEBUG_MSG("JumpThrowAttackPlayerState -> GlidePlayerState");
+	if (m_clock.getElapsedTime().asSeconds() > 0.3f) {
+		PlayerState* temp = player.getPlayerState();
+		PlayerState* state = new GlidePlayerState();
+		player.getPlayerState()->exit(player);
+		player.setPlayerState(state);
+		player.getPlayerState()->enter(player);
+		delete temp;
+	}
 	DEBUG_MSG(typeid(player).name());
 }
 void JumpAttackPlayerState::enter(Player& player)
@@ -39,7 +44,7 @@ void JumpAttackPlayerState::enter(Player& player)
 	player.getAnimatedSprite().addFrame(sf::IntRect(2373, 3036, 504, 522));
 	player.getAnimatedSprite().addFrame(sf::IntRect(1329, 3558, 504, 522));
 
-	player.getAnimatedSprite().setTime(seconds(0.03f));
+	player.getAnimatedSprite().setTime(seconds(0.06f));
 }
 void JumpAttackPlayerState::exit(Player& player)
 {

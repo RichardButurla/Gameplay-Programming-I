@@ -5,6 +5,9 @@
 #include <RunRightPlayerState.h>
 #include <GlidePlayerState.h>
 #include <DiedPlayerState.h>
+#include <RunRightPlayerState.h>
+#include <GlideRunningRightPlayerState.h>
+#include <IdlePlayerState.h>
 
 PlayerState* JumpThrowAttackPlayerState::handleInput(gpp::Events& input)
 {
@@ -12,16 +15,23 @@ PlayerState* JumpThrowAttackPlayerState::handleInput(gpp::Events& input)
 		DEBUG_MSG("JumpThrowAttackPlayerState -> DiedPlayerState");
 		return new DiedPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::THROW_STOP_EVENT)
+	else if (input.getCurrent() == gpp::Events::Event::RUN_RIGHT_STOP_EVENT)
 	{
 		DEBUG_MSG("JumpThrowAttackPlayerState -> GlidePlayerState");
-		return new GlidePlayerState();
+		return new GlideRunningRightPlayerState();
 	}
 	return nullptr;
 }
 void JumpThrowAttackPlayerState::update(Player& player) {
-	DEBUG_MSG("JumpThrowAttackPlayerState::update");
-	DEBUG_MSG(typeid(player).name());
+	DEBUG_MSG("JumpThrowAttackPlayerState -> GlidePlayerState");
+	if (m_clock.getElapsedTime().asSeconds() > 0.3f) {
+		PlayerState* temp = player.getPlayerState();
+		PlayerState* state = new GlidePlayerState();
+		player.getPlayerState()->exit(player);
+		player.setPlayerState(state);
+		player.getPlayerState()->enter(player);
+		delete temp;
+	}
 }
 void JumpThrowAttackPlayerState::enter(Player& player)
 {
@@ -39,7 +49,7 @@ void JumpThrowAttackPlayerState::enter(Player& player)
 	player.getAnimatedSprite().addFrame(sf::IntRect(5316, 862, 360, 431));
 	player.getAnimatedSprite().addFrame(sf::IntRect(4596, 1293, 360, 431));
 
-	player.getAnimatedSprite().setTime(seconds(0.05f));
+	player.getAnimatedSprite().setTime(seconds(0.03f));
 }
 void JumpThrowAttackPlayerState::exit(Player& player)
 {
