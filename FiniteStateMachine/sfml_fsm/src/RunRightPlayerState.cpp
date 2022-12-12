@@ -56,6 +56,10 @@ PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 		DEBUG_MSG("RunRightPlayerState -> DiedPlayerState");
 		return new DiedPlayerState();
 	}
+	else if (input.getCurrent() == gpp::Events::Event::NONE) {
+		DEBUG_MSG("RunRightPlayerState -> IdlePlayerState");
+		return new IdlePlayerState();
+	}
 	return nullptr;
 }
 void RunRightPlayerState::update(Player& player) {

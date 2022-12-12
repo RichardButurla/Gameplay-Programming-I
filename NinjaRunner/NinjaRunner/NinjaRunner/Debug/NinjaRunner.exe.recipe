@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\C00272345\Desktop\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\Users\C00272345\Desktop\NinjaRunner\NinjaRunner\NinjaRunner\ASSETS\FONTS\ariblk.ttf</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\C00272345\Desktop\NinjaRunner\NinjaRunner\NinjaRunner\ASSETS\IMAGES\SFML-LOGO.png</FullPath>
+    </ContentFile>
+  </ContentFiles>
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
