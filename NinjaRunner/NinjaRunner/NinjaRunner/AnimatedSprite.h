@@ -27,6 +27,7 @@ public:
 	bool getLooped();
 	void setPlayed(bool);
 	bool getPlayed();
+	void setAnimationSpriteTexture(const Texture & t_texture);
 	void setTime(Time);
 	void update();
 	

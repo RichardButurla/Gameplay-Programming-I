@@ -13,7 +13,7 @@ AnimatedSprite::AnimatedSprite() : m_time(seconds(0.5f)),
 AnimatedSprite::AnimatedSprite(const sf::Texture &t) : AnimatedSprite()
 {
 	DEBUG_MSG("AnimatedSprite(const Texture&)");
-	this->setTexture(t);
+	this->setAnimationSpriteTexture(t);
 }
 
 
@@ -91,6 +91,11 @@ void AnimatedSprite::setPlayed(bool played)
 bool AnimatedSprite::getPlayed()
 {
 	return this->m_played;
+}
+
+void AnimatedSprite::setAnimationSpriteTexture(const Texture & t_texture)
+{
+	this->setTexture(t_texture);
 }
 
 void AnimatedSprite::update()

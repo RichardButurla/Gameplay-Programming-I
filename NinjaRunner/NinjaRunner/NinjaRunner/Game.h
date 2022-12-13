@@ -16,8 +16,10 @@ public:
 private:
 
 	void processEvents();
-	void processKeys(sf::Event t_event);
+	void processKeyPress(sf::Event t_event);
 	void processKeyRelease(sf::Event t_event);
+	void processKeyPressFSM(sf::Event t_event);
+	void processKeyReleaseFSM(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 	
@@ -28,9 +30,11 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
-	AnimatedSprite * player_animated_sprite;
-	Player * player;
+	sf::Texture m_playerTexture;
+	AnimatedSprite m_playerAnimatedSprite;
+	Player m_player;
 
+	gpp::Events & m_input;
 	gpp::Events input;
 	gpp::Events ai;
 
