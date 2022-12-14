@@ -19,6 +19,12 @@
     <Filter Include="Resource Files\IMAGES">
       <UniqueIdentifier>{1d793ccc-0d22-4eea-8d0e-c5b5a5270a40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FSM">
+      <UniqueIdentifier>{6e73701a-21f6-42b0-8671-00d229ea80dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FSM">
+      <UniqueIdentifier>{a263945d-bf2b-4a5c-98a7-e76708ad8066}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,70 +42,73 @@
     <ClCompile Include="Events.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IdlePlayerState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AccendLadderPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="AttackPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="ClimbDownPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="ClimbPausePlayerState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ClimbUpPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="DecendLadderPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ClimbUpPlayerState.cpp">
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="DiedPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="GlidePlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="GlideRunningRightPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="HammeringPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="IdlePlayerState.cpp">
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="JumpAttackPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="JumpPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="JumpRunningRightPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="JumpThrowAttackPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="RevivedPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="RunningJumpAttack.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="RunningJumpThrowPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="RunRightPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="ShovelPlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="SlidePlayerState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="ThrowAttackPlayerState.cpp">
+      <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,76 +125,79 @@
     <ClInclude Include="Events.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IdlePlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AccendLadderPlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackPlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ClimbDownPlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ClimbPausePlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ClimbUpPlayerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DecendLadderPlayerState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AccendLadderPlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackPlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ClimbDownPlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ClimbPausePlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="ClimbUpPlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="DecendLadderPlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
     <ClInclude Include="DiedPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="GlidePlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="GlideRunningRightPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="HammeringPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="IdlePlayerState.h">
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="JumpAttackPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="JumpRunningRightPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="JumpThrowAttackPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="RevivedPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="RunningJumpAttack.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="RunningJumpThrowPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="RunRightPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="ShovelPlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="SlidePlayerState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="ThrowAttackPlayerState.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

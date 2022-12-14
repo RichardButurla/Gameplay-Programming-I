@@ -5,6 +5,7 @@
 #include "AnimatedSprite.h"
 #include <stdio.h>
 #include "IdlePlayerState.h"
+#include "PlayerController.h"
 #include <SFML/Graphics.hpp>
 
 class Player
@@ -12,6 +13,7 @@ class Player
 private:
 	PlayerState* m_state;
 	AnimatedSprite m_animated_sprite;
+	PlayerController m_playerController;
 
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
