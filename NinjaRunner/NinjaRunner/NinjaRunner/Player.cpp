@@ -37,9 +37,9 @@ void Player::updateAnimationState() {
 
 void Player::updatePlayer()
 {
+	m_playerController.update();
 	updateAnimationState();
-	m_position += m_velocity;
-	m_animated_sprite.setPosition(m_position);
+	m_animated_sprite.setPosition(m_playerController.getPosition());
 }
 
 void Player::renderPlayer(sf::RenderWindow& t_window)
@@ -69,21 +69,14 @@ void Player::setPlayerState(PlayerState* state) { this->m_state = state; }
 
 void Player::processKeyPress(sf::Event t_event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		m_velocity = { 1,0 };
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		m_velocity = { -1,0 };
-	}
+	//No right or left, this is a endless runner
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		m_velocity = { 0,-1 };
+		m_playerController.jump();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		m_velocity = { 0,1 };
+		m_playerController.decend();
 	}
 }
 

@@ -1,37 +1,7 @@
-﻿  AccendLadderPlayerState.cpp
-  AnimatedSprite.cpp
-  AttackPlayerState.cpp
-  ClimbDownPlayerState.cpp
-  ClimbPausePlayerState.cpp
-  ClimbUpPlayerState.cpp
-  DecendLadderPlayerState.cpp
-  DiedPlayerState.cpp
-  Events.cpp
-  Game.cpp
-  GlidePlayerState.cpp
-  GlideRunningRightPlayerState.cpp
-  HammeringPlayerState.cpp
-  IdlePlayerState.cpp
-  JumpAttackPlayerState.cpp
-  JumpPlayerState.cpp
-  JumpRunningRightPlayerState.cpp
-  JumpThrowAttackPlayerState.cpp
-  main.cpp
-  Player.cpp
-  Generating Code...
-  Compiling...
-  PlayerController.cpp
-C:\Users\C00272345\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.cpp(16,26): warning C4305: '+=': truncation from 'const double' to 'T'
+﻿  PlayerController.cpp
+C:\Users\C00272345\Desktop\Gp\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.cpp(15,26): warning C4305: '+=': truncation from 'const double' to 'T'
           with
           [
               T=float
           ]
-  RevivedPlayerState.cpp
-  RunningJumpAttack.cpp
-  RunningJumpThrowPlayerState.cpp
-  RunRightPlayerState.cpp
-  ShovelPlayerState.cpp
-  SlidePlayerState.cpp
-  ThrowAttackPlayerState.cpp
-  Generating Code...
-  NinjaRunner.vcxproj -> C:\Users\C00272345\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe
+  NinjaRunner.vcxproj -> C:\Users\C00272345\Desktop\Gp\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe

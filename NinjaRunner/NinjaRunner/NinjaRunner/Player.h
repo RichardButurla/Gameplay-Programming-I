@@ -15,9 +15,6 @@ private:
 	AnimatedSprite m_animated_sprite;
 	PlayerController m_playerController;
 
-	sf::Vector2f m_position;
-	sf::Vector2f m_velocity;
-
 public:
 	Player(const AnimatedSprite&);
 	Player();
