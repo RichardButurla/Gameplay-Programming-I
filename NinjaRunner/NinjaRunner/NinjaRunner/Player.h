@@ -27,7 +27,7 @@ public:
 	PlayerState* getPlayerState();
 	void setPlayerState(PlayerState*);
 
-	void updatePlayer();
+	void updatePlayer(double t_deltaTime);
 	void renderPlayer(sf::RenderWindow& t_window);
 	void processKeyPress(sf::Event t_event);
 	void processKeyRelease(sf::Event t_event);

@@ -35,9 +35,9 @@ void Player::updateAnimationState() {
 	m_state->update(*this);
 }
 
-void Player::updatePlayer()
+void Player::updatePlayer(double t_deltaTime)
 {
-	m_playerController.update();
+	m_playerController.update(t_deltaTime);
 	updateAnimationState();
 	m_animated_sprite.setPosition(m_playerController.getPosition());
 }
@@ -70,13 +70,9 @@ void Player::setPlayerState(PlayerState* state) { this->m_state = state; }
 void Player::processKeyPress(sf::Event t_event)
 {
 	//No right or left, this is a endless runner
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		m_playerController.jump();
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		m_playerController.decend();
 	}
 }
 

@@ -14,7 +14,7 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 1400U, 800U, 32U }, "SFML Game" },
 	m_exitGame{false}, //when true game will exit
 	m_input(input)
 {
@@ -338,7 +338,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	m_player.updatePlayer();
+	m_player.updatePlayer(t_deltaTime.asSeconds());
 }
 
 /// <summary>
