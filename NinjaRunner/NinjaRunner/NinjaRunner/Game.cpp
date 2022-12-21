@@ -339,6 +339,7 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	m_player.updatePlayer(t_deltaTime.asSeconds());
+	m_platform.update(t_deltaTime.asSeconds());
 }
 
 /// <summary>
@@ -348,6 +349,7 @@ void Game::render()
 {
 	m_window.clear(sf::Color::Black);
 	m_player.renderPlayer(m_window);
+	m_platform.render(m_window);
 	m_window.display();
 }
 
@@ -376,14 +378,27 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
-	// Load a sprite to display
+	// Load textures
 	 if (!m_playerTexture.loadFromFile("ASSETS/IMAGES/PlayerSpriteSheet.png"))
 	 {
 		 std::cout << "error loading playerSpriteSheet";
 	 }
+	 if (!m_platformTexture.loadFromFile("ASSETS/IMAGES/platform.png"))
+	 {
+		 std::cout << "error loading platform Tetxure";
+	 }
 
+	 //Setup Player
 	 m_playerAnimatedSprite = AnimatedSprite(m_playerTexture);
 	 m_player = Player(m_playerAnimatedSprite);
 	 m_player.setPlayerScale(0.5, 0.5);
+
+	 //Setup Platform
+	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
+	 sf::Vector2f testPos = { 500, 500 };
+	 m_platFormController = PlatformController(testPos.x, testPos.y, platFormTextureSize.x, platFormTextureSize.y);
+
+	 m_platform = Platform(m_platformTexture, m_platFormController);
+
 
 }

@@ -25,6 +25,12 @@
     <Filter Include="Source Files\FSM">
       <UniqueIdentifier>{a263945d-bf2b-4a5c-98a7-e76708ad8066}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enitities">
+      <UniqueIdentifier>{106956c8-1eb2-4557-999d-c20748044719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{d0bfae15-6653-4d22-beb1-7841319e6698}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files\Enitities</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformController.cpp">
+      <Filter>Source Files\Enitities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +211,12 @@
     </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformController.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

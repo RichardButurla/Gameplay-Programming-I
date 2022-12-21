@@ -19,5 +19,6 @@ public:
 private:
 	sf::Vector2f m_position{0.f,0.f};
 	sf::Vector2f m_velocity;
+
 };
 

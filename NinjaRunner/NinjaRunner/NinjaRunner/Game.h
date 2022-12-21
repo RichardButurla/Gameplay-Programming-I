@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Platform.h"
 #include "Events.h"
 #include "Debug.h"
 
@@ -33,6 +34,10 @@ private:
 	sf::Texture m_playerTexture;
 	AnimatedSprite m_playerAnimatedSprite;
 	Player m_player;
+
+	Platform m_platform;
+	PlatformController m_platFormController;
+	sf::Texture m_platformTexture;
 
 	gpp::Events & m_input;
 	gpp::Events input;
