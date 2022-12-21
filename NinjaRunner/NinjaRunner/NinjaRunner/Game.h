@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "Globals.h"
 #include "Player.h"
 #include "Platform.h"
 #include "Events.h"
@@ -26,6 +27,7 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message

@@ -23,7 +23,7 @@ Platform::~Platform()
 void Platform::update(double t_deltaTime)
 {
 	m_platformController.update(t_deltaTime);
-	updateBlockPositions(t_deltaTime);
+	updateBlockPositions(t_deltaTime); 
 	
 }
 

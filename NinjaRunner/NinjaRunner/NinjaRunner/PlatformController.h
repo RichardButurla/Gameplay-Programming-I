@@ -2,7 +2,7 @@
 class PlatformController
 {
 public:
-	PlatformController(float t_x, float t_y, float t_width, float t_height);
+	PlatformController(float t_x, float t_y, float t_width, float t_height, int t_numberOfBlocks);
 	PlatformController();
 	~PlatformController();
 
@@ -12,13 +12,16 @@ public:
 	float getWidth() { return width; }
 	float getHeight() { return height; }
 
+	void checkBounds();
+
+
 
 private:
 	float x = -1500; //Offsccreen First
 	float y = 0;
 	float width = 0;
 	float height = 0;
-
-
+	float speed = 200;
+	int numberOfBlocks = 0;
 };
 

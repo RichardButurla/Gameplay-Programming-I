@@ -14,7 +14,7 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 1400U, 800U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ SCREEN_WIDTH, SCREEN_HEIGHT, 32U }, "SFML Game" },
 	m_exitGame{false}, //when true game will exit
 	m_input(input)
 {
@@ -396,9 +396,12 @@ void Game::setupSprite()
 	 //Setup Platform
 	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
 	 sf::Vector2f testPos = { 500, 500 };
-	 m_platFormController = PlatformController(testPos.x, testPos.y, platFormTextureSize.x, platFormTextureSize.y);
+	 int platformSize = 2; //amount of tiles/blocks
+	 m_platFormController = PlatformController(testPos.x, testPos.y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
 
 	 m_platform = Platform(m_platformTexture, m_platFormController);
 
 
 }
+
+

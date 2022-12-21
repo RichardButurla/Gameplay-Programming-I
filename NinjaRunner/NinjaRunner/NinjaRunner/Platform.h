@@ -13,6 +13,8 @@ public:
 	void updateBlockPositions(double t_deltaTime);
 	void render(sf::RenderWindow& t_window);
 
+	void checkBounds();
+
 
 private:
 	static const int MAX_BLOCKS = 6;

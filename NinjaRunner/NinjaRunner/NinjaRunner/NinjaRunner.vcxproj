@@ -65,6 +65,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GlidePlayerState.h" />
     <ClInclude Include="GlideRunningRightPlayerState.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="HammeringPlayerState.h" />
     <ClInclude Include="IdlePlayerState.h" />
     <ClInclude Include="JumpAttackPlayerState.h" />

@@ -1,15 +1,17 @@
 ﻿  Game.cpp
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(399,109): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(400,109): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(399,86): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(400,86): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
   Platform.cpp
+  PlatformController.cpp
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlatformController.cpp(26,13): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
   main.cpp
   Generating Code...
   NinjaRunner.vcxproj -> C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe
