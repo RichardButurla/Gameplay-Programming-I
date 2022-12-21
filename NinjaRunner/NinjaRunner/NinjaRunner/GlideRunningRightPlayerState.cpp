@@ -22,7 +22,7 @@ PlayerState* GlideRunningRightPlayerState::handleInput(gpp::Events& input)
 }
 void GlideRunningRightPlayerState::update(Player& player) {
 	DEBUG_MSG("GlideRunningRightPlayerState -> RunRightPlayerState");
-	if (m_clock.getElapsedTime().asSeconds() > 1.2f) {
+	if (m_clock.getElapsedTime().asSeconds() > 0.8f) {
 		PlayerState* temp = player.getPlayerState();
 		PlayerState* state = new RunRightPlayerState();
 		player.getPlayerState()->exit(player);

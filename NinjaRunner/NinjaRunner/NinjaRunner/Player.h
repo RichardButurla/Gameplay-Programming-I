@@ -26,6 +26,7 @@ public:
 	void setAnimatedSprite(AnimatedSprite&);
 	PlayerState* getPlayerState();
 	void setPlayerState(PlayerState*);
+	void setPlayerScale(float t_x, float t_y);
 
 	void updatePlayer(double t_deltaTime);
 	void renderPlayer(sf::RenderWindow& t_window);

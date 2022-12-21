@@ -384,5 +384,6 @@ void Game::setupSprite()
 
 	 m_playerAnimatedSprite = AnimatedSprite(m_playerTexture);
 	 m_player = Player(m_playerAnimatedSprite);
+	 m_player.setPlayerScale(0.5, 0.5);
 
 }

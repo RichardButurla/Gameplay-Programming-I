@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-static constexpr double gravity = 9.8;
+static constexpr double gravity = 12.8;
 const int JUMP_VELOCITY = -500;
 
 class PlayerController

@@ -66,6 +66,11 @@ PlayerState* Player::getPlayerState() { return this->m_state; }
 
 void Player::setPlayerState(PlayerState* state) { this->m_state = state; }
 
+void Player::setPlayerScale(float t_x, float t_y)
+{
+	m_animated_sprite.setScale(t_x, t_y);
+}
+
 
 void Player::processKeyPress(sf::Event t_event)
 {
