@@ -404,4 +404,9 @@ void Game::setupSprite()
 
 }
 
+void Game::checkPlatformCollision()
+{
+	//check player against platform.
+}
+
 

@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include "Events.h"
 #include "Debug.h"
+#include "RectangleCollider.h"
 
 class Game
 {
@@ -28,6 +29,8 @@ private:
 	void setupFontAndText();
 	void setupSprite();
 
+	void checkPlatformCollision();
+
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -36,6 +39,7 @@ private:
 	sf::Texture m_playerTexture;
 	AnimatedSprite m_playerAnimatedSprite;
 	Player m_player;
+	PlayerController m_playerController;
 
 	Platform m_platform;
 	PlatformController m_platFormController;

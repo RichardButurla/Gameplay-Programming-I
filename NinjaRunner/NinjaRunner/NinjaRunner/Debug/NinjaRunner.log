@@ -1,4 +1,12 @@
-﻿  Game.cpp
+﻿  AccendLadderPlayerState.cpp
+  AnimatedSprite.cpp
+  AttackPlayerState.cpp
+  ClimbDownPlayerState.cpp
+  ClimbPausePlayerState.cpp
+  ClimbUpPlayerState.cpp
+  DecendLadderPlayerState.cpp
+  DiedPlayerState.cpp
+  Game.cpp
 C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(400,109): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
@@ -9,9 +17,25 @@ C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\
           [
               T=unsigned int
           ]
-  Platform.cpp
-  PlatformController.cpp
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlatformController.cpp(26,13): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  GlidePlayerState.cpp
+  GlideRunningRightPlayerState.cpp
+  HammeringPlayerState.cpp
+  IdlePlayerState.cpp
+  JumpAttackPlayerState.cpp
+  JumpPlayerState.cpp
+  JumpRunningRightPlayerState.cpp
+  JumpThrowAttackPlayerState.cpp
   main.cpp
+  Player.cpp
+  RectangleCollider.cpp
+  Generating Code...
+  Compiling...
+  RevivedPlayerState.cpp
+  RunningJumpAttack.cpp
+  RunningJumpThrowPlayerState.cpp
+  RunRightPlayerState.cpp
+  ShovelPlayerState.cpp
+  SlidePlayerState.cpp
+  ThrowAttackPlayerState.cpp
   Generating Code...
   NinjaRunner.vcxproj -> C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe

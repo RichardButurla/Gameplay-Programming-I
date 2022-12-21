@@ -42,6 +42,7 @@
     <ClCompile Include="PlatformController.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="RevivedPlayerState.cpp" />
     <ClCompile Include="RunningJumpAttack.cpp" />
     <ClCompile Include="RunningJumpThrowPlayerState.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="RevivedPlayerState.h" />
     <ClInclude Include="RunningJumpAttack.h" />
     <ClInclude Include="RunningJumpThrowPlayerState.h" />

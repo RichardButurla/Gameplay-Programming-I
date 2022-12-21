@@ -1,8 +1,7 @@
 #ifndef ANIMATED_SPRITE_H
 #define ANIMATED_SPRITE_H
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/System/Clock.hpp>
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include "Debug.h"
 
