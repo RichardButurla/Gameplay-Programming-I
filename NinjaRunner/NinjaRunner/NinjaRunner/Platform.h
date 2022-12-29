@@ -13,6 +13,9 @@ public:
 	void updateBlockPositions(double t_deltaTime);
 	void render(sf::RenderWindow& t_window);
 
+	void setPos(int t_x, int t_y);
+	void setNumberOfBlocks(int t_num);
+
 
 private:
 	static const int MAX_BLOCKS = 6;

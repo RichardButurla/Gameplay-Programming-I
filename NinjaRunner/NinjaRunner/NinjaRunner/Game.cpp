@@ -340,6 +340,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	m_player.updatePlayer(t_deltaTime.asSeconds());
 	m_platform.update(t_deltaTime.asSeconds());
+	m_floorPlatform.update(t_deltaTime.asSeconds());
 }
 
 /// <summary>
@@ -350,6 +351,7 @@ void Game::render()
 	m_window.clear(sf::Color::Black);
 	m_player.renderPlayer(m_window);
 	m_platform.render(m_window);
+	m_floorPlatform.render(m_window);
 	m_window.display();
 }
 
@@ -400,6 +402,12 @@ void Game::setupSprite()
 	 m_platFormController = PlatformController(testPos.x, testPos.y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
 
 	 m_platform = Platform(m_platformTexture, m_platFormController);
+
+	 m_platFormController.setSpeed(0);
+
+	 m_floorPlatform = Platform(m_platformTexture, m_platFormController);
+	 m_floorPlatform.setPos(0, SCREEN_HEIGHT -80);
+	 m_floorPlatform.setNumberOfBlocks(6);
 
 
 }

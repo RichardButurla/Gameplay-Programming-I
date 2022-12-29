@@ -12,6 +12,10 @@ public:
 	float getWidth() { return width; }
 	float getHeight() { return height; }
 
+	void setSpeed(float t_speed) { speed = t_speed; }
+	void setX(float t_x) { x = t_x; }
+	void setY(float t_y) {y = t_y; }
+
 	void checkBounds();
 
 

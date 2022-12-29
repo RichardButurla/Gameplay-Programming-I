@@ -41,6 +41,9 @@ private:
 	Player m_player;
 	PlayerController m_playerController;
 
+	Platform m_floorPlatform;
+	PlatformController m_floorPlatFormController;
+
 	Platform m_platform;
 	PlatformController m_platFormController;
 	sf::Texture m_platformTexture;
