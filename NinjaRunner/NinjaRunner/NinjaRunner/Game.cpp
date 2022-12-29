@@ -338,9 +338,11 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	m_player.updatePlayer(t_deltaTime.asSeconds());
 	m_platform.update(t_deltaTime.asSeconds());
 	m_floorPlatform.update(t_deltaTime.asSeconds());
+	m_player.updatePlayer(t_deltaTime.asSeconds());
+
+	checkPlatformCollision();
 }
 
 /// <summary>
@@ -348,10 +350,10 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::Black);
-	m_player.renderPlayer(m_window);
+	m_window.clear(sf::Color::White);
 	m_platform.render(m_window);
 	m_floorPlatform.render(m_window);
+	m_player.renderPlayer(m_window);
 	m_window.display();
 }
 
@@ -392,14 +394,21 @@ void Game::setupSprite()
 
 	 //Setup Player
 	 m_playerAnimatedSprite = AnimatedSprite(m_playerTexture);
-	 m_player = Player(m_playerAnimatedSprite);
+
+	 //players texture width heigth
+	 sf::Vector2u singlePlayerTextureFrameSize = { 363, 458 };
+
+	 m_playerController.setX(0);
+	 m_playerController.setY(0);
+	 m_player = Player(m_playerAnimatedSprite,m_playerController);
 	 m_player.setPlayerScale(0.5, 0.5);
 
 	 //Setup Platform
 	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
 	 sf::Vector2f testPos = { 500, 500 };
 	 int platformSize = 2; //amount of tiles/blocks
-	 m_platFormController = PlatformController(testPos.x, testPos.y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
+	 m_platFormController = PlatformController(testPos.x + platFormTextureSize.x / 2, testPos.y - platFormTextureSize.y / 2,
+												platFormTextureSize.x, platFormTextureSize.y, platformSize);
 
 	 m_platform = Platform(m_platformTexture, m_platFormController);
 
@@ -414,7 +423,16 @@ void Game::setupSprite()
 
 void Game::checkPlatformCollision()
 {
-	//check player against platform.
+
+	std::cout << "\n Player Y: " << m_player.getY();
+	std::cout << "\n Platform Y: " << m_platform.getY();
+
+
+	if (m_player.getY() + 71 > m_platform.getY() - m_platform.getHeight() / 2)
+	{
+		m_player.setGrounded(true);
+		std::cout << "above";
+	}
 }
 
 

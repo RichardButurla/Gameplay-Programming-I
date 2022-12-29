@@ -1,10 +1,20 @@
 ﻿  Game.cpp
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(402,109): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Player.h(32,62): warning C4244: 'return': conversion from 'const T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Player.h(33,63): warning C4244: 'return': conversion from 'const T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(411,55): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(402,86): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(411,32): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int

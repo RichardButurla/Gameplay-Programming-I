@@ -1,6 +1,8 @@
 #include "Player.h"
 
-Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
+Player::Player(const AnimatedSprite& sprite, const PlayerController& t_playerController) : 
+	m_animated_sprite(sprite),
+	m_playerController(t_playerController)
 {
 	// Set the Player to Default to IdlePlayer State 
 	// and Enter that State

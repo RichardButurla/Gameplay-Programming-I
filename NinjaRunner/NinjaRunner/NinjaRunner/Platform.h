@@ -13,6 +13,12 @@ public:
 	void updateBlockPositions(double t_deltaTime);
 	void render(sf::RenderWindow& t_window);
 
+	int getNumberOfBlocks() { return numberOfBlocks; }
+	float getX() { return m_platformController.getX(); }
+	float getY() { return m_platformController.getY(); }
+	float getWidth() { return m_platformController.getWidth(); }
+	float getHeight() { return m_platformController.getHeight(); }
+
 	void setPos(int t_x, int t_y);
 	void setNumberOfBlocks(int t_num);
 
