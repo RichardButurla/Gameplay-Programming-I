@@ -36,6 +36,8 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
+	sf::Vector2f singlePlayerTextureFrameSize = { 363, 458 };
+	sf::Vector2f playerScale = { 0.5,0.5};
 	sf::Texture m_playerTexture;
 	AnimatedSprite m_playerAnimatedSprite;
 	Player m_player;

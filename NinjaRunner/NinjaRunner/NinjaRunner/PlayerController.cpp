@@ -1,4 +1,5 @@
 #include "PlayerController.h"
+#include <iostream>
 
 PlayerController::PlayerController(float t_x, float t_y)
 {
@@ -15,24 +16,21 @@ PlayerController::~PlayerController()
 
 void PlayerController::update(double t_deltaTime)
 {
-	if (!isGrounded)
+	std::cout << "\nplayer Gravity: " << playerGravity;
+	m_velocity.y += playerGravity;
+
+
+	if (m_position.y >= SCREEN_HEIGHT - 300)
 	{
-		m_velocity.y* t_deltaTime;
-		m_velocity.y += gravity * t_deltaTime;
-		m_position += m_velocity;
+		m_velocity.y = 0;
+		m_position.y = (SCREEN_HEIGHT - 300) - 1;
 	}
-	
-	
-	
-	double SCREEN_HEIGHT = 500;
-	if (m_position.y >= SCREEN_HEIGHT)
-	{
-		isGrounded = true;
-	}
+
+
+	m_position.y += m_velocity.y * t_deltaTime;
 }
 
 void PlayerController::jump()
 {
-	m_velocity.y = -13;
-	isGrounded = false;
+	m_velocity.y = JUMP_VELOCITY;
 }

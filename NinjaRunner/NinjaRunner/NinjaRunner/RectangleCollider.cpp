@@ -20,7 +20,12 @@ bool RectangleCollider::checkXCollision(RectangleCollider& t_collider)
     return xOverlap;
 }
 
-bool RectangleCollider::aboveRectCollision(RectangleCollider& t_other)
+float RectangleCollider::getXOverlap(RectangleCollider& t_collider)
 {
-    return (this->y <= t_other.y);
+    return t_collider.x - this->x;
+}
+
+float RectangleCollider::getYOverlap(RectangleCollider& t_collider)
+{
+    return t_collider.y - this->y;
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-static constexpr double gravity = 12.8;
-const int JUMP_VELOCITY = -500;
+#include "Globals.h"
 
 class PlayerController
 {
@@ -13,6 +12,7 @@ public:
 	void update(double t_deltaTime);
 	void setVelocity(float t_x, float t_y) { m_velocity = { t_x,t_y }; }
 	void setVelocity(sf::Vector2f t_velocity) { m_velocity = t_velocity; }
+	void setGravity(float t_value) { playerGravity = t_value; }
 
 	void setGrounded(bool t_boolean) { isGrounded = t_boolean; }
 
@@ -27,6 +27,7 @@ private:
 	sf::Vector2f m_position{0.f,0.f};
 	sf::Vector2f m_velocity;
 	bool isGrounded{ true };
+	float playerGravity = gravity;
 
 };
 

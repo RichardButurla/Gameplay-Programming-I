@@ -25,7 +25,8 @@ private:
 	float y = 0;
 	float width = 0;
 	float height = 0;
-	float speed = 200;
+	float speed = 300;
 	int numberOfBlocks = 0;
+
 };
 

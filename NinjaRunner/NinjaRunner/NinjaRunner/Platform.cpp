@@ -1,12 +1,15 @@
 #include "Platform.h"
+#include "Globals.h"
 #include <iostream>
 
 Platform::Platform(sf::Texture& t_texture,PlatformController& t_platformController) : m_platformTexture(t_texture),
 	m_platformController(t_platformController)
 {
+	sf::Vector2f offScreenPosition = { SCREEN_WIDTH,-500 };
 	for (int i = 0; i < numberOfBlocks; i++)
 	{
 		m_platformBlocks[i].setTexture(t_texture);
+		m_platformBlocks[i].setPosition(offScreenPosition);
 	}
 	
 }

@@ -24,7 +24,7 @@ void GlidePlayerState::update(Player& player) {
 	DEBUG_MSG("GlidePlayerState -> RunRightPlayerState");
 	if (m_clock.getElapsedTime().asSeconds() > 1.2f) {
 		PlayerState* temp = player.getPlayerState();
-		PlayerState* state = new IdlePlayerState();
+		PlayerState* state = new RunRightPlayerState();
 		player.getPlayerState()->exit(player);
 		player.setPlayerState(state);
 		player.getPlayerState()->enter(player);

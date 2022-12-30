@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "IdlePlayerState.h"
 #include "PlayerController.h"
+#include "Platform.h"
 #include <SFML/Graphics.hpp>
 
 class Player
@@ -28,9 +29,7 @@ public:
 	void setPlayerState(PlayerState*);
 	void setPlayerScale(float t_x, float t_y);
 
-	//Animator
-	float getWidth() { return m_animated_sprite.getTextureRect().width; }
-	float getHeight() { return m_animated_sprite.getTextureRect().height; }
+
 
 	//Player Controller
 	void updatePlayer(double t_deltaTime);
@@ -40,6 +39,9 @@ public:
 
 	float getX() { return m_playerController.getPosition().x; }
 	float getY() { return m_playerController.getPosition().y; }
+
+	void setVelocity(sf::Vector2f t_velocity) { m_playerController.setVelocity(t_velocity); };
+	void setPlayerGravity(float t_value) { m_playerController.setGravity(t_value); };
 
 	void setX(float t_x) { m_playerController.setX(t_x); }
 	void setY(float t_y) { m_playerController.setY(t_y); }

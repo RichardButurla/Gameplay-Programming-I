@@ -89,7 +89,7 @@ void Game::processEvents()
 
 			default:
 				//DEBUG_MSG("gpp::Events::Event::NONE");
-				m_input.setCurrent(gpp::Events::Event::NONE);
+				m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
 				break;
 		}
 		m_player.handleAnimationInput(input);
@@ -396,21 +396,23 @@ void Game::setupSprite()
 	 m_playerAnimatedSprite = AnimatedSprite(m_playerTexture);
 
 	 //players texture width heigth
-	 sf::Vector2u singlePlayerTextureFrameSize = { 363, 458 };
+	 
 
 	 m_playerController.setX(0);
 	 m_playerController.setY(0);
 	 m_player = Player(m_playerAnimatedSprite,m_playerController);
-	 m_player.setPlayerScale(0.5, 0.5);
+	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Platform
 	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
-	 sf::Vector2f testPos = { 500, 500 };
-	 int platformSize = 2; //amount of tiles/blocks
-	 m_platFormController = PlatformController(testPos.x + platFormTextureSize.x / 2, testPos.y - platFormTextureSize.y / 2,
+	 sf::Vector2f testPos = { 0, 400 };
+	 int platformSize = 1; //amount of tiles/blocks
+	 m_platFormController = PlatformController(testPos.x ,testPos.y,
 												platFormTextureSize.x, platFormTextureSize.y, platformSize);
 
+	 //m_platFormController.setSpeed(0);
 	 m_platform = Platform(m_platformTexture, m_platFormController);
+	 m_platform.setNumberOfBlocks(platformSize);
 
 	 m_platFormController.setSpeed(0);
 
@@ -425,14 +427,38 @@ void Game::checkPlatformCollision()
 {
 
 	std::cout << "\n Player Y: " << m_player.getY();
-	std::cout << "\n Platform Y: " << m_platform.getY();
+
+	std::cout << "\n Platform X: " << m_platform.getX();
+	
 
 
-	if (m_player.getY() + 71 > m_platform.getY() - m_platform.getHeight() / 2)
+	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), singlePlayerTextureFrameSize.x * playerScale.x, singlePlayerTextureFrameSize.y * playerScale.y);
+	RectangleCollider platformCollider(m_platform.getX(), m_platform.getY(), m_platform.getWidth(), m_platform.getHeight());
+
+	float xOverlap = playerCollider.getXOverlap(platformCollider);
+	float yOverlap = playerCollider.getYOverlap(platformCollider);
+
+	
+	if (playerCollider.checkCollision(platformCollider))
 	{
-		m_player.setGrounded(true);
-		std::cout << "above";
+		std::cout << "\ncollision";
+		if (yOverlap > 0)
+		{
+			m_player.setVelocity({0, 0});
+			m_player.setPlayerGravity(0);
+			std::cout << "\ncollision on top";
+		}
+		else
+		{
+			m_player.setPlayerGravity(gravity);
+		}
 	}
+	else
+	{
+		m_player.setPlayerGravity(gravity);
+	}
+	
 }
+	
 
 

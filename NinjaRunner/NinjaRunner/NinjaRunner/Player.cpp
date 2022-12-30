@@ -6,6 +6,7 @@ Player::Player(const AnimatedSprite& sprite, const PlayerController& t_playerCon
 {
 	// Set the Player to Default to IdlePlayer State 
 	// and Enter that State
+	
 	m_state = new IdlePlayerState();
 	m_state->enter(*this);
 }
@@ -87,3 +88,4 @@ void Player::processKeyRelease(sf::Event t_event)
 {
 	
 }
+
