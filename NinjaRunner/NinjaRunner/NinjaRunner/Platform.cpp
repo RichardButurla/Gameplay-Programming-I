@@ -37,7 +37,7 @@ void Platform::updateBlockPositions(double t_deltaTime)
 	float blockYPos = 0;
 	for (int i = 0; i < numberOfBlocks; i++)
 	{
-		blockXPos = m_platformController.getX() + (m_platformController.getWidth() * i);
+		blockXPos = m_platformController.getX() + (m_platformController.getBlockWidth() * i);
 		blockYPos = m_platformController.getY();
 		m_platformBlocks[i].setPosition(blockXPos, blockYPos);
 	}
@@ -60,7 +60,7 @@ void Platform::setPos(int t_x, int t_y)
 	m_platformController.setY(t_y);
 	for (int i = 0; i < numberOfBlocks; i++)
 	{
-		blockXPos = t_x + (m_platformController.getWidth() * i);
+		blockXPos = t_x + (m_platformController.getBlockWidth() * i);
 		blockYPos = t_y;
 		m_platformBlocks[i].setPosition(blockXPos, blockYPos);
 	}

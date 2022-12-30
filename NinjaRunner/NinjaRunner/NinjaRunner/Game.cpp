@@ -456,7 +456,7 @@ void Game::checkPlatformCollision()
 	sf::Vector2f playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), playerSize.x, playerSize.y);
-	RectangleCollider platformCollider(m_platform.getX(), m_platform.getY(), m_platform.getWidth(), m_platform.getHeight());
+	RectangleCollider platformCollider(m_platform.getX(), m_platform.getY(), m_platform.getPlatformWidth(), m_platform.getHeight());
 
 	float xOverlap = playerCollider.getXOverlap(platformCollider);
 	float yOverlap = playerCollider.getYOverlap(platformCollider);

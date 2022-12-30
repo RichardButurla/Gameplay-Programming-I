@@ -9,8 +9,9 @@ public:
 	void update(double t_deltaTime);
 	float getX() { return x; }
 	float getY() { return y; }
-	float getWidth() { return width; }
-	float getHeight() { return height; }
+	float getBlockWidth() { return width; }
+	float getPlatformWidth() { return width * numberOfBlocks; }
+	float getBlockHeight() { return height; }
 	float getSpeed() { return speed; }
 
 	void setSpeed(float t_speed) { speed = t_speed; }
