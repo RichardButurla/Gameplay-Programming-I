@@ -26,7 +26,7 @@ void PlayerController::update(double t_deltaTime)
 		m_position.y = (SCREEN_HEIGHT - 300) - 1;
 	}
 
-
+	m_position.x += m_velocity.x * t_deltaTime;
 	m_position.y += m_velocity.y * t_deltaTime;
 }
 

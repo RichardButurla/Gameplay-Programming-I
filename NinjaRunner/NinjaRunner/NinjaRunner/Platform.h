@@ -18,6 +18,7 @@ public:
 	float getY() { return m_platformController.getY(); }
 	float getWidth() { return m_platformController.getWidth(); }
 	float getHeight() { return m_platformController.getHeight(); }
+	float getPlatformSpeed() { return m_platformController.getSpeed(); }
 
 	void setPos(int t_x, int t_y);
 	void setNumberOfBlocks(int t_num);

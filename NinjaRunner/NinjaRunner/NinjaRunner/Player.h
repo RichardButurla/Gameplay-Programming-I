@@ -39,6 +39,7 @@ public:
 
 	float getX() { return m_playerController.getPosition().x; }
 	float getY() { return m_playerController.getPosition().y; }
+	sf::Vector2f getVelocity() { return m_playerController.getVelocity(); }
 
 	void setVelocity(sf::Vector2f t_velocity) { m_playerController.setVelocity(t_velocity); };
 	void setPlayerGravity(float t_value) { m_playerController.setGravity(t_value); };

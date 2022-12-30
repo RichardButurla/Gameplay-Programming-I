@@ -11,6 +11,7 @@ public:
 	float getY() { return y; }
 	float getWidth() { return width; }
 	float getHeight() { return height; }
+	float getSpeed() { return speed; }
 
 	void setSpeed(float t_speed) { speed = t_speed; }
 	void setX(float t_x) { x = t_x; }

@@ -438,15 +438,15 @@ void Game::checkPlatformCollision()
 	float xOverlap = playerCollider.getXOverlap(platformCollider);
 	float yOverlap = playerCollider.getYOverlap(platformCollider);
 
-	
+	//check above platform
 	if (playerCollider.checkCollision(platformCollider))
 	{
-		std::cout << "\ncollision";
+		
 		if (yOverlap > 0)
 		{
 			m_player.setVelocity({0, 0});
 			m_player.setPlayerGravity(0);
-			std::cout << "\ncollision on top";
+			
 		}
 		else
 		{
@@ -456,6 +456,23 @@ void Game::checkPlatformCollision()
 	else
 	{
 		m_player.setPlayerGravity(gravity);
+	}
+
+	//check leftside
+	if (playerCollider.checkCollision(platformCollider))
+	{
+		std::cout << "\ncollision";
+
+		if (xOverlap > 0)
+		{
+			std::cout << "\n X Overlap";
+			m_player.setVelocity({ -(m_platform.getPlatformSpeed()),m_player.getVelocity().y });
+		}
+		else
+		{
+			m_player.setVelocity({ 0,m_player.getVelocity().y });
+		}
+		
 	}
 	
 }

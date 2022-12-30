@@ -1,8 +1,15 @@
-﻿  PlayerController.cpp
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.h(30,22): warning C4305: 'initializing': truncation from 'const double' to 'float'
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.cpp(30,31): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
+﻿  Game.cpp
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.h(31,22): warning C4305: 'initializing': truncation from 'const double' to 'float'
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(411,55): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=float
+              T=unsigned int
           ]
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(411,32): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(453,37): warning C4305: 'argument': truncation from 'const double' to 'float'
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(458,36): warning C4305: 'argument': truncation from 'const double' to 'float'
   NinjaRunner.vcxproj -> C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe

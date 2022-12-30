@@ -22,6 +22,7 @@ public:
 	void jump();
 
 	sf::Vector2f getPosition() { return m_position; }
+	sf::Vector2f getVelocity() { return m_velocity; }
 
 private:
 	sf::Vector2f m_position{0.f,0.f};
