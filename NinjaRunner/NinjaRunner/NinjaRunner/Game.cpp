@@ -399,16 +399,18 @@ void Game::setupSprite()
 	 
 
 	 m_playerController.setX(0);
-	 m_playerController.setY(0);
+	 m_playerController.setY(400);
 	 m_player = Player(m_playerAnimatedSprite,m_playerController);
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Platform
 	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
-	 sf::Vector2f testPos = { 0, 400 };
+	 sf::Vector2f testPos = { 0, 100 };
 	 int platformSize = 1; //amount of tiles/blocks
 	 m_platFormController = PlatformController(testPos.x ,testPos.y,
 												platFormTextureSize.x, platFormTextureSize.y, platformSize);
+
+	 m_platFormController.setSpeed(0);
 
 	 //m_platFormController.setSpeed(0);
 	 m_platform = Platform(m_platformTexture, m_platFormController);
@@ -452,6 +454,23 @@ void Game::checkPlatformCollision()
 		{
 			m_player.setPlayerGravity(gravity);
 		}
+	}
+	else
+	{
+		m_player.setPlayerGravity(gravity);
+	}
+
+	//check below
+	if (playerCollider.checkCollision(platformCollider))
+	{
+
+		if (yOverlap < 0)
+		{
+			m_player.setVelocity({ 0, 0 });
+			m_player.setPlayerGravity(gravity);
+
+		}
+		
 	}
 	else
 	{
