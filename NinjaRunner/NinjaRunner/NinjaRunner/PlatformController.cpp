@@ -1,5 +1,6 @@
 #include "PlatformController.h"
 #include "Globals.h"
+#include <iostream>
 
 PlatformController::PlatformController(float t_x, float t_y, float t_width, float t_height,int t_numberOfBlocks) :
 	x(t_x),
@@ -27,10 +28,12 @@ void PlatformController::update(double t_deltaTime)
 	checkBounds();
 }
 
-void PlatformController::checkBounds()
+bool PlatformController::checkBounds()
 {
 	if (x + (numberOfBlocks * width) < 0)
 	{
-		x = SCREEN_WIDTH;
+		std::cout << "\nOUT OF BOUNDS \n";
+		return true;
 	}
+	return false;
 }

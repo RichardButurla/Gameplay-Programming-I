@@ -343,6 +343,7 @@ void Game::update(sf::Time t_deltaTime)
 	m_player.updatePlayer(t_deltaTime.asSeconds());
 
 	checkPlatformCollision();
+	checkPlatformOffScreen();
 }
 
 /// <summary>
@@ -418,6 +419,23 @@ void Game::setupSprite()
 	 m_floorPlatform.setPos(0, SCREEN_HEIGHT -80);
 	 m_floorPlatform.setNumberOfBlocks(6);
 
+
+}
+
+void Game::checkPlatformOffScreen()
+{
+	int newNumberOfPlatformBlocks = 0;
+	sf::Vector2f newPlatformPosition{ 0.f,0.f };
+
+	//chekc platform off screen
+	if (m_platform.isOffScreen())
+	{
+		newNumberOfPlatformBlocks = std::rand() % MAX_PLATFORM_BLOCKS + 1;
+		newPlatformPosition.x = SCREEN_WIDTH;
+		newPlatformPosition.y = std::rand() % static_cast<int>( (SCREEN_HEIGHT - m_platform.getHeight()) + m_platform.getHeight() );
+		m_platform.setNumberOfBlocks(newNumberOfPlatformBlocks);
+		m_platform.setPos(newPlatformPosition.x, newPlatformPosition.y);
+	}
 
 }
 

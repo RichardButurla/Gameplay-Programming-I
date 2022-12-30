@@ -16,8 +16,9 @@ public:
 	void setSpeed(float t_speed) { speed = t_speed; }
 	void setX(float t_x) { x = t_x; }
 	void setY(float t_y) {y = t_y; }
+	void setNumberOfBlocks(int t_num) { numberOfBlocks = t_num; }
 
-	void checkBounds();
+	bool checkBounds();
 
 
 

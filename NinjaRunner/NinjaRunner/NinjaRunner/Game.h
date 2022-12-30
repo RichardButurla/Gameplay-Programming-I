@@ -29,7 +29,9 @@ private:
 	void setupFontAndText();
 	void setupSprite();
 
+	void checkPlatformOffScreen();
 	void checkPlatformCollision();
+	
 
 
 	sf::RenderWindow m_window; // main SFML window

@@ -1,5 +1,6 @@
 #pragma once
 #include "PlatformController.h"
+#include "Globals.h"
 #include <SFML/Graphics.hpp>
 
 class Platform
@@ -23,11 +24,12 @@ public:
 	void setPos(int t_x, int t_y);
 	void setNumberOfBlocks(int t_num);
 
+	bool isOffScreen() { return m_platformController.checkBounds();}
+
 
 private:
-	static const int MAX_BLOCKS = 6;
 	int numberOfBlocks = 2;
-	sf::Sprite m_platformBlocks[MAX_BLOCKS];
+	sf::Sprite m_platformBlocks[MAX_PLATFORM_BLOCKS];
 	sf::Texture m_platformTexture;
 
 	PlatformController m_platformController;

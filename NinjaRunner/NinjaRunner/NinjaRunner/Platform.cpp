@@ -68,9 +68,10 @@ void Platform::setPos(int t_x, int t_y)
 
 void Platform::setNumberOfBlocks(int t_num)
 {
-	if (t_num <= MAX_BLOCKS)
+	if (t_num <= MAX_PLATFORM_BLOCKS)
 	{
 		numberOfBlocks = t_num;
+		m_platformController.setNumberOfBlocks(t_num);
 
 		for (int i = 0; i < numberOfBlocks; i++)
 		{
@@ -80,6 +81,7 @@ void Platform::setNumberOfBlocks(int t_num)
 	else
 	{
 		std::cout << "over block limit, defaulted to 6.";
-		numberOfBlocks = MAX_BLOCKS;
+		numberOfBlocks = MAX_PLATFORM_BLOCKS;
+		m_platformController.setNumberOfBlocks(t_num);
 	}
 }
