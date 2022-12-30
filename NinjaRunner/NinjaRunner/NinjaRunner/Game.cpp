@@ -399,25 +399,37 @@ void Game::setupSprite()
 	 //players texture width heigth
 	 
 
-	 m_playerController.setX(0);
+	 m_playerController.setX(300);
 	 m_playerController.setY(0);
 	 m_player = Player(m_playerAnimatedSprite,m_playerController);
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Platform
 	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
-	 sf::Vector2f testPos = { 500, 400 };
+
+	 
+	 sf::Vector2f testPos = { 1400, 400 };
 	 int platformSize = 1; //amount of tiles/blocks
 	 m_platFormController = PlatformController(testPos.x ,testPos.y,platFormTextureSize.x, platFormTextureSize.y, platformSize);
-
-	 m_platform = Platform(m_platformTexture, m_platFormController);
-	 m_platform.setNumberOfBlocks(platformSize);
-
 	 m_platFormController.setSpeed(0);
 
 	 m_floorPlatform = Platform(m_platformTexture, m_platFormController);
-	 m_floorPlatform.setPos(0, SCREEN_HEIGHT -80);
+	 m_floorPlatform.setPos(0, SCREEN_HEIGHT - 80);
 	 m_floorPlatform.setNumberOfBlocks(6);
+
+	 //scale set up in header
+	 platFormTextureSize.x *= m_platformScale.x;
+	 platFormTextureSize.y *= m_platformScale.y;
+
+	 m_platFormController = PlatformController(testPos.x, testPos.y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
+
+	 m_platform = Platform(m_platformTexture, m_platFormController);
+	 m_platform.setNumberOfBlocks(platformSize);
+	 m_platform.setPlatformScale(m_platformScale);
+
+	 m_platFormController.setSpeed(0);
+
+	 
 
 
 }
@@ -457,7 +469,7 @@ void Game::checkPlatformCollision()
 			m_player.setPlayerGravity(0);
 			
 		}
-		else //check below
+		else if(yOverlap < 0) //check below
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(gravity);

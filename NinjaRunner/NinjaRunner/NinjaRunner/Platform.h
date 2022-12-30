@@ -23,6 +23,7 @@ public:
 
 	void setPos(int t_x, int t_y);
 	void setNumberOfBlocks(int t_num);
+	void setPlatformScale(sf::Vector2f t_scale);
 
 	bool isOffScreen() { return m_platformController.checkBounds();}
 

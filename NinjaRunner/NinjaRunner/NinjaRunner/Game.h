@@ -45,6 +45,7 @@ private:
 	Player m_player;
 	PlayerController m_playerController;
 
+	sf::Vector2f m_platformScale{ 0.5,0.5 };
 	Platform m_floorPlatform;
 	PlatformController m_floorPlatFormController;
 

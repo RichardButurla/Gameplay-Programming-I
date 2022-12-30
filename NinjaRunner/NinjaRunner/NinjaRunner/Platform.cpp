@@ -85,3 +85,12 @@ void Platform::setNumberOfBlocks(int t_num)
 		m_platformController.setNumberOfBlocks(t_num);
 	}
 }
+void Platform::setPlatformScale(sf::Vector2f t_scale)
+{
+	for (int i = 0; i < MAX_PLATFORM_BLOCKS; i++)
+	{
+		m_platformBlocks[i].setScale(t_scale);
+	}
+	//potential bug where if we for some reason decide to rescale in game,
+	//controller is not updated.
+}
