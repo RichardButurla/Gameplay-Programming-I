@@ -399,20 +399,16 @@ void Game::setupSprite()
 	 
 
 	 m_playerController.setX(0);
-	 m_playerController.setY(400);
+	 m_playerController.setY(0);
 	 m_player = Player(m_playerAnimatedSprite,m_playerController);
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Platform
 	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
-	 sf::Vector2f testPos = { 0, 100 };
+	 sf::Vector2f testPos = { 500, 400 };
 	 int platformSize = 1; //amount of tiles/blocks
-	 m_platFormController = PlatformController(testPos.x ,testPos.y,
-												platFormTextureSize.x, platFormTextureSize.y, platformSize);
+	 m_platFormController = PlatformController(testPos.x ,testPos.y,platFormTextureSize.x, platFormTextureSize.y, platformSize);
 
-	 m_platFormController.setSpeed(0);
-
-	 //m_platFormController.setSpeed(0);
 	 m_platform = Platform(m_platformTexture, m_platFormController);
 	 m_platform.setNumberOfBlocks(platformSize);
 
@@ -427,61 +423,29 @@ void Game::setupSprite()
 
 void Game::checkPlatformCollision()
 {
-
-	std::cout << "\n Player Y: " << m_player.getY();
-
-	std::cout << "\n Platform X: " << m_platform.getX();
-	
-
-
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), singlePlayerTextureFrameSize.x * playerScale.x, singlePlayerTextureFrameSize.y * playerScale.y);
 	RectangleCollider platformCollider(m_platform.getX(), m_platform.getY(), m_platform.getWidth(), m_platform.getHeight());
 
 	float xOverlap = playerCollider.getXOverlap(platformCollider);
 	float yOverlap = playerCollider.getYOverlap(platformCollider);
 
-	//check above platform
+	//first check actual collision
 	if (playerCollider.checkCollision(platformCollider))
 	{
-		
+		//check above platform
 		if (yOverlap > 0)
 		{
 			m_player.setVelocity({0, 0});
 			m_player.setPlayerGravity(0);
 			
 		}
-		else
-		{
-			m_player.setPlayerGravity(gravity);
-		}
-	}
-	else
-	{
-		m_player.setPlayerGravity(gravity);
-	}
-
-	//check below
-	if (playerCollider.checkCollision(platformCollider))
-	{
-
-		if (yOverlap < 0)
+		else //check below
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(gravity);
-
 		}
-		
-	}
-	else
-	{
-		m_player.setPlayerGravity(gravity);
-	}
 
-	//check leftside
-	if (playerCollider.checkCollision(platformCollider))
-	{
-		std::cout << "\ncollision";
-
+		//check left
 		if (xOverlap > 0)
 		{
 			std::cout << "\n X Overlap";
@@ -491,7 +455,10 @@ void Game::checkPlatformCollision()
 		{
 			m_player.setVelocity({ 0,m_player.getVelocity().y });
 		}
-		
+	}
+	else
+	{
+		m_player.setPlayerGravity(gravity);
 	}
 	
 }
