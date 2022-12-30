@@ -39,13 +39,13 @@ private:
 	sf::Text m_welcomeMessage; // text used for message on screen
 
 	sf::Vector2f singlePlayerTextureFrameSize = { 363, 458 };
-	sf::Vector2f playerScale = { 0.5,0.5};
+	sf::Vector2f playerScale = { 0.3,0.3};
 	sf::Texture m_playerTexture;
 	AnimatedSprite m_playerAnimatedSprite;
 	Player m_player;
 	PlayerController m_playerController;
 
-	sf::Vector2f m_platformScale{ 0.5,0.5 };
+	sf::Vector2f m_platformScale{ 0.3,0.3 };
 	Platform m_floorPlatform;
 	PlatformController m_floorPlatFormController;
 

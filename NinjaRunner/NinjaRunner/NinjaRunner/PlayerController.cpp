@@ -20,10 +20,10 @@ void PlayerController::update(double t_deltaTime)
 	m_velocity.y += playerGravity;
 
 
-	if (m_position.y >= SCREEN_HEIGHT - 300)
+	if (m_position.y >= SCREEN_HEIGHT - 200)
 	{
 		m_velocity.y = 0;
-		m_position.y = (SCREEN_HEIGHT - 300) - 1;
+		m_position.y = (SCREEN_HEIGHT - 200) - 1;
 	}
 
 	m_position.x += m_velocity.x * t_deltaTime;
