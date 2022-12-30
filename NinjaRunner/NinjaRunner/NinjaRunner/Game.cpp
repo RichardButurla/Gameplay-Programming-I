@@ -453,11 +453,15 @@ void Game::checkPlatformOffScreen()
 
 void Game::checkPlatformCollision()
 {
-	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), singlePlayerTextureFrameSize.x * playerScale.x, singlePlayerTextureFrameSize.y * playerScale.y);
+	sf::Vector2f playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
+
+	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), playerSize.x, playerSize.y);
 	RectangleCollider platformCollider(m_platform.getX(), m_platform.getY(), m_platform.getWidth(), m_platform.getHeight());
 
 	float xOverlap = playerCollider.getXOverlap(platformCollider);
 	float yOverlap = playerCollider.getYOverlap(platformCollider);
+
+	std::cout << "\n X Overlap: " << xOverlap;
 
 	//first check actual collision
 	if (playerCollider.checkCollision(platformCollider))
@@ -476,10 +480,11 @@ void Game::checkPlatformCollision()
 		}
 
 		//check left
-		if (xOverlap > 0)
+		if (xOverlap > 100  ) //add in a range so that only on the edge do we get pushed back
 		{
-			std::cout << "\n X Overlap";
+			
 			m_player.setVelocity({ -(m_platform.getPlatformSpeed()),m_player.getVelocity().y });
+			m_player.setPlayerGravity(300);
 		}
 		else
 		{
@@ -489,6 +494,8 @@ void Game::checkPlatformCollision()
 	else
 	{
 		m_player.setPlayerGravity(gravity);
+		m_player.setVelocity({ 0,m_player.getVelocity().y });
+		
 	}
 	
 }

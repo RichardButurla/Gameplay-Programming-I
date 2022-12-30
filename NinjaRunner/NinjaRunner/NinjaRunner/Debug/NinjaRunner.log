@@ -53,6 +53,6 @@ C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\
           [
               T=float
           ]
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(475,37): warning C4305: 'argument': truncation from 'const double' to 'float'
-C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(491,36): warning C4305: 'argument': truncation from 'const double' to 'float'
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(479,37): warning C4305: 'argument': truncation from 'const double' to 'float'
+C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(496,36): warning C4305: 'argument': truncation from 'const double' to 'float'
   NinjaRunner.vcxproj -> C:\Users\Richie\Desktop\GpRunner\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe
