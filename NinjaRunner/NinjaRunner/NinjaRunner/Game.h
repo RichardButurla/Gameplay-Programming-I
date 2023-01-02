@@ -52,18 +52,23 @@ private:
 	Player m_player;
 	PlayerController m_playerController;
 
+	static const int MAX_FLOOR_PLATFORMS = 2;
 	sf::Vector2f m_platformScale{ 0.2,0.2 };
-	Platform m_floorPlatform;
+	Platform m_floorPlatforms[MAX_FLOOR_PLATFORMS];
 	PlatformController m_floorPlatFormController;
 
 	static const int MAX_PLATFORMS = 3;
 	Platform m_platforms[MAX_PLATFORMS];
 	PlatformController m_platFormController;
 	sf::Texture m_platformTexture;
+	sf::Vector2u m_platformTextureSize;
 	sf::Clock m_startOfPlatformsClock;
+	sf::Clock m_floorPlatformClock;
+	sf::Time m_floorPlatformTime;
 	float m_platformSpeed = 400;
 	bool platformsInOrder{ false };
 	int platformNumber = 0;
+	bool firstOffscreenOccurance{ false };
 
 	gpp::Events & m_input;
 	gpp::Events input;

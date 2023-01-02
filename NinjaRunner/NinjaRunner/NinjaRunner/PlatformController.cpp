@@ -37,3 +37,4 @@ bool PlatformController::checkBounds()
 	}
 	return false;
 }
+

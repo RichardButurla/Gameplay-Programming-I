@@ -360,8 +360,11 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_platforms[i].update(t_deltaTime.asSeconds());
 	}
+	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+	{
+		m_floorPlatforms[i].update(t_deltaTime.asSeconds());
+	}
 	
-	m_floorPlatform.update(t_deltaTime.asSeconds());
 	m_player.updatePlayer(t_deltaTime.asSeconds());
 
 	checkCollision();
@@ -378,7 +381,10 @@ void Game::render()
 	{
 		m_platforms[i].render(m_window);
 	}
-	m_floorPlatform.render(m_window);
+	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+	{
+		m_floorPlatforms[i].render(m_window);
+	}
 	m_player.renderPlayer(m_window);
 	m_window.display();
 }
@@ -430,21 +436,30 @@ void Game::setupSprite()
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Platform
-	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
+	 m_platformTextureSize = m_platformTexture.getSize();
 	 //scale set up in header
-	 platFormTextureSize.x *= m_platformScale.x;
-	 platFormTextureSize.y *= m_platformScale.y;
+	 m_platformTextureSize.x *= m_platformScale.x;
+	 m_platformTextureSize.y *= m_platformScale.y;
 
 	 
-	 sf::Vector2f testPos = { 1400, 400 };
-	 int platformSize = 1; //amount of tiles/blocks
-	 m_platFormController = PlatformController(testPos.x ,testPos.y,platFormTextureSize.x, platFormTextureSize.y, platformSize);
-	 m_platFormController.setSpeed(0);
+	 sf::Vector2f testPos[MAX_FLOOR_PLATFORMS]
+	 {
+		 {0, static_cast<float>(SCREEN_HEIGHT - m_platformTextureSize.y)},
+		 {static_cast<float>((MAX_PLATFORM_BLOCKS - 1) * m_platformTextureSize.x) ,static_cast<float>(SCREEN_HEIGHT - m_platformTextureSize.y) }
+	 };
+	 
+	 int platformSize = MAX_FLOOR_PLATFORMS; //amount of tiles/blocks
+	 m_platFormController = PlatformController(testPos[0].x, testPos[0].y, m_platformTextureSize.x, m_platformTextureSize.y, platformSize);
+	 m_platFormController.setSpeed(m_platformSpeed);
 
-	 m_floorPlatform = Platform(m_platformTexture, m_platFormController);
-	 m_floorPlatform.setPos(0, SCREEN_HEIGHT - platFormTextureSize.y);
-	 m_floorPlatform.setNumberOfBlocks(MAX_PLATFORM_BLOCKS);
-	 m_floorPlatform.setPlatformScale(m_platformScale);
+	 for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+	 {
+		 m_floorPlatforms[i] = Platform(m_platformTexture, m_platFormController);
+		 m_floorPlatforms[i].setPos( testPos[i].x,testPos[i].y );
+		 m_floorPlatforms[i].setNumberOfBlocks(MAX_PLATFORM_BLOCKS);
+		 m_floorPlatforms[i].setPlatformScale(m_platformScale);
+	 }
+	 
 
 	 sf::Vector2f initialPlatformPos[MAX_PLATFORMS] //set initial positiions off screen
 	 {
@@ -458,7 +473,7 @@ void Game::setupSprite()
 	 for (int i = 0; i < MAX_PLATFORMS; i++)
 	 {
 		 
-		 m_platFormController = PlatformController(initialPlatformPos[i].x, initialPlatformPos[i].y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
+		 m_platFormController = PlatformController(initialPlatformPos[i].x, initialPlatformPos[i].y, m_platformTextureSize.x, m_platformTextureSize.y, platformSize);
 		 m_platFormController.setSpeed(0);
 		 m_platforms[i] = Platform(m_platformTexture, m_platFormController);
 		 m_platforms[i].setNumberOfBlocks(platformSize);
@@ -500,6 +515,8 @@ void Game::checkPlatformTimes()
 			m_platforms[i].setSpeed(m_platformSpeed);
 		}
 	}
+
+
 	
 }
 
@@ -508,7 +525,7 @@ void Game::checkPlatformOffScreen()
 	int newNumberOfPlatformBlocks = 0;
 	sf::Vector2f newPlatformPosition{ 0.f,0.f };
 
-	sf::Vector2f startPos{ SCREEN_WIDTH,SCREEN_HEIGHT - (m_floorPlatform.getHeight() * 2) };
+	sf::Vector2f startPos{ SCREEN_WIDTH,static_cast<float>(SCREEN_HEIGHT - (m_platformTextureSize.y * 2)) };
 
 	//newPlatformPosition.y = std::rand() % static_cast<int>((SCREEN_HEIGHT - m_platforms[i].getHeight()) + m_platforms[i].getHeight());    //old code
 
@@ -517,14 +534,25 @@ void Game::checkPlatformOffScreen()
 	{
 		if (m_platforms[i].isOffScreen())
 		{
-			newNumberOfPlatformBlocks = std::rand() % 3 + 4;
+			newNumberOfPlatformBlocks = std::rand() % 3 + 2;
 			newPlatformPosition.x = SCREEN_WIDTH;
 			newPlatformPosition.y = startPos.y - m_playerSize.y - (m_playerSize.y * i);
 			m_platforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
 			m_platforms[i].setPos(newPlatformPosition.x, newPlatformPosition.y);
 		}
 	}
-	
+	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+	{
+		if (m_floorPlatforms[i].isOffScreen())
+		{
+			newNumberOfPlatformBlocks = std::rand() % (MAX_PLATFORM_BLOCKS - MIN_FLOOR_BLOCKS) + MIN_FLOOR_BLOCKS;
+			newPlatformPosition.x = SCREEN_WIDTH;
+			newPlatformPosition.y = SCREEN_HEIGHT - (m_platformTextureSize.y);
+			m_floorPlatforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
+			m_floorPlatforms[i].setPos(newPlatformPosition.x, newPlatformPosition.y);
+		}
+	}
+
 
 }
 
@@ -533,17 +561,24 @@ void Game::checkCollision()
 	m_playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y);
-	RectangleCollider floorPlatformCollider(m_floorPlatform.getX(), m_floorPlatform.getY(), m_floorPlatform.getPlatformWidth(), m_floorPlatform.getHeight());
+	RectangleCollider floorPlatformCollider[MAX_FLOOR_PLATFORMS];
 	RectangleCollider platformCollider[MAX_PLATFORMS];
 
 	int numberOfPlatformCollision = 0; //we will use this to default player to his gravity since without this he starts to sink through platforms
 
+	//platforms in the air
 	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
 		platformCollider[i] = RectangleCollider(m_platforms[i].getX(), m_platforms[i].getY(), m_platforms[i].getPlatformWidth(), m_platforms[i].getHeight());
 		checkPlatFormCollision(playerCollider, platformCollider[i], numberOfPlatformCollision,m_platforms[i]);
 	}
-	checkPlatFormCollision(playerCollider, floorPlatformCollider, numberOfPlatformCollision, m_floorPlatform);
+	//floor platforms. one is followed by another for smooth changing of holes in ground
+	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+	{
+		floorPlatformCollider[i] = RectangleCollider(m_floorPlatforms[i].getX(), m_floorPlatforms[i].getY(), m_floorPlatforms[i].getPlatformWidth(), m_floorPlatforms[i].getHeight());
+		checkPlatFormCollision(playerCollider, floorPlatformCollider[i], numberOfPlatformCollision, m_floorPlatforms[i]);
+	}
+	
 
 	if (numberOfPlatformCollision == 0)
 	{
@@ -571,7 +606,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 			m_player.setPlayerGravity(0);
 
 		}
-		else if (yOverlap < 100) //check below
+		else if (yOverlap < 0) //check below
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(gravity);
