@@ -30,7 +30,9 @@ private:
 	void setupSprite();
 
 	void checkPlatformOffScreen();
-	void checkPlatformCollision();
+	void checkCollision();
+	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider t_platformCollider, int t_platfromIndex);
+	void checkPlatFormCollision();
 	
 
 
@@ -49,7 +51,8 @@ private:
 	Platform m_floorPlatform;
 	PlatformController m_floorPlatFormController;
 
-	Platform m_platform;
+	static const int MAX_PLATFORMS = 3;
+	Platform m_platforms[MAX_PLATFORMS];
 	PlatformController m_platFormController;
 	sf::Texture m_platformTexture;
 

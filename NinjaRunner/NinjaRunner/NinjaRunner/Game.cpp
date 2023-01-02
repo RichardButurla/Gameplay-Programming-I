@@ -338,11 +338,15 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	m_platform.update(t_deltaTime.asSeconds());
+	for (int i = 0; i < MAX_PLATFORMS; i++)
+	{
+		m_platforms[i].update(t_deltaTime.asSeconds());
+	}
+	
 	m_floorPlatform.update(t_deltaTime.asSeconds());
 	m_player.updatePlayer(t_deltaTime.asSeconds());
 
-	checkPlatformCollision();
+	checkCollision();
 	checkPlatformOffScreen();
 }
 
@@ -352,7 +356,10 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
-	m_platform.render(m_window);
+	for (int i = 0; i < MAX_PLATFORMS; i++)
+	{
+		m_platforms[i].render(m_window);
+	}
 	m_floorPlatform.render(m_window);
 	m_player.renderPlayer(m_window);
 	m_window.display();
@@ -421,13 +428,29 @@ void Game::setupSprite()
 	 platFormTextureSize.x *= m_platformScale.x;
 	 platFormTextureSize.y *= m_platformScale.y;
 
-	 m_platFormController = PlatformController(testPos.x, testPos.y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
-
-	 m_platform = Platform(m_platformTexture, m_platFormController);
-	 m_platform.setNumberOfBlocks(platformSize);
-	 m_platform.setPlatformScale(m_platformScale);
-
+	 
 	 m_platFormController.setSpeed(0);
+
+	 sf::Vector2f platformPos[MAX_PLATFORMS]
+	 {
+		 {250,200},
+		 {250,400},
+		 {250,600}
+	 };
+
+	 for (int i = 0; i < MAX_PLATFORMS; i++)
+	 {
+		 
+		 m_platFormController = PlatformController(platformPos[i].x, platformPos[i].y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
+		 m_platFormController.setSpeed(0);
+		 m_platforms[i] = Platform(m_platformTexture, m_platFormController);
+		 m_platforms[i].setNumberOfBlocks(platformSize);
+		 m_platforms[i].setPlatformScale(m_platformScale);
+	 }
+
+	
+
+	 
 
 	 
 
@@ -440,50 +463,61 @@ void Game::checkPlatformOffScreen()
 	sf::Vector2f newPlatformPosition{ 0.f,0.f };
 
 	//chekc platform off screen
-	if (m_platform.isOffScreen())
+	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
-		newNumberOfPlatformBlocks = std::rand() % MAX_PLATFORM_BLOCKS + 1;
-		newPlatformPosition.x = SCREEN_WIDTH;
-		newPlatformPosition.y = std::rand() % static_cast<int>( (SCREEN_HEIGHT - m_platform.getHeight()) + m_platform.getHeight() );
-		m_platform.setNumberOfBlocks(newNumberOfPlatformBlocks);
-		m_platform.setPos(newPlatformPosition.x, newPlatformPosition.y);
+		if (m_platforms[i].isOffScreen())
+		{
+			newNumberOfPlatformBlocks = std::rand() % MAX_PLATFORM_BLOCKS + 1;
+			newPlatformPosition.x = SCREEN_WIDTH;
+			newPlatformPosition.y = std::rand() % static_cast<int>((SCREEN_HEIGHT - m_platforms[i].getHeight()) + m_platforms[i].getHeight());
+			m_platforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
+			m_platforms[i].setPos(newPlatformPosition.x, newPlatformPosition.y);
+		}
 	}
+	
 
 }
 
-void Game::checkPlatformCollision()
+void Game::checkCollision()
 {
 	sf::Vector2f playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), playerSize.x, playerSize.y);
-	RectangleCollider platformCollider(m_platform.getX(), m_platform.getY(), m_platform.getPlatformWidth(), m_platform.getHeight());
+	RectangleCollider platformCollider[MAX_PLATFORMS];
+	for (int i = 0; i < MAX_PLATFORMS; i++)
+	{
+		platformCollider[i] = RectangleCollider(m_platforms[i].getX(), m_platforms[i].getY(), m_platforms[i].getPlatformWidth(), m_platforms[i].getHeight());
+		checkPlatFormCollision(playerCollider, platformCollider[i], i);
+	}
+}
 
-	float xOverlap = playerCollider.getXOverlap(platformCollider);
-	float yOverlap = playerCollider.getYOverlap(platformCollider);
-
-	std::cout << "\n X Overlap: " << xOverlap;
+void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider t_platformCollider, int t_platfromIndex)
+{
+	float xOverlap = t_playerCollider.getXOverlap(t_platformCollider);
+	float yOverlap = t_playerCollider.getYOverlap(t_platformCollider);
 
 	//first check actual collision
-	if (playerCollider.checkCollision(platformCollider))
+	if (t_playerCollider.checkCollision(t_platformCollider))
 	{
+		std::cout << "\nCOLLISION\n";
 		//check above platform
 		if (yOverlap > 0)
 		{
-			m_player.setVelocity({0, 0});
+			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(0);
-			
+
 		}
-		else if(yOverlap < 0) //check below
+		else if (yOverlap < 0) //check below
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(gravity);
 		}
 
 		//check left
-		if (xOverlap > 100  ) //add in a range so that only on the edge do we get pushed back
+		if (xOverlap > 100) //add in a range so that only on the edge do we get pushed back
 		{
-			
-			m_player.setVelocity({ -(m_platform.getPlatformSpeed()),m_player.getVelocity().y });
+
+			m_player.setVelocity({ -(m_platforms[t_platfromIndex].getPlatformSpeed()),m_player.getVelocity().y});
 			m_player.setPlayerGravity(300);
 		}
 		else
@@ -495,9 +529,8 @@ void Game::checkPlatformCollision()
 	{
 		m_player.setPlayerGravity(gravity);
 		m_player.setVelocity({ 0,m_player.getVelocity().y });
-		
+
 	}
-	
 }
 	
 

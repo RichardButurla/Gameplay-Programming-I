@@ -17,7 +17,6 @@ public:
 	int getNumberOfBlocks() { return numberOfBlocks; }
 	float getX() { return m_platformController.getX(); }
 	float getY() { return m_platformController.getY(); }
-	float getWidth() { return m_platformController.getBlockWidth(); }
 	float getPlatformWidth() { return m_platformController.getPlatformWidth(); }
 	float getHeight() { return m_platformController.getBlockHeight(); }
 	float getPlatformSpeed() { return m_platformController.getSpeed(); }
