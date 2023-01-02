@@ -31,7 +31,7 @@ private:
 
 	void checkPlatformOffScreen();
 	void checkCollision();
-	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider t_platformCollider, int t_platfromIndex, int& t_numberOfCollisions);
+	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkPlatFormCollision();
 	
 

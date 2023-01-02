@@ -428,6 +428,9 @@ void Game::setupSprite()
 
 	 //Setup Platform
 	 sf::Vector2u platFormTextureSize = m_platformTexture.getSize();
+	 //scale set up in header
+	 platFormTextureSize.x *= m_platformScale.x;
+	 platFormTextureSize.y *= m_platformScale.y;
 
 	 
 	 sf::Vector2f testPos = { 1400, 400 };
@@ -437,11 +440,10 @@ void Game::setupSprite()
 
 	 m_floorPlatform = Platform(m_platformTexture, m_platFormController);
 	 m_floorPlatform.setPos(0, SCREEN_HEIGHT - 80);
-	 m_floorPlatform.setNumberOfBlocks(6);
+	 m_floorPlatform.setNumberOfBlocks(16);
+	 m_floorPlatform.setPlatformScale(m_platformScale);
 
-	 //scale set up in header
-	 platFormTextureSize.x *= m_platformScale.x;
-	 platFormTextureSize.y *= m_platformScale.y;
+	 
 
 	 
 	 m_platFormController.setSpeed(0);
@@ -462,14 +464,6 @@ void Game::setupSprite()
 		 m_platforms[i].setNumberOfBlocks(platformSize);
 		 m_platforms[i].setPlatformScale(m_platformScale);
 	 }
-
-	
-
-	 
-
-	 
-
-
 }
 
 void Game::checkPlatformOffScreen()
@@ -498,21 +492,28 @@ void Game::checkCollision()
 	sf::Vector2f playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), playerSize.x, playerSize.y);
+	RectangleCollider floorPlatformCollider(m_floorPlatform.getX(), m_floorPlatform.getY(), m_floorPlatform.getPlatformWidth(), m_floorPlatform.getHeight());
 	RectangleCollider platformCollider[MAX_PLATFORMS];
+
 	int numberOfPlatformCollision = 0; //we will use this to default player to his gravity since without this he starts to sink through platforms
+
 	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
 		platformCollider[i] = RectangleCollider(m_platforms[i].getX(), m_platforms[i].getY(), m_platforms[i].getPlatformWidth(), m_platforms[i].getHeight());
-		checkPlatFormCollision(playerCollider, platformCollider[i], i, numberOfPlatformCollision);
+		checkPlatFormCollision(playerCollider, platformCollider[i], numberOfPlatformCollision,m_platforms[i]);
 	}
+	checkPlatFormCollision(playerCollider, floorPlatformCollider, numberOfPlatformCollision, m_floorPlatform);
+
 	if (numberOfPlatformCollision == 0)
 	{
 		m_player.setPlayerGravity(gravity);
 		m_player.setVelocity({ 0,m_player.getVelocity().y });
 	}
+
+	
 }
 
-void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider t_platformCollider, int t_platfromIndex, int& t_numberOfCollisions)
+void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform)
 {
 	float xOverlap = t_playerCollider.getXOverlap(t_platformCollider);
 	float yOverlap = t_playerCollider.getYOverlap(t_platformCollider);
@@ -539,7 +540,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 		if (xOverlap > 100) //add in a range so that only on the edge do we get pushed back
 		{
 
-			m_player.setVelocity({ -(m_platforms[t_platfromIndex].getPlatformSpeed()),m_player.getVelocity().y});
+			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});
 			m_player.setPlayerGravity(300);
 		}
 		else

@@ -19,13 +19,6 @@ void PlayerController::update(double t_deltaTime)
 	std::cout << "\nplayer Gravity: " << playerGravity;
 	m_velocity.y += playerGravity;
 
-
-	if (m_position.y >= SCREEN_HEIGHT - 200)
-	{
-		m_velocity.y = 0;
-		m_position.y = (SCREEN_HEIGHT - 200) - 1;
-	}
-
 	m_position.x += m_velocity.x * t_deltaTime;
 	m_position.y += m_velocity.y * t_deltaTime;
 }
