@@ -546,7 +546,7 @@ void Game::checkPlatformOffScreen()
 		if (m_floorPlatforms[i].isOffScreen())
 		{
 			newNumberOfPlatformBlocks = std::rand() % (MAX_PLATFORM_BLOCKS - MIN_FLOOR_BLOCKS) + MIN_FLOOR_BLOCKS;
-			newPlatformPosition.x = SCREEN_WIDTH;
+			newPlatformPosition.x = SCREEN_WIDTH + 12; // constant here is the offset that closes gap between 2 floors.
 			newPlatformPosition.y = SCREEN_HEIGHT - (m_platformTextureSize.y);
 			m_floorPlatforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
 			m_floorPlatforms[i].setPos(newPlatformPosition.x, newPlatformPosition.y);
@@ -611,9 +611,8 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(gravity);
 		}
-
 		//check left
-		if (xOverlap > 100) //add in a range so that only on the edge do we get pushed back
+		if (xOverlap > 50) //add in a range so that only on the edge do we get pushed back
 		{
 
 			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});
@@ -627,6 +626,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform)
 {
 	float yOverlap = t_playerCollider.getYOverlap(t_platformCollider);
+	float xOverlap = t_playerCollider.getXOverlap(t_platformCollider);
 
 	//first check actual collision
 	if (t_playerCollider.checkCollision(t_platformCollider))
@@ -642,7 +642,14 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 		if (yOverlap < 0) //check below
 		{
 			m_player.setVelocity({ 0, 0 });
-			m_player.setPlayerGravity(gravity);
+			m_player.setPlayerGravity(gravity * 2);
+		}
+		//check left
+		if (xOverlap > 103) //add in a range so that only on the edge do we get pushed back
+		{
+
+			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});
+			m_player.setPlayerGravity(300);
 		}
 	}
 }
