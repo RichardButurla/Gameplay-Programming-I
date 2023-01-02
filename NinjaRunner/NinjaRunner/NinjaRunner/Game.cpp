@@ -445,7 +445,7 @@ void Game::setupSprite()
 	 sf::Vector2f testPos[MAX_FLOOR_PLATFORMS]
 	 {
 		 {0, static_cast<float>(SCREEN_HEIGHT - m_platformTextureSize.y)},
-		 {static_cast<float>((MAX_PLATFORM_BLOCKS - 1) * m_platformTextureSize.x) ,static_cast<float>(SCREEN_HEIGHT - m_platformTextureSize.y) }
+		 {static_cast<float>((MAX_PLATFORM_BLOCKS) * m_platformTextureSize.x) ,static_cast<float>(SCREEN_HEIGHT - m_platformTextureSize.y)}
 	 };
 	 
 	 int platformSize = MAX_FLOOR_PLATFORMS; //amount of tiles/blocks
@@ -576,7 +576,7 @@ void Game::checkCollision()
 	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 	{
 		floorPlatformCollider[i] = RectangleCollider(m_floorPlatforms[i].getX(), m_floorPlatforms[i].getY(), m_floorPlatforms[i].getPlatformWidth(), m_floorPlatforms[i].getHeight());
-		checkPlatFormCollision(playerCollider, floorPlatformCollider[i], numberOfPlatformCollision, m_floorPlatforms[i]);
+		checkFloorCollision(playerCollider, floorPlatformCollider[i], numberOfPlatformCollision, m_floorPlatforms[i]);
 	}
 	
 
@@ -606,7 +606,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 			m_player.setPlayerGravity(0);
 
 		}
-		else if (yOverlap < 0) //check below
+		if (yOverlap < 0) //check below
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(gravity);
@@ -619,12 +619,32 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});
 			m_player.setPlayerGravity(300);
 		}
-		else
-		{
-			m_player.setVelocity({ 0,m_player.getVelocity().y });
-		}
+		
 	}
 
+}
+
+void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform)
+{
+	float yOverlap = t_playerCollider.getYOverlap(t_platformCollider);
+
+	//first check actual collision
+	if (t_playerCollider.checkCollision(t_platformCollider))
+	{
+		t_numberOfCollisions++;
+		//check above platform
+		if (yOverlap > 0)
+		{
+			m_player.setVelocity({ 0, 0 });
+			m_player.setPlayerGravity(0);
+
+		}
+		if (yOverlap < 0) //check below
+		{
+			m_player.setVelocity({ 0, 0 });
+			m_player.setPlayerGravity(gravity);
+		}
+	}
 }
 	
 
