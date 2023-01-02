@@ -28,6 +28,7 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+	void releasePlatformsInOrder();
 
 	void checkPlatformOffScreen();
 	void checkCollision();
@@ -55,6 +56,8 @@ private:
 	Platform m_platforms[MAX_PLATFORMS];
 	PlatformController m_platFormController;
 	sf::Texture m_platformTexture;
+	sf::Clock m_startOfGameClock;
+	int platformNumber = 0;
 
 	gpp::Events & m_input;
 	gpp::Events input;

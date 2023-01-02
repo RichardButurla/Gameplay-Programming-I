@@ -353,6 +353,9 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	releasePlatformsInOrder();
+
+
 	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
 		m_platforms[i].update(t_deltaTime.asSeconds());
@@ -461,6 +464,20 @@ void Game::setupSprite()
 		 m_platforms[i].setNumberOfBlocks(platformSize);
 		 m_platforms[i].setPlatformScale(m_platformScale);
 	 }
+	 m_startOfGameClock.restart();
+}
+
+void Game::releasePlatformsInOrder()
+{
+	if (platformNumber < 3)
+	{
+		if (m_startOfGameClock.getElapsedTime().asSeconds() >= 3)
+		{
+			m_platforms[platformNumber].setSpeed(200);
+			platformNumber++;
+			m_startOfGameClock.restart();
+		}
+	}
 }
 
 void Game::checkPlatformOffScreen()
