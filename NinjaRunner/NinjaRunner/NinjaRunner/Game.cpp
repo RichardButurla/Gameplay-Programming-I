@@ -439,26 +439,23 @@ void Game::setupSprite()
 	 m_platFormController.setSpeed(0);
 
 	 m_floorPlatform = Platform(m_platformTexture, m_platFormController);
-	 m_floorPlatform.setPos(0, SCREEN_HEIGHT - 80);
-	 m_floorPlatform.setNumberOfBlocks(16);
+	 m_floorPlatform.setPos(0, SCREEN_HEIGHT - platFormTextureSize.y);
+	 m_floorPlatform.setNumberOfBlocks(MAX_PLATFORM_BLOCKS);
 	 m_floorPlatform.setPlatformScale(m_platformScale);
 
-	 
-
-	 
-	 m_platFormController.setSpeed(0);
-
-	 sf::Vector2f platformPos[MAX_PLATFORMS]
+	 sf::Vector2f initialPlatformPos[MAX_PLATFORMS] //set initial positiions off screen
 	 {
-		 {250,200},
-		 {250,400},
-		 {250,600}
+		 {SCREEN_WIDTH,100},
+		 {SCREEN_WIDTH,325},
+		 {SCREEN_WIDTH,550}
 	 };
+
+	 platformSize = 6;
 
 	 for (int i = 0; i < MAX_PLATFORMS; i++)
 	 {
 		 
-		 m_platFormController = PlatformController(platformPos[i].x, platformPos[i].y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
+		 m_platFormController = PlatformController(initialPlatformPos[i].x, initialPlatformPos[i].y, platFormTextureSize.x, platFormTextureSize.y, platformSize);
 		 m_platFormController.setSpeed(0);
 		 m_platforms[i] = Platform(m_platformTexture, m_platFormController);
 		 m_platforms[i].setNumberOfBlocks(platformSize);

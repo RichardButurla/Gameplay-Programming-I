@@ -80,7 +80,7 @@ void Platform::setNumberOfBlocks(int t_num)
 	}
 	else
 	{
-		std::cout << "over block limit, defaulted to 6.";
+		std::cout << "over block limit, defaulted to " << MAX_PLATFORM_BLOCKS;
 		numberOfBlocks = MAX_PLATFORM_BLOCKS;
 		m_platformController.setNumberOfBlocks(t_num);
 	}
