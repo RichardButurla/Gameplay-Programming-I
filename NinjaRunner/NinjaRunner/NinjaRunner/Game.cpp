@@ -127,6 +127,21 @@ void Game::processKeyRelease(sf::Event t_event)
 
 void Game::processKeyPressFSM(sf::Event t_event)
 {
+	//test
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+	{
+		m_platforms[0].setSpeed(200);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+	{
+		m_platforms[1].setSpeed(200);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+	{
+		m_platforms[2].setSpeed(200);
+	}
+
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		DEBUG_MSG("gpp::Events::Event::DIED_EVENT");
@@ -484,14 +499,20 @@ void Game::checkCollision()
 
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), playerSize.x, playerSize.y);
 	RectangleCollider platformCollider[MAX_PLATFORMS];
+	int numberOfPlatformCollision = 0; //we will use this to default player to his gravity since without this he starts to sink through platforms
 	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
 		platformCollider[i] = RectangleCollider(m_platforms[i].getX(), m_platforms[i].getY(), m_platforms[i].getPlatformWidth(), m_platforms[i].getHeight());
-		checkPlatFormCollision(playerCollider, platformCollider[i], i);
+		checkPlatFormCollision(playerCollider, platformCollider[i], i, numberOfPlatformCollision);
+	}
+	if (numberOfPlatformCollision == 0)
+	{
+		m_player.setPlayerGravity(gravity);
+		m_player.setVelocity({ 0,m_player.getVelocity().y });
 	}
 }
 
-void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider t_platformCollider, int t_platfromIndex)
+void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider t_platformCollider, int t_platfromIndex, int& t_numberOfCollisions)
 {
 	float xOverlap = t_playerCollider.getXOverlap(t_platformCollider);
 	float yOverlap = t_playerCollider.getYOverlap(t_platformCollider);
@@ -499,6 +520,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 	//first check actual collision
 	if (t_playerCollider.checkCollision(t_platformCollider))
 	{
+		t_numberOfCollisions++;
 		std::cout << "\nCOLLISION\n";
 		//check above platform
 		if (yOverlap > 0)
@@ -525,12 +547,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 			m_player.setVelocity({ 0,m_player.getVelocity().y });
 		}
 	}
-	else
-	{
-		m_player.setPlayerGravity(gravity);
-		m_player.setVelocity({ 0,m_player.getVelocity().y });
 
-	}
 }
 	
 
