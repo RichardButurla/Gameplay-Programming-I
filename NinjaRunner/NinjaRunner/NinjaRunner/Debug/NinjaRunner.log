@@ -1,5 +1,5 @@
 ﻿  Game.cpp
-C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.h(31,22): warning C4305: 'initializing': truncation from 'const double' to 'float'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.h(33,22): warning C4305: 'initializing': truncation from 'const double' to 'float'
 C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.h(49,39): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
@@ -89,5 +89,5 @@ C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\
           ]
 C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(585,36): warning C4305: 'argument': truncation from 'const double' to 'float'
 C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(612,37): warning C4305: 'argument': truncation from 'const double' to 'float'
-C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(645,41): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Game.cpp(644,37): warning C4305: 'argument': truncation from 'const double' to 'float'
   NinjaRunner.vcxproj -> C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe

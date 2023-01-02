@@ -29,13 +29,16 @@ public:
 	void setPlayerState(PlayerState*);
 	void setPlayerScale(float t_x, float t_y);
 
-
-
-	//Player Controller
 	void updatePlayer(double t_deltaTime);
 	void renderPlayer(sf::RenderWindow& t_window);
 	void processKeyPress(sf::Event t_event);
 	void processKeyRelease(sf::Event t_event);
+
+	//AnimatedSprite
+
+
+	//Player Controller
+	
 
 	float getX() { return m_playerController.getPosition().x; }
 	float getY() { return m_playerController.getPosition().y; }
@@ -47,7 +50,9 @@ public:
 	void setX(float t_x) { m_playerController.setX(t_x); }
 	void setY(float t_y) { m_playerController.setY(t_y); }
 
-	void setGrounded(bool t_boolean) { m_playerController.setGrounded(t_boolean); }
+	void setInAir(bool t_boolean) { m_playerController.setInAir(t_boolean); }
+
+	bool isAirborne() { return m_playerController.isAirborne(); }
 
 
 };

@@ -1,4 +1,8 @@
 #include "Player.h"
+#include "RunRightPlayerState.h"
+#include "JumpRunningRightPlayerState.h"
+#include "GlideRunningRightPlayerState.h"
+
 
 Player::Player(const AnimatedSprite& sprite, const PlayerController& t_playerController) : 
 	m_animated_sprite(sprite),
@@ -34,6 +38,7 @@ void Player::handleAnimationInput(gpp::Events input) {
 }
 
 void Player::updateAnimationState() {
+
 	m_animated_sprite.update();
 	m_state->update(*this);
 }

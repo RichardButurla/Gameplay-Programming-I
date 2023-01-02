@@ -30,14 +30,14 @@ PlayerState* JumpRunningRightPlayerState::handleInput(gpp::Events& input)
 }
 void JumpRunningRightPlayerState::update(Player& player) {
 	DEBUG_MSG("JumpRunningRightPlayerState -> GlideRunningRightPlayerState");
-	if (m_clock.getElapsedTime().asSeconds() > 1.2f) {
+	/*if (m_clock.getElapsedTime().asSeconds() > 1.2f) {
 		PlayerState* temp = player.getPlayerState();
 		PlayerState* state = new GlideRunningRightPlayerState();
 		player.getPlayerState()->exit(player);
 		player.setPlayerState(state);
 		player.getPlayerState()->enter(player);
 		delete temp;
-	}
+	}*/
 }
 void JumpRunningRightPlayerState::enter(Player& player)
 {

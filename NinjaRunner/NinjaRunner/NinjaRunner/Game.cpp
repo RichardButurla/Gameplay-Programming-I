@@ -89,7 +89,7 @@ void Game::processEvents()
 
 			default:
 				//DEBUG_MSG("gpp::Events::Event::NONE");
-				m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+				//m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
 				break;
 		}
 		m_player.handleAnimationInput(input);
@@ -584,6 +584,7 @@ void Game::checkCollision()
 	{
 		m_player.setPlayerGravity(gravity);
 		m_player.setVelocity({ 0,m_player.getVelocity().y });
+		
 	}
 
 	
@@ -604,7 +605,6 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(0);
-
 		}
 		if (yOverlap < 0) //check below
 		{
@@ -637,15 +637,14 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(0);
-
 		}
 		if (yOverlap < 0) //check below
 		{
 			m_player.setVelocity({ 0, 0 });
-			m_player.setPlayerGravity(gravity * 2);
+			m_player.setPlayerGravity(gravity);
 		}
 		//check left
-		if (xOverlap > 103) //add in a range so that only on the edge do we get pushed back
+		if (xOverlap > 107) //add in a range so that only on the edge do we get pushed back
 		{
 
 			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});

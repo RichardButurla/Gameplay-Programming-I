@@ -14,7 +14,9 @@ public:
 	void setVelocity(sf::Vector2f t_velocity) { m_velocity = t_velocity; }
 	void setGravity(float t_value) { playerGravity = t_value; }
 
-	void setGrounded(bool t_boolean) { isGrounded = t_boolean; }
+	void setInAir(bool t_boolean) { inAir = t_boolean; }
+
+	bool isAirborne() { return inAir; }
 
 	void setX(float t_x) { m_position.x = t_x; }
 	void setY(float t_y) { m_position.y = t_y; }
@@ -27,7 +29,7 @@ public:
 private:
 	sf::Vector2f m_position{0.f,0.f};
 	sf::Vector2f m_velocity;
-	bool isGrounded{ true };
+	bool inAir{ true };
 	float playerGravity = gravity;
 
 };
