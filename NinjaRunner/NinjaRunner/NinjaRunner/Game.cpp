@@ -353,7 +353,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	releasePlatformsInOrder();
+	checkPlatformTimes();
 
 
 	for (int i = 0; i < MAX_PLATFORMS; i++)
@@ -464,20 +464,43 @@ void Game::setupSprite()
 		 m_platforms[i].setNumberOfBlocks(platformSize);
 		 m_platforms[i].setPlatformScale(m_platformScale);
 	 }
-	 m_startOfGameClock.restart();
+
+	 m_startOfPlatformsClock.restart();
+	 m_playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 }
 
-void Game::releasePlatformsInOrder()
+void Game::checkPlatformTimes()
 {
 	if (platformNumber < 3)
 	{
-		if (m_startOfGameClock.getElapsedTime().asSeconds() >= 3)
+		if (m_startOfPlatformsClock.getElapsedTime().asSeconds() >= 3)
 		{
-			m_platforms[platformNumber].setSpeed(200);
+			m_platforms[platformNumber].setSpeed(m_platformSpeed);
 			platformNumber++;
-			m_startOfGameClock.restart();
+			m_startOfPlatformsClock.restart();
 		}
 	}
+	if (platformNumber == 3)
+	{
+		platformsInOrder = true;
+	}
+	gameRunTime = gameRunClock.getElapsedTime();
+
+	if (platformsInOrder)
+	{
+		if (gameRunTime.asSeconds() > 1)
+		{
+			gameRunClock.restart();
+			m_platformSpeed+= 5;
+		}
+		std::cout << "\nPlatform Speed: " << m_platformSpeed;
+
+		for (int i = 0; i < MAX_PLATFORMS; i++)
+		{
+			m_platforms[i].setSpeed(m_platformSpeed);
+		}
+	}
+	
 }
 
 void Game::checkPlatformOffScreen()
@@ -485,14 +508,18 @@ void Game::checkPlatformOffScreen()
 	int newNumberOfPlatformBlocks = 0;
 	sf::Vector2f newPlatformPosition{ 0.f,0.f };
 
+	sf::Vector2f startPos{ SCREEN_WIDTH,SCREEN_HEIGHT - (m_floorPlatform.getHeight() * 2) };
+
+	//newPlatformPosition.y = std::rand() % static_cast<int>((SCREEN_HEIGHT - m_platforms[i].getHeight()) + m_platforms[i].getHeight());    //old code
+
 	//chekc platform off screen
 	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
 		if (m_platforms[i].isOffScreen())
 		{
-			newNumberOfPlatformBlocks = std::rand() % MAX_PLATFORM_BLOCKS + 1;
+			newNumberOfPlatformBlocks = std::rand() % 3 + 4;
 			newPlatformPosition.x = SCREEN_WIDTH;
-			newPlatformPosition.y = std::rand() % static_cast<int>((SCREEN_HEIGHT - m_platforms[i].getHeight()) + m_platforms[i].getHeight());
+			newPlatformPosition.y = startPos.y - m_playerSize.y - (m_playerSize.y * i);
 			m_platforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
 			m_platforms[i].setPos(newPlatformPosition.x, newPlatformPosition.y);
 		}
@@ -503,9 +530,9 @@ void Game::checkPlatformOffScreen()
 
 void Game::checkCollision()
 {
-	sf::Vector2f playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
+	m_playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
-	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), playerSize.x, playerSize.y);
+	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y);
 	RectangleCollider floorPlatformCollider(m_floorPlatform.getX(), m_floorPlatform.getY(), m_floorPlatform.getPlatformWidth(), m_floorPlatform.getHeight());
 	RectangleCollider platformCollider[MAX_PLATFORMS];
 
@@ -544,7 +571,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 			m_player.setPlayerGravity(0);
 
 		}
-		else if (yOverlap < 0) //check below
+		else if (yOverlap < 100) //check below
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(gravity);

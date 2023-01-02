@@ -28,7 +28,7 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
-	void releasePlatformsInOrder();
+	void checkPlatformTimes();
 
 	void checkPlatformOffScreen();
 	void checkCollision();
@@ -41,6 +41,10 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
+	sf::Clock gameRunClock;
+	sf::Time gameRunTime;
+
+	sf::Vector2f m_playerSize{ singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 	sf::Vector2f singlePlayerTextureFrameSize = { 363, 458 };
 	sf::Vector2f playerScale = { 0.3,0.3};
 	sf::Texture m_playerTexture;
@@ -56,7 +60,9 @@ private:
 	Platform m_platforms[MAX_PLATFORMS];
 	PlatformController m_platFormController;
 	sf::Texture m_platformTexture;
-	sf::Clock m_startOfGameClock;
+	sf::Clock m_startOfPlatformsClock;
+	float m_platformSpeed = 400;
+	bool platformsInOrder{ false };
 	int platformNumber = 0;
 
 	gpp::Events & m_input;
