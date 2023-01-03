@@ -15,6 +15,7 @@ private:
 	PlayerState* m_state;
 	AnimatedSprite m_animated_sprite;
 	PlayerController m_playerController;
+	bool runPlayed{ false };
 
 public:
 	Player(const AnimatedSprite&, const PlayerController& t_playerController);
