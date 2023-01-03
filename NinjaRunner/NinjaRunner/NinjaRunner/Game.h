@@ -34,12 +34,16 @@ private:
 	void checkCollision();
 	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
+	void checkPlayerOffPosition();
 	
 
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
+
+	sf::Sprite m_background;
+	sf::Texture m_backgroundTexture;
 
 	sf::Clock gameRunClock;
 	sf::Time gameRunTime;
@@ -51,6 +55,7 @@ private:
 	AnimatedSprite m_playerAnimatedSprite;
 	Player m_player;
 	PlayerController m_playerController;
+	sf::Vector2f m_playerOriginalPosition{ 300,0 };
 
 	static const int MAX_FLOOR_PLATFORMS = 2;
 	sf::Vector2f m_platformScale{ 0.2,0.2 };

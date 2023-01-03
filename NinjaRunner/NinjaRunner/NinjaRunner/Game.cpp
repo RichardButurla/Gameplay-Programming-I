@@ -88,8 +88,7 @@ void Game::processEvents()
 				break;
 
 			default:
-				//DEBUG_MSG("gpp::Events::Event::NONE");
-				//m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+				m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
 				break;
 		}
 		m_player.handleAnimationInput(input);
@@ -127,21 +126,6 @@ void Game::processKeyRelease(sf::Event t_event)
 
 void Game::processKeyPressFSM(sf::Event t_event)
 {
-	//test
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
-	{
-		m_platforms[0].setSpeed(200);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-	{
-		m_platforms[1].setSpeed(200);
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-	{
-		m_platforms[2].setSpeed(200);
-	}
-
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		DEBUG_MSG("gpp::Events::Event::DIED_EVENT");
@@ -364,11 +348,12 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_floorPlatforms[i].update(t_deltaTime.asSeconds());
 	}
-	
+
 	m_player.updatePlayer(t_deltaTime.asSeconds());
 
 	checkCollision();
 	checkPlatformOffScreen();
+	
 }
 
 /// <summary>
@@ -377,6 +362,7 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
+	m_window.draw(m_background);
 	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
 		m_platforms[i].render(m_window);
@@ -423,6 +409,12 @@ void Game::setupSprite()
 	 {
 		 std::cout << "error loading platform Tetxure";
 	 }
+	 if (!m_backgroundTexture.loadFromFile("ASSETS/IMAGES/background.png"))
+	 {
+		 std::cout << "error loading background Tetxure";
+	 }
+	 m_background.setTexture(m_backgroundTexture);
+	 m_background.setScale(1.2, 1.5);
 
 	 //Setup Player
 	 m_playerAnimatedSprite = AnimatedSprite(m_playerTexture);
@@ -430,8 +422,8 @@ void Game::setupSprite()
 	 //players texture width heigth
 	 
 
-	 m_playerController.setX(300);
-	 m_playerController.setY(0);
+	 m_playerController.setX(m_playerOriginalPosition.x);
+	 m_playerController.setY(m_playerOriginalPosition.y);
 	 m_player = Player(m_playerAnimatedSprite,m_playerController);
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
@@ -650,6 +642,23 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});
 			m_player.setPlayerGravity(300);
 		}
+		else
+		{
+			checkPlayerOffPosition();
+		}
+	}
+}
+
+void Game::checkPlayerOffPosition()
+{
+	float returningPlayerSpeed = 50;
+	if (m_player.getX() < m_playerOriginalPosition.x)
+	{
+		m_player.setVelocity({ returningPlayerSpeed, m_player.getVelocity().y });
+	}
+	else
+	{
+		m_player.setVelocity({ 0,m_player.getVelocity().y });
 	}
 }
 	
