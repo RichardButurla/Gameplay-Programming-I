@@ -5,6 +5,7 @@
 #include "Events.h"
 #include "Debug.h"
 #include "RectangleCollider.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -71,9 +72,15 @@ private:
 	sf::Clock m_floorPlatformClock;
 	sf::Time m_floorPlatformTime;
 	float m_platformSpeed = 400;
+	float m_floorPlatformSpeed = 400;
 	bool platformsInOrder{ false };
 	int platformNumber = 0;
 	bool firstOffscreenOccurance{ false };
+
+	sf::Texture m_enemyTexture;
+	sf::Vector2f m_enemyScale{ -playerScale.x,playerScale.y };
+	Enemy m_enemy;
+	EnemyController m_enemyController;
 
 	gpp::Events & m_input;
 	gpp::Events input;

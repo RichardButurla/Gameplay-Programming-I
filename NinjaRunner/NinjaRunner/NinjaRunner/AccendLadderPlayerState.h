@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "PlayerState.h"
+#include "Enemy.h"
 
 class AccendLadderPlayerState : public PlayerState {
 public:
@@ -10,6 +11,10 @@ public:
 	virtual void update(Player&);
 	virtual void enter(Player&);
 	virtual void exit(Player&);
+
+	virtual void update(Enemy&);
+	virtual void enter(Enemy&);
+	virtual void exit(Enemy&);
 };
 
 #endif

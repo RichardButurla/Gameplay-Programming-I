@@ -48,3 +48,15 @@ void ClimbDownPlayerState::exit(Player &player)
 	DEBUG_MSG("Exiting ClimbDownPlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void ClimbDownPlayerState::update(Enemy&)
+{
+}
+
+void ClimbDownPlayerState::enter(Enemy&)
+{
+}
+
+void ClimbDownPlayerState::exit(Enemy&)
+{
+}

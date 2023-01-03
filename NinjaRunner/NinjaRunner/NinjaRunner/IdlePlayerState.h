@@ -10,5 +10,9 @@ public:
 	virtual void update(Player&);
 	virtual void enter(Player&);
 	virtual void exit(Player&);
+
+	virtual void update(Enemy&);
+	virtual void enter(Enemy&);
+	virtual void exit(Enemy&);
 };
 #endif

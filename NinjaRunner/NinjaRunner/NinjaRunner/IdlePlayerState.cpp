@@ -45,14 +45,6 @@ PlayerState* IdlePlayerState::handleInput(gpp::Events& input) {
 		DEBUG_MSG("IdlePlayerState -> DiedPlayerState");
 		return new DiedPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::SHOVEL_START_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> ShovelPlayerState");
-		return new ShovelPlayerState();
-	}
-	else if (input.getCurrent() == gpp::Events::Event::HAMMERING_START_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> HammeringPlayerState");
-		return new HammeringPlayerState();
-	}
 	return nullptr;
 }
 
@@ -83,4 +75,32 @@ void IdlePlayerState::exit(Player& player)
 {
 	DEBUG_MSG("Exiting IdlePlayerState");
 	//DEBUG_MSG(typeid(player).name());
+}
+
+void IdlePlayerState::update(Enemy&)
+{
+
+}
+
+void IdlePlayerState::enter(Enemy& enemy)
+{
+	DEBUG_MSG("Entering IdlePlayerState");
+	enemy.getAnimatedSprite().clearFrames();
+
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(3900, 0, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4132, 0, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4364, 0, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(3900, 439, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4132, 439, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4364, 439, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(3900, 878, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4132, 878, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4364, 878, 232, 439));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(3900, 1317, 232, 439));
+
+	enemy.getAnimatedSprite().setTime(seconds(0.05f));
+}
+
+void IdlePlayerState::exit(Enemy&)
+{
 }

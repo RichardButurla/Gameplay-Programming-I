@@ -61,3 +61,15 @@ void RevivedPlayerState::exit(Player& player)
 	player.getAnimatedSprite().setPlayed(false);
 	player.getAnimatedSprite().setLooped(true);
 }
+
+void RevivedPlayerState::update(Enemy&)
+{
+}
+
+void RevivedPlayerState::enter(Enemy&)
+{
+}
+
+void RevivedPlayerState::exit(Enemy&)
+{
+}

@@ -66,3 +66,15 @@ void JumpRunningRightPlayerState::exit(Player& player)
 	player.getAnimatedSprite().setPlayed(false);
 	player.getAnimatedSprite().setLooped(true);
 }
+
+void JumpRunningRightPlayerState::update(Enemy&)
+{
+}
+
+void JumpRunningRightPlayerState::enter(Enemy&)
+{
+}
+
+void JumpRunningRightPlayerState::exit(Enemy&)
+{
+}

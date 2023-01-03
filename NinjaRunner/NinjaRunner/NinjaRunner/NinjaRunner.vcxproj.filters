@@ -126,6 +126,12 @@
     <ClCompile Include="RectangleCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Enitities</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyController.cpp">
+      <Filter>Source Files\Enitities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -226,6 +232,12 @@
     </ClInclude>
     <ClInclude Include="RectangleCollider.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyController.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

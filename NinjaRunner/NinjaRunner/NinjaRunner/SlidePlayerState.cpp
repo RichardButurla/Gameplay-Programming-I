@@ -59,3 +59,15 @@ void SlidePlayerState::exit(Player& player)
 	DEBUG_MSG("Exiting SlidePlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void SlidePlayerState::update(Enemy&)
+{
+}
+
+void SlidePlayerState::enter(Enemy&)
+{
+}
+
+void SlidePlayerState::exit(Enemy&)
+{
+}

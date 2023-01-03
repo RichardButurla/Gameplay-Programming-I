@@ -5,6 +5,7 @@
 #include "Events.h"
 
 class Player;
+class Enemy;
 
 class PlayerState
 {
@@ -17,6 +18,10 @@ public:
 	virtual void update(Player &) = 0;
 	virtual void enter(Player &) = 0;
 	virtual void exit(Player &) = 0;
+
+	virtual void update(Enemy&) = 0;
+	virtual void enter(Enemy&) = 0;
+	virtual void exit(Enemy&) = 0;
 };
 
 #endif

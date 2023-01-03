@@ -55,3 +55,15 @@ void GlideRunningRightPlayerState::exit(Player& player)
 	DEBUG_MSG("Exiting GlideRunningRightPlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void GlideRunningRightPlayerState::update(Enemy&)
+{
+}
+
+void GlideRunningRightPlayerState::enter(Enemy&)
+{
+}
+
+void GlideRunningRightPlayerState::exit(Enemy&)
+{
+}

@@ -51,3 +51,15 @@ void ClimbPausePlayerState::exit(Player &player)
 	DEBUG_MSG("Exiting ClimbPausePlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void ClimbPausePlayerState::update(Enemy&)
+{
+}
+
+void ClimbPausePlayerState::enter(Enemy&)
+{
+}
+
+void ClimbPausePlayerState::exit(Enemy&)
+{
+}

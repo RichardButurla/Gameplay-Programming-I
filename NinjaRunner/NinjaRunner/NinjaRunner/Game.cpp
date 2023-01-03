@@ -88,7 +88,7 @@ void Game::processEvents()
 				break;
 
 			default:
-				m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+				//m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
 				break;
 		}
 		m_player.handleAnimationInput(input);
@@ -350,6 +350,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 
 	m_player.updatePlayer(t_deltaTime.asSeconds());
+	m_enemy.update(t_deltaTime.asSeconds());
 
 	checkCollision();
 	checkPlatformOffScreen();
@@ -372,6 +373,7 @@ void Game::render()
 		m_floorPlatforms[i].render(m_window);
 	}
 	m_player.renderPlayer(m_window);
+	m_enemy.render(m_window);
 	m_window.display();
 }
 
@@ -413,6 +415,10 @@ void Game::setupSprite()
 	 {
 		 std::cout << "error loading background Tetxure";
 	 }
+	 if (!m_enemyTexture.loadFromFile("ASSETS/IMAGES/PlayerSpriteSheet.png"))
+	 {
+		 std::cout << "error loading background Tetxure";
+	 }
 	 m_background.setTexture(m_backgroundTexture);
 	 m_background.setScale(1.2, 1.5);
 
@@ -426,6 +432,12 @@ void Game::setupSprite()
 	 m_playerController.setY(m_playerOriginalPosition.y);
 	 m_player = Player(m_playerAnimatedSprite,m_playerController);
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
+
+	 //Setup Enemy
+	 m_enemyController.setX(SCREEN_WIDTH);
+	 m_enemyController.setY(m_playerOriginalPosition.y);
+	 m_enemy = Enemy(m_playerAnimatedSprite, m_enemyController);
+	 m_enemy.setScale(m_enemyScale);
 
 	 //Setup Platform
 	 m_platformTextureSize = m_platformTexture.getSize();
@@ -499,12 +511,17 @@ void Game::checkPlatformTimes()
 		{
 			gameRunClock.restart();
 			m_platformSpeed+= 5;
+			m_floorPlatformSpeed += 3;
 		}
 		std::cout << "\nPlatform Speed: " << m_platformSpeed;
 
 		for (int i = 0; i < MAX_PLATFORMS; i++)
 		{
 			m_platforms[i].setSpeed(m_platformSpeed);
+		}
+		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+		{
+			m_floorPlatforms[i].setSpeed(m_floorPlatformSpeed);
 		}
 	}
 
@@ -517,20 +534,27 @@ void Game::checkPlatformOffScreen()
 	int newNumberOfPlatformBlocks = 0;
 	sf::Vector2f newPlatformPosition{ 0.f,0.f };
 
-	sf::Vector2f startPos{ SCREEN_WIDTH,static_cast<float>(SCREEN_HEIGHT - (m_platformTextureSize.y * 2)) };
+	sf::Vector2f startPos{ SCREEN_WIDTH,static_cast<float>(SCREEN_HEIGHT - (m_platformTextureSize.y * 2)) - m_playerSize.y };
 
 	//newPlatformPosition.y = std::rand() % static_cast<int>((SCREEN_HEIGHT - m_platforms[i].getHeight()) + m_platforms[i].getHeight());    //old code
+	sf::Vector2f possiblePlatformPositions[MAX_PLATFORMS]
+	{
+		{SCREEN_WIDTH, startPos.y},
+		{SCREEN_WIDTH, startPos.y - m_playerSize.y * 1.4f},
+		{SCREEN_WIDTH, startPos.y - m_playerSize.y * 2.4f}
+	};
 
 	//chekc platform off screen
+	int randNum = 0;
 	for (int i = 0; i < MAX_PLATFORMS; i++)
 	{
 		if (m_platforms[i].isOffScreen())
 		{
 			newNumberOfPlatformBlocks = std::rand() % 2 + 4;
-			newPlatformPosition.x = SCREEN_WIDTH;
-			newPlatformPosition.y = startPos.y - m_playerSize.y - (m_playerSize.y * i);
+			randNum = std::rand() % 3;
+
 			m_platforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
-			m_platforms[i].setPos(newPlatformPosition.x, newPlatformPosition.y);
+			m_platforms[i].setPos(possiblePlatformPositions[randNum].x, possiblePlatformPositions[randNum].y);
 		}
 	}
 	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
@@ -604,11 +628,15 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 			m_player.setPlayerGravity(gravity);
 		}
 		//check left
-		if (xOverlap > 50) //add in a range so that only on the edge do we get pushed back
+		if (xOverlap > 90) //add in a range so that only on the edge do we get pushed back
 		{
 
 			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});
 			m_player.setPlayerGravity(300);
+		}
+		else
+		{
+			checkPlayerOffPosition();
 		}
 		
 	}

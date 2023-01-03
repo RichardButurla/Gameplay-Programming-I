@@ -51,3 +51,15 @@ void JumpAttackPlayerState::exit(Player& player)
 	DEBUG_MSG("Exiting JumpAttackPlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void JumpAttackPlayerState::update(Enemy&)
+{
+}
+
+void JumpAttackPlayerState::enter(Enemy&)
+{
+}
+
+void JumpAttackPlayerState::exit(Enemy&)
+{
+}

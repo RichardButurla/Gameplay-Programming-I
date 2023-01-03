@@ -42,3 +42,15 @@ void DecendLadderPlayerState::exit(Player& player)
 	DEBUG_MSG("Exiting DecendLadderPlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void DecendLadderPlayerState::update(Enemy&)
+{
+}
+
+void DecendLadderPlayerState::enter(Enemy&)
+{
+}
+
+void DecendLadderPlayerState::exit(Enemy&)
+{
+}

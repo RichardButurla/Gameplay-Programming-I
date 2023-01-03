@@ -46,7 +46,7 @@ void Player::updateAnimationState() {
 		m_state->enter(*this);
 		std::cout << "\nGLIDING\n";
 	}
-	else if(!runPlayed)
+	else if(!runPlayed && m_playerController.getVelocity().y == 0)
 	{
 		m_state = new RunRightPlayerState;
 		m_state->enter(*this);

@@ -54,3 +54,15 @@ void ThrowAttackPlayerState::exit(Player &player)
 	DEBUG_MSG("Exiting ThrowAttackPlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void ThrowAttackPlayerState::update(Enemy&)
+{
+}
+
+void ThrowAttackPlayerState::enter(Enemy&)
+{
+}
+
+void ThrowAttackPlayerState::exit(Enemy&)
+{
+}

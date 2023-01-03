@@ -87,3 +87,15 @@ void RunRightPlayerState::exit(Player& player)
 	DEBUG_MSG("Exiting RunRightPlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
+
+void RunRightPlayerState::update(Enemy&)
+{
+}
+
+void RunRightPlayerState::enter(Enemy&)
+{
+}
+
+void RunRightPlayerState::exit(Enemy&)
+{
+}

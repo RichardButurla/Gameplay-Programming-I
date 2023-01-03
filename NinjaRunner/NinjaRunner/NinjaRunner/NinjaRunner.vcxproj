@@ -27,6 +27,8 @@
     <ClCompile Include="ClimbUpPlayerState.cpp" />
     <ClCompile Include="DecendLadderPlayerState.cpp" />
     <ClCompile Include="DiedPlayerState.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GlidePlayerState.cpp" />
@@ -62,6 +64,8 @@
     <ClInclude Include="DecendLadderPlayerState.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DiedPlayerState.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyController.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GlidePlayerState.h" />
