@@ -51,8 +51,10 @@ public:
 	void setY(float t_y) { m_playerController.setY(t_y); }
 
 	void setInAir(bool t_boolean) { m_playerController.setInAir(t_boolean); }
+	void setGrounded(bool t_boolean) { m_playerController.setGrounded(t_boolean); }
 
 	bool isAirborne() { return m_playerController.isAirborne(); }
+	bool isGrounded() { return m_playerController.isGrounded(); }
 
 
 };

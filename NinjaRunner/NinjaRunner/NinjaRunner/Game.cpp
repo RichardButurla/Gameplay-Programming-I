@@ -526,7 +526,7 @@ void Game::checkPlatformOffScreen()
 	{
 		if (m_platforms[i].isOffScreen())
 		{
-			newNumberOfPlatformBlocks = std::rand() % 3 + 2;
+			newNumberOfPlatformBlocks = std::rand() % 2 + 4;
 			newPlatformPosition.x = SCREEN_WIDTH;
 			newPlatformPosition.y = startPos.y - m_playerSize.y - (m_playerSize.y * i);
 			m_platforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
@@ -636,16 +636,18 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 			m_player.setPlayerGravity(gravity);
 		}
 		//check left
-		if (xOverlap > 107) //add in a range so that only on the edge do we get pushed back
+		if (xOverlap > 110) //add in a range so that only on the edge do we get pushed back
 		{
 
-			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y});
-			m_player.setPlayerGravity(300);
+			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y });
+			m_player.setPlayerGravity(0);
 		}
 		else
 		{
 			checkPlayerOffPosition();
 		}
+		
+		
 	}
 }
 

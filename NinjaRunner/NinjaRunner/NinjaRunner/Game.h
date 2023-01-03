@@ -49,7 +49,7 @@ private:
 	sf::Time gameRunTime;
 
 	sf::Vector2f m_playerSize{ singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
-	sf::Vector2f singlePlayerTextureFrameSize = { 363, 458 };
+	sf::Vector2f singlePlayerTextureFrameSize = { 363, 500 };
 	sf::Vector2f playerScale = { 0.3,0.3};
 	sf::Texture m_playerTexture;
 	AnimatedSprite m_playerAnimatedSprite;

@@ -32,7 +32,7 @@ bool PlatformController::checkBounds()
 {
 	if (x + (numberOfBlocks * width) < 0)
 	{
-		std::cout << "\nOUT OF BOUNDS \n";
+		std::cout << "\nPLATFORM OUT OF BOUNDS \n";
 		return true;
 	}
 	return false;
