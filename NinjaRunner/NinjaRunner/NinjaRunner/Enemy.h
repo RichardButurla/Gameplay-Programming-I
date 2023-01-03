@@ -31,6 +31,7 @@ public:
 
 	void setPos(int t_x, int t_y) { m_enemyController.setX(t_x); m_enemyController.setY(t_y); }
 	void setScale(sf::Vector2f t_scale) { m_animated_sprite.setScale(t_scale); };
+	void setSpeed(float t_speed) { m_enemyController.setSpeed(t_speed); }
 
 
 private:

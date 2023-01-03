@@ -13,15 +13,16 @@ public:
 
 	void setX(float t_x) { x = t_x; }
 	void setY(float t_y) { y = t_y; }
+	void setSpeed(float t_speed) { speed = t_speed; }
 
 
 
 
 private:
-	float x = 300; //Offsccreen First
+	float x = 300;
 	float y = 20;
 	float width = 0;
 	float height = 0;
-	float speed = 200;
+	float speed = 0;
 };
 

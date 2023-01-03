@@ -434,7 +434,7 @@ void Game::setupSprite()
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Enemy
-	 m_enemyController.setX(SCREEN_WIDTH);
+	 m_enemyController.setX(SCREEN_WIDTH + 300);
 	 m_enemyController.setY(m_playerOriginalPosition.y);
 	 m_enemy = Enemy(m_playerAnimatedSprite, m_enemyController);
 	 m_enemy.setScale(m_enemyScale);
@@ -495,6 +495,7 @@ void Game::checkPlatformTimes()
 		if (m_startOfPlatformsClock.getElapsedTime().asSeconds() >= 3)
 		{
 			m_platforms[platformNumber].setSpeed(m_platformSpeed);
+			m_enemy.setSpeed(m_platformSpeed);
 			platformNumber++;
 			m_startOfPlatformsClock.restart();
 		}
