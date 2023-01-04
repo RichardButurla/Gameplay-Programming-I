@@ -373,6 +373,17 @@ void Game::render()
 	{
 		m_floorPlatforms[i].render(m_window);
 	}
+	testShape.setSize(m_playerSize);
+	testShape.setFillColor(sf::Color::Green);
+	testShape.setPosition({ m_player.getX(), m_player.getY() });
+	m_window.draw(testShape);
+
+	testShape.setSize({m_playerSize.x + 100, m_playerSize.y});
+	testShape.setFillColor(sf::Color::Red);
+	testShape.setPosition({ m_enemy.getX() - 100, m_enemy.getY()});
+	m_window.draw(testShape);
+
+
 	m_player.renderPlayer(m_window);
 	m_enemy.render(m_window);
 	m_window.display();
@@ -426,6 +437,9 @@ void Game::setupSprite()
 	 //Setup Player
 	 m_playerAnimatedSprite = AnimatedSprite(m_playerTexture);
 
+	 testShape.setFillColor(sf::Color::Blue);
+	 testShape.setOutlineColor(sf::Color::Black);
+
 	 //players texture width heigth
 	 
 
@@ -435,7 +449,7 @@ void Game::setupSprite()
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Enemy
-	 m_enemyController.setX(500 + m_playerOriginalPosition.x);
+	 m_enemyController.setX(700);
 	 m_enemyController.setY(610);
 	 m_enemy = Enemy(m_playerAnimatedSprite, m_enemyController);
 	 m_enemy.setScale(m_enemyScale);
@@ -579,6 +593,7 @@ void Game::checkCollision()
 	m_playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y);
+	RectangleCollider enemyCollider(m_enemy.getX() - 100, m_enemy.getY(), m_playerSize.x + 100, m_playerSize.y); //well give enemy a bigger collider for attacking to the left
 	RectangleCollider floorPlatformCollider[MAX_FLOOR_PLATFORMS];
 	RectangleCollider platformCollider[MAX_PLATFORMS];
 
@@ -597,7 +612,6 @@ void Game::checkCollision()
 		checkFloorCollision(playerCollider, floorPlatformCollider[i], numberOfPlatformCollision, m_floorPlatforms[i]);
 	}
 	
-
 	if (numberOfPlatformCollision == 0)
 	{
 		m_player.setPlayerGravity(gravity);
@@ -605,6 +619,7 @@ void Game::checkCollision()
 		
 	}
 
+	checkEnemyCollision(playerCollider, enemyCollider);
 	
 }
 
@@ -678,6 +693,29 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 		}
 		
 		
+	}
+}
+
+void Game::checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider)
+{
+	float enemyAttackCooldownTimer = 1;
+	double attackTimer = 0;
+
+	std::cout << "\nPlayer Health: " << m_player.getHealth();
+
+	if (t_playerCollider.checkCollision(t_enemyCollider))
+	{
+		std::cout << "\N Enemy Collision!";
+		if (m_enemy.isAttackingPlayer())
+		{
+			attackTimer = m_enemy.getTimeSinceLastAttack();
+			if (attackTimer > 1.5)
+			{
+				m_enemy.restartAttackTimer();
+				m_player.takeDamage(1);
+				
+			}
+		}
 	}
 }
 

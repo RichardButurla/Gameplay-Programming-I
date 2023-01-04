@@ -1,4 +1,6 @@
 #include "Enemy.h"
+#include "RunRightPlayerState.h"
+#include "AttackPlayerState.h"
 
 Enemy::Enemy(const AnimatedSprite& sprite, EnemyController& t_enemyController) : 
 	m_animated_sprite(sprite),
@@ -64,7 +66,7 @@ void Enemy::update(double t_deltaTime)
 {
 	m_enemyController.update(t_deltaTime);
 	updateAnimationState();
-	m_animated_sprite.setPosition(m_enemyController.getX(),m_enemyController.getY());
+	m_animated_sprite.setPosition(m_enemyController.getX() + 90 ,m_enemyController.getY()); //Sprite is flipped so distance is off
 }
 
 void Enemy::render(sf::RenderWindow& t_window)
@@ -75,4 +77,29 @@ void Enemy::render(sf::RenderWindow& t_window)
 void Enemy::trackPlayer(sf::Vector2f t_playerPos)
 {
 	m_enemyController.trackPlayer(t_playerPos.x, t_playerPos.y);
+
+	if (m_enemyController.isAttackingPlayer())
+	{
+		if (!attackingAniimationPlayed)
+		{
+			attackingAniimationPlayed = true;
+			m_state = new AttackPlayerState;
+			m_state->enter(*this);
+		}
+			
+
+	}
+	else if (m_enemyController.isTrackingPlayer())
+	{
+		if (m_animated_sprite.getPlayed())
+		{
+			attackingAniimationPlayed = false;
+			m_state = new RunRightPlayerState;
+			m_state->enter(*this);
+		}
+		
+	}
+	
+	
 }
+	

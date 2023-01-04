@@ -35,6 +35,7 @@ private:
 	void checkCollision();
 	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
+	void checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider);
 	void checkPlayerOffPosition();
 	void checkPlayerEnemyDistance();
 	
@@ -44,6 +45,8 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_welcomeMessage; // text used for message on screen
 
+	sf::RectangleShape testShape;
+
 	sf::Sprite m_background;
 	sf::Texture m_backgroundTexture;
 
@@ -51,7 +54,7 @@ private:
 	sf::Time gameRunTime;
 
 	sf::Vector2f m_playerSize{ singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
-	sf::Vector2f singlePlayerTextureFrameSize = { 363, 500 };
+	sf::Vector2f singlePlayerTextureFrameSize = { 363, 500 }; //363x
 	sf::Vector2f playerScale = { 0.3,0.3};
 	sf::Texture m_playerTexture;
 	AnimatedSprite m_playerAnimatedSprite;

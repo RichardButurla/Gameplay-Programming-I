@@ -1,5 +1,6 @@
 #include "EnemyController.h"
 #include <math.h>
+#include <iostream>
 
 EnemyController::EnemyController(float t_x, float t_y, float t_width, float t_height, int t_numberOfBlocks) :
 	x(t_x),
@@ -32,11 +33,14 @@ void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos)
 	float yDetectionDistance = 20;
 	float xDetectionDistance = 600;
 
+	float attackDistance = 150;
+
 	float xDistance = (t_playerXPos - x);
 	float yDistance = ( t_playerYPos - y);
 
 	if (fabs(xDistance) < xDetectionDistance && fabs(yDistance) < yDetectionDistance)
 	{
+		trackingPlayer = true;
 		if (xDistance < 0)
 		{
 			speed = chaseSpeed;
@@ -45,5 +49,24 @@ void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos)
 		{
 			speed = -chaseSpeed;
 		}
+		if (fabs(xDistance) < attackDistance && fabs(yDistance) < yDetectionDistance)
+		{
+			std::cout << "\nAttacking player: " << attackingPlayer;
+			attackingPlayer = true;
+			trackingPlayer = false;
+			speed = 0;
+		}
+		else
+		{
+			attackingPlayer = false;
+		}
 	}
+	else
+	{
+		trackingPlayer = false;
+		attackingPlayer = false;
+	}
+
+	
 }
+

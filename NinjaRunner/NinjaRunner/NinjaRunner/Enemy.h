@@ -26,10 +26,14 @@ public:
 	void render(sf::RenderWindow& t_window);
 
 	void trackPlayer(sf::Vector2f t_playerPos);
+	bool isAttackingPlayer() { return m_enemyController.isAttackingPlayer(); }
 
 
 	float getX() { return m_enemyController.getX(); }
 	float getY() { return m_enemyController.getY(); }
+
+	double getTimeSinceLastAttack() { return attackTimer.getElapsedTime().asSeconds(); }
+	void restartAttackTimer() { attackTimer.restart(); }
 
 	void setPos(int t_x, int t_y) { m_enemyController.setX(t_x); m_enemyController.setY(t_y); }
 	void setScale(sf::Vector2f t_scale) { m_animated_sprite.setScale(t_scale); };
@@ -38,6 +42,9 @@ public:
 
 private:
 
+	bool runningAnimationPlayed{ false };
+	bool attackingAniimationPlayed{ false };
+	sf::Clock attackTimer;
 	EnemyController m_enemyController;
 	AnimatedSprite m_animated_sprite;
 	PlayerState* m_state;

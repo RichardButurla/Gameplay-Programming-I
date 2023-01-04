@@ -17,15 +17,20 @@ public:
 
 	void trackPlayer(float t_x, float t_y);
 
+	bool isTrackingPlayer() { return trackingPlayer; }
+	bool isAttackingPlayer() { return attackingPlayer; }
+
 
 
 
 private:
-	float x = 300;
-	float y = 20;
+	float x = 0;
+	float y = 00;
 	float width = 0;
 	float height = 0;
 	float speed = 0;
 	float chaseSpeed = 200;
+	bool trackingPlayer{ false };
+	bool attackingPlayer{ false };
 };
 

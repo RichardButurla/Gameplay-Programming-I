@@ -90,12 +90,29 @@ void RunRightPlayerState::exit(Player& player)
 
 void RunRightPlayerState::update(Enemy&)
 {
+
 }
 
-void RunRightPlayerState::enter(Enemy&)
+void RunRightPlayerState::enter(Enemy& enemy)
 {
+	DEBUG_MSG("Entering RunRightPlayerState");
+	enemy.getAnimatedSprite().clearFrames();
+
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4986, 3556, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(5349, 3556, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(5712, 3556, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4986, 4014, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(5349, 4014, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(5712, 4014, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4986, 4472, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(5349, 4472, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(5712, 4472, 363, 458));
+	enemy.getAnimatedSprite().addFrame(sf::IntRect(4986, 4930, 363, 458));
+
+	enemy.getAnimatedSpriteFrame().setTime(seconds(0.05f));
 }
 
 void RunRightPlayerState::exit(Enemy&)
 {
+
 }

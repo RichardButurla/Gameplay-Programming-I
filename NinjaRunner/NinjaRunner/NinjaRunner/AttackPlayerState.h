@@ -2,7 +2,9 @@
 #define ATTACK_PLAYER_STATE_H
 
 #include "Player.h"
+#include "Enemy.h"
 #include "PlayerState.h"
+
 
 class AttackPlayerState : public PlayerState {
 public:

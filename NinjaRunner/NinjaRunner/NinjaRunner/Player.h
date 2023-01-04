@@ -16,6 +16,7 @@ private:
 	AnimatedSprite m_animated_sprite;
 	PlayerController m_playerController;
 	bool runPlayed{ false };
+	int m_health = 3;
 
 public:
 	Player(const AnimatedSprite&, const PlayerController& t_playerController);
@@ -34,6 +35,10 @@ public:
 	void renderPlayer(sf::RenderWindow& t_window);
 	void processKeyPress(sf::Event t_event);
 	void processKeyRelease(sf::Event t_event);
+
+	void takeDamage(int t_damageValue) { m_health -= t_damageValue; }
+
+	int getHealth() { return m_health; }
 
 	//AnimatedSprite
 
