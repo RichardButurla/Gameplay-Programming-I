@@ -3,6 +3,7 @@
 #include "AnimatedSprite.h"
 #include "PlayerState.h"
 #include "IdlePlayerState.h"
+#include "AttackPlayerState.h"
 #include "Globals.h"
 #include <SFML/Graphics.hpp>
 
@@ -34,6 +35,7 @@ public:
 
 	double getTimeSinceLastAttack() { return attackTimer.getElapsedTime().asSeconds(); }
 	void restartAttackTimer() { attackTimer.restart(); }
+	void setEnemyAttacking();
 
 	void setPos(int t_x, int t_y) { m_enemyController.setX(t_x); m_enemyController.setY(t_y); }
 	void setScale(sf::Vector2f t_scale) { m_animated_sprite.setScale(t_scale); };

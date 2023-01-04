@@ -1,6 +1,5 @@
 #include "Enemy.h"
 #include "RunRightPlayerState.h"
-#include "AttackPlayerState.h"
 
 Enemy::Enemy(const AnimatedSprite& sprite, EnemyController& t_enemyController) : 
 	m_animated_sprite(sprite),
@@ -78,18 +77,7 @@ void Enemy::trackPlayer(sf::Vector2f t_playerPos)
 {
 	m_enemyController.trackPlayer(t_playerPos.x, t_playerPos.y);
 
-	if (m_enemyController.isAttackingPlayer())
-	{
-		if (!attackingAniimationPlayed)
-		{
-			attackingAniimationPlayed = true;
-			m_state = new AttackPlayerState;
-			m_state->enter(*this);
-		}
-			
-
-	}
-	else if (m_enemyController.isTrackingPlayer())
+	if (m_enemyController.isTrackingPlayer() && !m_enemyController.isAttackingPlayer())
 	{
 		if (m_animated_sprite.getPlayed())
 		{
@@ -101,5 +89,12 @@ void Enemy::trackPlayer(sf::Vector2f t_playerPos)
 	}
 	
 	
+}
+
+void Enemy::setEnemyAttacking()
+{
+	m_state = new AttackPlayerState;
+	m_animated_sprite.setLooped(false); 
+	m_state->enter(*this);
 }
 	

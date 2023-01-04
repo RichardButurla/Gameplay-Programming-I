@@ -713,6 +713,7 @@ void Game::checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCol
 			{
 				m_enemy.restartAttackTimer();
 				m_player.takeDamage(1);
+				m_enemy.setEnemyAttacking();
 				
 			}
 		}
