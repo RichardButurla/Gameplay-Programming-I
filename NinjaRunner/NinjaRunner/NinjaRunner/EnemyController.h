@@ -15,6 +15,7 @@ public:
 	void setY(float t_y) { y = t_y; }
 	void setSpeed(float t_speed) { speed = t_speed; }
 
+	bool isOffscreen();
 	void trackPlayer(float t_x, float t_y);
 
 	bool isTrackingPlayer() { return trackingPlayer; }

@@ -25,8 +25,14 @@ PlayerState* AttackPlayerState::handleInput(gpp::Events& input)
 	return nullptr;
 }
 void AttackPlayerState::update(Player& player) {
-	DEBUG_MSG("AttackPlayerState::update");
-	DEBUG_MSG(typeid(player).name());
+	if (m_clock.getElapsedTime().asSeconds() > 0.3f) {
+		PlayerState* temp = player.getPlayerState();
+		PlayerState* state = new RunRightPlayerState();
+		player.getPlayerState()->exit(player);
+		player.setPlayerState(state);
+		player.getPlayerState()->enter(player);
+		delete temp;
+	}
 }
 
 void AttackPlayerState::enter(Player& player)

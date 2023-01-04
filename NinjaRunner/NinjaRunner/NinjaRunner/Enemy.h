@@ -32,20 +32,25 @@ public:
 
 	float getX() { return m_enemyController.getX(); }
 	float getY() { return m_enemyController.getY(); }
+	bool getAlive() { return m_alive; }
 
 	double getTimeSinceLastAttack() { return attackTimer.getElapsedTime().asSeconds(); }
+	bool isOffscreen() { return m_enemyController.isOffscreen(); }
 	void restartAttackTimer() { attackTimer.restart(); }
 	void setEnemyAttacking();
 
 	void setPos(int t_x, int t_y) { m_enemyController.setX(t_x); m_enemyController.setY(t_y); }
 	void setScale(sf::Vector2f t_scale) { m_animated_sprite.setScale(t_scale); };
 	void setSpeed(float t_speed) { m_enemyController.setSpeed(t_speed); }
+	void setAlive(bool t_bool) { m_alive = t_bool; }
+	
 
 
 private:
 
 	bool runningAnimationPlayed{ false };
 	bool attackingAniimationPlayed{ false };
+	bool m_alive{ true };
 	sf::Clock attackTimer;
 	EnemyController m_enemyController;
 	AnimatedSprite m_animated_sprite;

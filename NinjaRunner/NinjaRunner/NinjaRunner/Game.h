@@ -31,11 +31,14 @@ private:
 	void setupSprite();
 	void checkPlatformTimes();
 
+	void enemyAttackPlayer();
+
 	void checkPlatformOffScreen();
 	void checkCollision();
 	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider);
+	void checkPlayerAttack();
 	void checkPlayerOffPosition();
 	void checkPlayerEnemyDistance();
 	

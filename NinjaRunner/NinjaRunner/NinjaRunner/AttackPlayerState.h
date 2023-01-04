@@ -16,6 +16,9 @@ public:
 	virtual void update(Enemy&);
 	virtual void enter(Enemy&);
 	virtual void exit(Enemy&);
+
+private:
+	sf::Clock m_clock;
 };
 
 #endif

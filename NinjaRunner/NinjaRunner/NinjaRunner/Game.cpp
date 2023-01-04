@@ -106,6 +106,11 @@ void Game::processKeyPress(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+	if (sf::Keyboard::Z == t_event.key.code)
+	{
+		checkPlayerAttack();
+	}
+
 	m_player.processKeyPress(t_event);
 	processKeyPressFSM(t_event);
 }
@@ -275,7 +280,7 @@ void Game::processKeyReleaseFSM(sf::Event t_event)
 	else if (t_event.key.code == sf::Keyboard::Z)
 	{
 		DEBUG_MSG("gpp::Events::Event::ATTACK_STOP_EVENT");
-		m_input.setCurrent(gpp::Events::Event::ATTACK_STOP_EVENT);
+		//m_input.setCurrent(gpp::Events::Event::ATTACK_STOP_EVENT);
 	}
 	// Run and Stop Throw Attack
 	else if (t_event.key.code == sf::Keyboard::X &&
@@ -373,7 +378,9 @@ void Game::render()
 	{
 		m_floorPlatforms[i].render(m_window);
 	}
-	testShape.setSize(m_playerSize);
+
+
+	/*testShape.setSize(m_playerSize);
 	testShape.setFillColor(sf::Color::Green);
 	testShape.setPosition({ m_player.getX(), m_player.getY() });
 	m_window.draw(testShape);
@@ -381,7 +388,7 @@ void Game::render()
 	testShape.setSize({m_playerSize.x + 100, m_playerSize.y});
 	testShape.setFillColor(sf::Color::Red);
 	testShape.setPosition({ m_enemy.getX() - 100, m_enemy.getY()});
-	m_window.draw(testShape);
+	m_window.draw(testShape);*/
 
 
 	m_player.renderPlayer(m_window);
@@ -441,18 +448,14 @@ void Game::setupSprite()
 	 testShape.setOutlineColor(sf::Color::Black);
 
 	 //players texture width heigth
-	 
+	 m_playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
 	 m_playerController.setX(m_playerOriginalPosition.x);
 	 m_playerController.setY(m_playerOriginalPosition.y);
 	 m_player = Player(m_playerAnimatedSprite,m_playerController);
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
-	 //Setup Enemy
-	 m_enemyController.setX(700);
-	 m_enemyController.setY(610);
-	 m_enemy = Enemy(m_playerAnimatedSprite, m_enemyController);
-	 m_enemy.setScale(m_enemyScale);
+	 
 
 	 //Setup Platform
 	 m_platformTextureSize = m_platformTexture.getSize();
@@ -499,8 +502,15 @@ void Game::setupSprite()
 		 m_platforms[i].setPlatformScale(m_platformScale);
 	 }
 
+	 //Setup Enemy
+	 m_enemyController.setX(m_floorPlatforms[1].getX());
+	 m_enemyController.setY(m_floorPlatforms[1].getY() - m_playerSize.y + 20);
+	 m_enemyController.setSpeed(m_floorPlatforms[1].getPlatformSpeed());	
+	 m_enemy = Enemy(m_playerAnimatedSprite, m_enemyController);
+	 m_enemy.setScale(m_enemyScale);
+
 	 m_startOfPlatformsClock.restart();
-	 m_playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
+	 
 }
 
 void Game::checkPlatformTimes()
@@ -509,8 +519,7 @@ void Game::checkPlatformTimes()
 	{
 		if (m_startOfPlatformsClock.getElapsedTime().asSeconds() >= 3)
 		{
-			//m_platforms[platformNumber].setSpeed(m_platformSpeed);
-			//m_enemy.setSpeed(m_platformSpeed);
+			m_platforms[platformNumber].setSpeed(m_platformSpeed);
 			platformNumber++;
 			m_startOfPlatformsClock.restart();
 		}
@@ -526,23 +535,42 @@ void Game::checkPlatformTimes()
 		if (gameRunTime.asSeconds() > 1)
 		{
 			gameRunClock.restart();
-			m_platformSpeed+= 5;
-			m_floorPlatformSpeed += 3;
+			m_platformSpeed+= 3;
+			m_floorPlatformSpeed += 1;
 		}
 		std::cout << "\nPlatform Speed: " << m_platformSpeed;
 
 		for (int i = 0; i < MAX_PLATFORMS; i++)
 		{
-			//m_platforms[i].setSpeed(m_platformSpeed);
+			m_platforms[i].setSpeed(m_platformSpeed);
 		}
 		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 		{
-			//m_floorPlatforms[i].setSpeed(m_floorPlatformSpeed);
+			m_floorPlatforms[i].setSpeed(m_floorPlatformSpeed);
+			m_enemy.setSpeed(m_floorPlatformSpeed);
 		}
 	}
 
 
 	
+}
+
+void Game::enemyAttackPlayer()
+{
+	float enemyAttackCooldownTimer = 1;
+	double attackTimer = 0;
+
+	if (m_enemy.isAttackingPlayer())
+	{
+		attackTimer = m_enemy.getTimeSinceLastAttack();
+		if (attackTimer > 1.5)
+		{
+			m_enemy.restartAttackTimer();
+			m_player.takeDamage(1);
+			m_enemy.setEnemyAttacking();
+
+		}
+	}
 }
 
 void Game::checkPlatformOffScreen()
@@ -571,6 +599,19 @@ void Game::checkPlatformOffScreen()
 
 			m_platforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
 			m_platforms[i].setPos(possiblePlatformPositions[randNum].x, possiblePlatformPositions[randNum].y);
+
+			if (m_enemy.getAlive() == false)
+			{
+				m_enemy.setPos(m_platforms[i].getX(), m_platforms[i].getY() - m_playerSize.y);
+				m_enemy.setSpeed(m_platformSpeed);
+				m_enemy.setAlive(true);
+			}
+			if (m_enemy.isOffscreen())
+			{
+				m_enemy.setPos(m_platforms[i].getX(), m_platforms[i].getY() - m_playerSize.y);
+				m_enemy.setSpeed(m_platformSpeed);
+			}
+
 		}
 	}
 	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
@@ -585,6 +626,7 @@ void Game::checkPlatformOffScreen()
 		}
 	}
 
+	
 
 }
 
@@ -698,26 +740,23 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 
 void Game::checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider)
 {
-	float enemyAttackCooldownTimer = 1;
-	double attackTimer = 0;
-
 	std::cout << "\nPlayer Health: " << m_player.getHealth();
-
 	if (t_playerCollider.checkCollision(t_enemyCollider))
 	{
-		std::cout << "\N Enemy Collision!";
-		if (m_enemy.isAttackingPlayer())
-		{
-			attackTimer = m_enemy.getTimeSinceLastAttack();
-			if (attackTimer > 1.5)
-			{
-				m_enemy.restartAttackTimer();
-				m_player.takeDamage(1);
-				m_enemy.setEnemyAttacking();
-				
-			}
-		}
+		enemyAttackPlayer();
 	}
+}
+
+void Game::checkPlayerAttack()
+{
+	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y);
+	RectangleCollider enemyCollider(m_enemy.getX() - 100, m_enemy.getY(), m_playerSize.x + 100, m_playerSize.y); //well give enemy a bigger collider for attacking to the left
+
+	if (playerCollider.checkCollision(enemyCollider))
+	{
+		m_enemy.setAlive(false);
+	}
+	
 }
 
 void Game::checkPlayerOffPosition()

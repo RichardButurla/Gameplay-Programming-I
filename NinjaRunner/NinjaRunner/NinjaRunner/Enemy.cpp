@@ -63,14 +63,22 @@ void Enemy::setEnemyScale(float t_x, float t_y)
 
 void Enemy::update(double t_deltaTime)
 {
-	m_enemyController.update(t_deltaTime);
-	updateAnimationState();
-	m_animated_sprite.setPosition(m_enemyController.getX() + 90 ,m_enemyController.getY()); //Sprite is flipped so distance is off
+	if (m_alive)
+	{
+		m_enemyController.update(t_deltaTime);
+		updateAnimationState();
+		m_animated_sprite.setPosition(m_enemyController.getX() + 90, m_enemyController.getY()); //Sprite is flipped so distance is off
+	}
+	
 }
 
 void Enemy::render(sf::RenderWindow& t_window)
 {
-	t_window.draw(this->getAnimatedSpriteFrame());
+	if (m_alive)
+	{
+		t_window.draw(this->getAnimatedSpriteFrame());
+	}
+	
 }
 
 void Enemy::trackPlayer(sf::Vector2f t_playerPos)
@@ -97,4 +105,5 @@ void Enemy::setEnemyAttacking()
 	m_animated_sprite.setLooped(false); 
 	m_state->enter(*this);
 }
+
 	

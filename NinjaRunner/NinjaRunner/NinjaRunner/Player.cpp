@@ -103,10 +103,11 @@ void Player::processKeyPress(sf::Event t_event)
 	{
 		m_playerController.jump();
 	}
+
 }
 
 void Player::processKeyRelease(sf::Event t_event)
 {
-	
+
 }
 

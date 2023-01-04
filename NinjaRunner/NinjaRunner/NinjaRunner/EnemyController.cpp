@@ -23,6 +23,15 @@ void EnemyController::update(double t_deltaTime)
 	x -= speed * t_deltaTime;
 }
 
+bool EnemyController::isOffscreen()
+{
+	if (x < 0)
+	{
+		return true;
+	}
+	return false;
+}
+
 /// <summary>
 /// player should be on the same y level as an enemy to first check if they are close enough x wise to intereact.
 /// </summary>
