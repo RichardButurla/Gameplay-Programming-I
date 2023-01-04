@@ -71,3 +71,8 @@ void Enemy::render(sf::RenderWindow& t_window)
 {
 	t_window.draw(this->getAnimatedSpriteFrame());
 }
+
+void Enemy::trackPlayer(sf::Vector2f t_playerPos)
+{
+	m_enemyController.trackPlayer(t_playerPos.x, t_playerPos.y);
+}

@@ -36,6 +36,7 @@ private:
 	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkPlayerOffPosition();
+	void checkPlayerEnemyDistance();
 	
 
 

@@ -354,6 +354,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	checkCollision();
 	checkPlatformOffScreen();
+	checkPlayerEnemyDistance();
 	
 }
 
@@ -434,8 +435,8 @@ void Game::setupSprite()
 	 m_player.setPlayerScale( playerScale.x,playerScale.y );
 
 	 //Setup Enemy
-	 m_enemyController.setX(SCREEN_WIDTH + 300);
-	 m_enemyController.setY(m_playerOriginalPosition.y);
+	 m_enemyController.setX(500 + m_playerOriginalPosition.x);
+	 m_enemyController.setY(610);
 	 m_enemy = Enemy(m_playerAnimatedSprite, m_enemyController);
 	 m_enemy.setScale(m_enemyScale);
 
@@ -454,7 +455,7 @@ void Game::setupSprite()
 	 
 	 int platformSize = MAX_FLOOR_PLATFORMS; //amount of tiles/blocks
 	 m_platFormController = PlatformController(testPos[0].x, testPos[0].y, m_platformTextureSize.x, m_platformTextureSize.y, platformSize);
-	 m_platFormController.setSpeed(m_platformSpeed);
+	 //m_platFormController.setSpeed(m_platformSpeed);
 
 	 for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 	 {
@@ -494,8 +495,8 @@ void Game::checkPlatformTimes()
 	{
 		if (m_startOfPlatformsClock.getElapsedTime().asSeconds() >= 3)
 		{
-			m_platforms[platformNumber].setSpeed(m_platformSpeed);
-			m_enemy.setSpeed(m_platformSpeed);
+			//m_platforms[platformNumber].setSpeed(m_platformSpeed);
+			//m_enemy.setSpeed(m_platformSpeed);
 			platformNumber++;
 			m_startOfPlatformsClock.restart();
 		}
@@ -518,11 +519,11 @@ void Game::checkPlatformTimes()
 
 		for (int i = 0; i < MAX_PLATFORMS; i++)
 		{
-			m_platforms[i].setSpeed(m_platformSpeed);
+			//m_platforms[i].setSpeed(m_platformSpeed);
 		}
 		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 		{
-			m_floorPlatforms[i].setSpeed(m_floorPlatformSpeed);
+			//m_floorPlatforms[i].setSpeed(m_floorPlatformSpeed);
 		}
 	}
 
@@ -691,6 +692,11 @@ void Game::checkPlayerOffPosition()
 	{
 		m_player.setVelocity({ 0,m_player.getVelocity().y });
 	}
+}
+
+void Game::checkPlayerEnemyDistance()
+{
+	m_enemy.trackPlayer({ m_player.getX(), m_player.getY() });
 }
 	
 

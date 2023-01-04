@@ -15,6 +15,8 @@ public:
 	void setY(float t_y) { y = t_y; }
 	void setSpeed(float t_speed) { speed = t_speed; }
 
+	void trackPlayer(float t_x, float t_y);
+
 
 
 
@@ -24,5 +26,6 @@ private:
 	float width = 0;
 	float height = 0;
 	float speed = 0;
+	float chaseSpeed = 200;
 };
 

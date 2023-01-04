@@ -1,4 +1,5 @@
 #include "EnemyController.h"
+#include <math.h>
 
 EnemyController::EnemyController(float t_x, float t_y, float t_width, float t_height, int t_numberOfBlocks) :
 	x(t_x),
@@ -19,4 +20,30 @@ EnemyController::~EnemyController()
 void EnemyController::update(double t_deltaTime)
 {
 	x -= speed * t_deltaTime;
+}
+
+/// <summary>
+/// player should be on the same y level as an enemy to first check if they are close enough x wise to intereact.
+/// </summary>
+/// <param name="t_playerXPos"> players X position</param>
+/// <param name="t_playerYPos"> players Y Position</param>
+void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos)
+{
+	float yDetectionDistance = 20;
+	float xDetectionDistance = 600;
+
+	float xDistance = (t_playerXPos - x);
+	float yDistance = ( t_playerYPos - y);
+
+	if (fabs(xDistance) < xDetectionDistance && fabs(yDistance) < yDetectionDistance)
+	{
+		if (xDistance < 0)
+		{
+			speed = chaseSpeed;
+		}
+		else
+		{
+			speed = -chaseSpeed;
+		}
+	}
 }

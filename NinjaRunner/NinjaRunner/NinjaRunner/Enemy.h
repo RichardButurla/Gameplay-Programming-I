@@ -25,6 +25,8 @@ public:
 	void update(double t_deltaTime);
 	void render(sf::RenderWindow& t_window);
 
+	void trackPlayer(sf::Vector2f t_playerPos);
+
 
 	float getX() { return m_enemyController.getX(); }
 	float getY() { return m_enemyController.getY(); }
