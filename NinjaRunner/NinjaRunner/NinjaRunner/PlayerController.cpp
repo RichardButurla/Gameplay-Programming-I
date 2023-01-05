@@ -16,10 +16,7 @@ PlayerController::~PlayerController()
 
 void PlayerController::update(double t_deltaTime)
 {
-	if (!onGround)
-	{
-		m_velocity.y += playerGravity;
-	}
+	m_velocity.y += playerGravity;
 	
 	m_position.x += m_velocity.x * t_deltaTime;
 	m_position.y += m_velocity.y * t_deltaTime;
@@ -27,5 +24,10 @@ void PlayerController::update(double t_deltaTime)
 
 void PlayerController::jump()
 {
-	m_velocity.y = JUMP_VELOCITY;
+	if (numberOfJumpsLeft > 0)
+	{
+		m_velocity.y = JUMP_VELOCITY;
+		numberOfJumpsLeft--;
+	}
+	
 }

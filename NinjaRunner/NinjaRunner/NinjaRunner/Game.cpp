@@ -741,6 +741,7 @@ void Game::checkPlatFormCollision(RectangleCollider& t_playerCollider, Rectangle
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(0);
+			m_player.restoreJumps();
 		}
 		if (yOverlap < 0) //check below
 		{
@@ -777,6 +778,7 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 		{
 			m_player.setVelocity({ 0, 0 });
 			m_player.setPlayerGravity(0);
+			m_player.restoreJumps();
 		}
 		if (yOverlap < 0) //check below
 		{
@@ -830,7 +832,7 @@ void Game::checkPlayerAttack()
 void Game::checkPlayerOffPosition()
 {
 	float returningPlayerSpeed = 50;
-	if (m_player.getX() < 0 - m_playerSize.x)
+	if (m_player.getX() < 0 - m_playerSize.x - 20)
 	{
 		m_gameOver = true;
 	}
