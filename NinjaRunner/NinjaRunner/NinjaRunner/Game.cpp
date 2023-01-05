@@ -383,8 +383,10 @@ void Game::render()
 		m_floorPlatforms[i].render(m_window);
 	}
 
-	m_window.draw(m_gameScoreText);
-	/*testShape.setSize(m_playerSize);
+	
+
+	///Test code for hit boxes///
+	/*testShape.setSize({m_playerSize.x, m_playerSize.y + 50});
 	testShape.setFillColor(sf::Color::Green);
 	testShape.setPosition({ m_player.getX(), m_player.getY() });
 	m_window.draw(testShape);
@@ -393,10 +395,15 @@ void Game::render()
 	testShape.setFillColor(sf::Color::Red);
 	testShape.setPosition({ m_enemy.getX() - 100, m_enemy.getY()});
 	m_window.draw(testShape);*/
+	///                      ///
 
 
 	m_player.renderPlayer(m_window);
 	m_enemy.render(m_window);
+
+	m_window.draw(m_gameScoreText);
+	m_window.draw(m_playerHealthText);
+
 	m_window.display();
 }
 
@@ -417,6 +424,15 @@ void Game::setupFontAndText()
 	m_gameScoreText.setOutlineColor(sf::Color::Black);
 	m_gameScoreText.setFillColor(sf::Color::White);
 	m_gameScoreText.setOutlineThickness(3.0f);
+
+	m_playerHealthText.setFont(m_ArialBlackfont);
+	m_playerHealthText.setString("Player Health:");
+	m_playerHealthText.setStyle(sf::Text::Italic | sf::Text::Bold);
+	m_playerHealthText.setPosition(40.0f, 80.0f);
+	m_playerHealthText.setCharacterSize(40U);
+	m_playerHealthText.setOutlineColor(sf::Color::Black);
+	m_playerHealthText.setFillColor(sf::Color::White);
+	m_playerHealthText.setOutlineThickness(3.0f);
 
 }
 
@@ -588,7 +604,9 @@ void Game::checkGameText()
 	std::ostringstream scoreString;
 	scoreString << std::setw(7) << std::setfill('0') << static_cast<int>(m_gameScore);
 
+	m_playerHealthText.setString("Health: " + std::to_string(m_player.getHealth()));
 	m_gameScoreText.setString("Score: " + (scoreString.str()));
+	
 }
 
 void Game::checkPlatformOffScreen()
@@ -652,7 +670,7 @@ void Game::checkCollision()
 {
 	m_playerSize = { singlePlayerTextureFrameSize.x * playerScale.x ,singlePlayerTextureFrameSize.y * playerScale.y };
 
-	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y);
+	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y -1);
 	RectangleCollider enemyCollider(m_enemy.getX() - 100, m_enemy.getY(), m_playerSize.x + 100, m_playerSize.y); //well give enemy a bigger collider for attacking to the left
 	RectangleCollider floorPlatformCollider[MAX_FLOOR_PLATFORMS];
 	RectangleCollider platformCollider[MAX_PLATFORMS];
@@ -773,7 +791,7 @@ void Game::checkPlayerAttack()
 {
 	m_player.setAttacking(true);
 
-	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y);
+	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y + 40 ); //added more onto y so player can hit below enemy
 	RectangleCollider enemyCollider(m_enemy.getX() - 100, m_enemy.getY(), m_playerSize.x + 100, m_playerSize.y); //well give enemy a bigger collider for attacking to the left
 
 	if (playerCollider.checkCollision(enemyCollider))

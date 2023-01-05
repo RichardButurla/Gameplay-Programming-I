@@ -48,11 +48,13 @@ private:
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_gameScoreText; // text used for message on screen
+	sf::Text m_playerHealthText; // text used for message on screen
 	double m_gameScore = 0;
 	float scoreIncrement = 0.032;
 	float scoreMultiplier = 1;
 	sf::Clock m_scoreClock;
 	sf::Time m_scoreTime;
+
 
 	sf::RectangleShape testShape;
 
@@ -69,7 +71,7 @@ private:
 	AnimatedSprite m_playerAnimatedSprite;
 	Player m_player;
 	PlayerController m_playerController;
-	sf::Vector2f m_playerOriginalPosition{ 300,0 };
+	sf::Vector2f m_playerOriginalPosition{ 300,SCREEN_HEIGHT - 200 };
 
 	static const int MAX_FLOOR_PLATFORMS = 2;
 	sf::Vector2f m_platformScale{ 0.2,0.2 };

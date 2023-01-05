@@ -54,10 +54,6 @@ void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos, float 
 		{
 			speed = t_platformSpeed;
 		}
-		else
-		{
-			speed = -t_platformSpeed;
-		}
 		if (fabs(xDistance) < attackDistance && fabs(yDistance) < yDetectionDistance)
 		{
 			std::cout << "\nAttacking player: " << attackingPlayer;
