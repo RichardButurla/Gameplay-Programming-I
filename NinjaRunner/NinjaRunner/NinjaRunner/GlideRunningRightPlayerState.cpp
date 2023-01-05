@@ -11,12 +11,10 @@ PlayerState* GlideRunningRightPlayerState::handleInput(gpp::Events& input)
 {
 	if (input.getCurrent() == gpp::Events::Event::ATTACK_START_EVENT)
 	{
-		DEBUG_MSG("GlideRunningRightPlayerState -> AttackPlayerState");
 		return new AttackPlayerState();
 	}
 	if (input.getCurrent() == gpp::Events::Event::HIT_GROUND_EVENT)
 	{
-		DEBUG_MSG("GlideRunningRightPlayerState -> IdlePlayerState");
 		return new RunRightPlayerState();
 	}
 	else if (input.getCurrent() == gpp::Events::Event::DIED_EVENT)
@@ -27,7 +25,6 @@ PlayerState* GlideRunningRightPlayerState::handleInput(gpp::Events& input)
 	return nullptr;
 }
 void GlideRunningRightPlayerState::update(Player& player) {
-	DEBUG_MSG("GlideRunningRightPlayerState -> RunRightPlayerState");
 	if (m_clock.getElapsedTime().asSeconds() > 0.1f) {
 		PlayerState* temp = player.getPlayerState();
 		PlayerState* state = new RunRightPlayerState();
@@ -39,7 +36,6 @@ void GlideRunningRightPlayerState::update(Player& player) {
 }
 void GlideRunningRightPlayerState::enter(Player& player)
 {
-	DEBUG_MSG("Entering GlideRunningRightPlayerState");
 
 	player.getAnimatedSprite().clearFrames();
 
@@ -58,7 +54,6 @@ void GlideRunningRightPlayerState::enter(Player& player)
 }
 void GlideRunningRightPlayerState::exit(Player& player)
 {
-	DEBUG_MSG("Exiting GlideRunningRightPlayerState");
 	DEBUG_MSG(typeid(player).name());
 }
 

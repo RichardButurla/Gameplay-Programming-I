@@ -40,7 +40,7 @@ private:
 	void checkGameText();
 	void checkPlatformOffScreen();
 	void checkCollision();
-	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
+	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform, int& t_airPlatformCollisions);
 	void checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
 	void checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider);
 	void checkPlayerAttack();
@@ -78,14 +78,15 @@ private:
 	sf::Vector2f m_playerOriginalPosition{ 300,SCREEN_HEIGHT - 200 };
 	sf::Clock m_playerDamageTimer;
 	sf::Time m_playerDamageTime;
+	float returningPlayerSpeed = 50;
 
 	static const int MAX_FLOOR_PLATFORMS = 2;
 	sf::Vector2f m_platformScale{ 0.2,0.2 };
 	Platform m_floorPlatforms[MAX_FLOOR_PLATFORMS];
 	PlatformController m_floorPlatFormController;
 
-	static const int MAX_PLATFORMS = 3;
-	Platform m_platforms[MAX_PLATFORMS];
+	static const int MAX_AIR_PLATFORMS = 3;
+	Platform m_airPlatforms[MAX_AIR_PLATFORMS];
 	PlatformController m_platFormController;
 	sf::Texture m_platformTexture;
 	sf::Vector2u m_platformTextureSize;

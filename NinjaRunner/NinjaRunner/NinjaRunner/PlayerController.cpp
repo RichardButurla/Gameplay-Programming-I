@@ -16,6 +16,7 @@ PlayerController::~PlayerController()
 
 void PlayerController::update(double t_deltaTime)
 {
+	std::cout << "\nPLAYER VELCOITY: " << m_velocity.x;
 	m_velocity.y += playerGravity;
 	
 	m_position.x += m_velocity.x * t_deltaTime;

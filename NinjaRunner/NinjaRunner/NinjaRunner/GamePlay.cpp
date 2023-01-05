@@ -313,9 +313,9 @@ void GamePlay::update(sf::Time t_deltaTime)
 	}
 	else
 	{
-		for (int i = 0; i < MAX_PLATFORMS; i++)
+		for (int i = 0; i < MAX_AIR_PLATFORMS; i++)
 		{
-			m_platforms[i].update(t_deltaTime.asSeconds());
+			m_airPlatforms[i].update(t_deltaTime.asSeconds());
 		}
 		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 		{
@@ -333,6 +333,7 @@ void GamePlay::update(sf::Time t_deltaTime)
 		checkPlatformOffScreen();
 		checkPlayerEnemyDistance();
 		checkPlayerOffPosition();
+		
 	}
 }
 
@@ -365,9 +366,9 @@ void GamePlay::render(sf::RenderWindow& t_window)
 	}
 	else
 	{
-		for (int i = 0; i < MAX_PLATFORMS; i++)
+		for (int i = 0; i < MAX_AIR_PLATFORMS; i++)
 		{
-			m_platforms[i].render(t_window);
+			m_airPlatforms[i].render(t_window);
 		}
 		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 		{
@@ -445,7 +446,7 @@ void GamePlay::resetGame()
 		m_floorPlatforms[i].setPlatformScale(m_platformScale);
 	}
 
-	sf::Vector2f initialPlatformPos[MAX_PLATFORMS] //set initial positiions off screen
+	sf::Vector2f initialPlatformPos[MAX_AIR_PLATFORMS] //set initial positiions off screen
 	{
 		{SCREEN_WIDTH,100},
 		{SCREEN_WIDTH,325},
@@ -453,14 +454,14 @@ void GamePlay::resetGame()
 	};
 
 	platformSize = 6;
-	for (int i = 0; i < MAX_PLATFORMS; i++)
+	for (int i = 0; i < MAX_AIR_PLATFORMS; i++)
 	{
 
 		m_platFormController = PlatformController(initialPlatformPos[i].x, initialPlatformPos[i].y, m_platformTextureSize.x, m_platformTextureSize.y, platformSize);
 		m_platFormController.setSpeed(0);
-		m_platforms[i] = Platform(m_platformTexture, m_platFormController);
-		m_platforms[i].setNumberOfBlocks(platformSize);
-		m_platforms[i].setPlatformScale(m_platformScale);
+		m_airPlatforms[i] = Platform(m_platformTexture, m_platFormController);
+		m_airPlatforms[i].setNumberOfBlocks(platformSize);
+		m_airPlatforms[i].setPlatformScale(m_platformScale);
 	}
 
 	//Setup Enemy
@@ -557,7 +558,7 @@ void GamePlay::setupSprite()
 	}
 
 
-	sf::Vector2f initialPlatformPos[MAX_PLATFORMS] //set initial positiions off screen
+	sf::Vector2f initialPlatformPos[MAX_AIR_PLATFORMS] //set initial positiions off screen
 	{
 		{SCREEN_WIDTH,100},
 		{SCREEN_WIDTH,325},
@@ -566,14 +567,14 @@ void GamePlay::setupSprite()
 
 	platformSize = 6;
 
-	for (int i = 0; i < MAX_PLATFORMS; i++)
+	for (int i = 0; i < MAX_AIR_PLATFORMS; i++)
 	{
 
 		m_platFormController = PlatformController(initialPlatformPos[i].x, initialPlatformPos[i].y, m_platformTextureSize.x, m_platformTextureSize.y, platformSize);
 		m_platFormController.setSpeed(0);
-		m_platforms[i] = Platform(m_platformTexture, m_platFormController);
-		m_platforms[i].setNumberOfBlocks(platformSize);
-		m_platforms[i].setPlatformScale(m_platformScale);
+		m_airPlatforms[i] = Platform(m_platformTexture, m_platFormController);
+		m_airPlatforms[i].setNumberOfBlocks(platformSize);
+		m_airPlatforms[i].setPlatformScale(m_platformScale);
 	}
 
 	//Setup Enemy
@@ -593,7 +594,7 @@ void GamePlay::checkTimers()
 	{
 		if (m_startOfPlatformsClock.getElapsedTime().asSeconds() >= 3)
 		{
-			m_platforms[platformNumber].setSpeed(m_platformSpeed);
+			m_airPlatforms[platformNumber].setSpeed(m_platformSpeed);
 			platformNumber++;
 			m_startOfPlatformsClock.restart();
 		}
@@ -613,9 +614,9 @@ void GamePlay::checkTimers()
 			m_floorPlatformSpeed += 1;
 		}
 
-		for (int i = 0; i < MAX_PLATFORMS; i++)
+		for (int i = 0; i < MAX_AIR_PLATFORMS; i++)
 		{
-			m_platforms[i].setSpeed(m_platformSpeed);
+			m_airPlatforms[i].setSpeed(m_platformSpeed);
 		}
 		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 		{
@@ -672,7 +673,7 @@ void GamePlay::checkPlatformOffScreen()
 	sf::Vector2f startPos{ SCREEN_WIDTH,static_cast<float>(SCREEN_HEIGHT - (m_platformTextureSize.y * 2)) - m_playerSize.y };
 
 	//newPlatformPosition.y = std::rand() % static_cast<int>((SCREEN_HEIGHT - m_platforms[i].getHeight()) + m_platforms[i].getHeight());    //old code
-	sf::Vector2f possiblePlatformPositions[MAX_PLATFORMS]
+	sf::Vector2f possiblePlatformPositions[MAX_AIR_PLATFORMS]
 	{
 		{SCREEN_WIDTH, startPos.y},
 		{SCREEN_WIDTH, startPos.y - m_playerSize.y * 1.4f},
@@ -681,19 +682,19 @@ void GamePlay::checkPlatformOffScreen()
 
 	//chekc platform off screen
 	int randNum = 0;
-	for (int i = 0; i < MAX_PLATFORMS; i++)
+	for (int i = 0; i < MAX_AIR_PLATFORMS; i++)
 	{
-		if (m_platforms[i].isOffScreen())
+		if (m_airPlatforms[i].isOffScreen())
 		{
 			newNumberOfPlatformBlocks = std::rand() % 2 + 4;
 			randNum = std::rand() % 3;
 
-			m_platforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
-			m_platforms[i].setPos(possiblePlatformPositions[randNum].x, possiblePlatformPositions[randNum].y);
+			m_airPlatforms[i].setNumberOfBlocks(newNumberOfPlatformBlocks);
+			m_airPlatforms[i].setPos(possiblePlatformPositions[randNum].x, possiblePlatformPositions[randNum].y);
 
 			if (m_enemy.getAlive() == false)
 			{
-				m_enemy.setPos(m_platforms[i].getX(), m_platforms[i].getY() - m_playerSize.y + 20);
+				m_enemy.setPos(m_airPlatforms[i].getX(), m_airPlatforms[i].getY() - m_playerSize.y + 20);
 				m_enemy.setSpeed(m_platformSpeed);
 				m_enemy.setEnemyState(new IdlePlayerState);
 				m_enemy.setAlive(true);
@@ -728,35 +729,46 @@ void GamePlay::checkCollision()
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y - 1);
 	RectangleCollider enemyCollider(m_enemy.getX() - 100, m_enemy.getY(), m_playerSize.x + 100, m_playerSize.y); //well give enemy a bigger collider for attacking to the left
 	RectangleCollider floorPlatformCollider[MAX_FLOOR_PLATFORMS];
-	RectangleCollider platformCollider[MAX_PLATFORMS];
+	RectangleCollider airPlatformCollider[MAX_AIR_PLATFORMS];
 
-	int numberOfPlatformCollision = 0; //we will use this to default player to his gravity since without this he starts to sink through platforms
+	int totalPlatformCollisions = 0; //we will use this to default player to his gravity since without this he starts to sink through platforms
+	int totalAirPlatformsCollisions = 0; //we will use this to stop our player from not letting him get pushed back
 
 	//platforms in the air
-	for (int i = 0; i < MAX_PLATFORMS; i++)
+	for (int i = 0; i < MAX_AIR_PLATFORMS; i++)
 	{
-		platformCollider[i] = RectangleCollider(m_platforms[i].getX(), m_platforms[i].getY(), m_platforms[i].getPlatformWidth(), m_platforms[i].getHeight());
-		checkPlatFormCollision(playerCollider, platformCollider[i], numberOfPlatformCollision, m_platforms[i]);
+		airPlatformCollider[i] = RectangleCollider(m_airPlatforms[i].getX(), m_airPlatforms[i].getY(), m_airPlatforms[i].getPlatformWidth(), m_airPlatforms[i].getHeight());
+		checkPlatFormCollision(playerCollider, airPlatformCollider[i], totalPlatformCollisions, m_airPlatforms[i], totalAirPlatformsCollisions);
 	}
 	//floor platforms. one is followed by another for smooth changing of holes in ground
 	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 	{
 		floorPlatformCollider[i] = RectangleCollider(m_floorPlatforms[i].getX(), m_floorPlatforms[i].getY(), m_floorPlatforms[i].getPlatformWidth(), m_floorPlatforms[i].getHeight());
-		checkFloorCollision(playerCollider, floorPlatformCollider[i], numberOfPlatformCollision, m_floorPlatforms[i]);
+		checkFloorCollision(playerCollider, floorPlatformCollider[i], totalPlatformCollisions, m_floorPlatforms[i]);
 	}
 
-	if (numberOfPlatformCollision == 0)
+	if (totalPlatformCollisions == 0)
 	{
 		m_player.setPlayerGravity(gravity);
-		m_player.setVelocity({ 0,m_player.getVelocity().y });
-
+		m_player.setVelocity({ m_player.getVelocity().x,m_player.getVelocity().y});
+	}
+	if (totalAirPlatformsCollisions == 0)
+	{
+		if (m_player.getX() < m_playerOriginalPosition.x)
+		{
+			m_player.setVelocity({ returningPlayerSpeed, m_player.getVelocity().y });
+		}
+		else
+		{
+			m_player.setVelocity({ 0,m_player.getVelocity().y });
+		}
 	}
 
 	checkEnemyCollision(playerCollider, enemyCollider);
 
 }
 
-void GamePlay::checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform)
+void GamePlay::checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform, int& t_airPlatformCollisions)
 {
 	float xOverlap = t_playerCollider.getXOverlap(t_platformCollider);
 	float yOverlap = t_playerCollider.getYOverlap(t_platformCollider);
@@ -765,6 +777,7 @@ void GamePlay::checkPlatFormCollision(RectangleCollider& t_playerCollider, Recta
 	if (t_playerCollider.checkCollision(t_platformCollider))
 	{
 		t_numberOfCollisions++;
+		t_airPlatformCollisions++;
 		std::cout << "\nCOLLISION\n";
 		//check above platform
 		if (yOverlap > 0)
@@ -782,12 +795,15 @@ void GamePlay::checkPlatFormCollision(RectangleCollider& t_playerCollider, Recta
 		if (xOverlap > 90) //add in a range so that only on the edge do we get pushed back
 		{
 
-			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y });
+			m_player.setVelocity({ -m_platformSpeed,m_player.getVelocity().y });
 			m_player.setPlayerGravity(300);
+			std::cout << "\nPushing back player";
 		}
 
 
 	}
+	
+	
 
 }
 
@@ -795,6 +811,7 @@ void GamePlay::checkFloorCollision(RectangleCollider& t_playerCollider, Rectangl
 {
 	float yOverlap = t_playerCollider.getYOverlap(t_platformCollider);
 	float xOverlap = t_playerCollider.getXOverlap(t_platformCollider);
+	
 
 	//first check actual collision
 	if (t_playerCollider.checkCollision(t_platformCollider))
@@ -822,6 +839,8 @@ void GamePlay::checkFloorCollision(RectangleCollider& t_playerCollider, Rectangl
 
 
 	}
+	
+	
 }
 
 void GamePlay::checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider)
@@ -853,7 +872,7 @@ void GamePlay::checkPlayerAttack()
 
 void GamePlay::checkPlayerOffPosition()
 {
-	float returningPlayerSpeed = 50;
+	
 	if (m_player.getX() < 0 - m_playerSize.x - 20)
 	{
 		m_gameOver = true;
@@ -867,14 +886,7 @@ void GamePlay::checkPlayerOffPosition()
 	{
 		m_gameOver = true;
 	}
-	if (m_player.getX() < m_playerOriginalPosition.x)
-	{
-		m_player.setVelocity({ returningPlayerSpeed, m_player.getVelocity().y });
-	}
-	else
-	{
-		m_player.setVelocity({ 0,m_player.getVelocity().y });
-	}
+	
 }
 
 void GamePlay::checkPlayerEnemyDistance()

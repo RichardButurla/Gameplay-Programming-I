@@ -38,7 +38,6 @@ void Player::handleAnimationInput(gpp::Events input) {
 }
 
 void Player::updateAnimationState() {
-	std::cout << "\nPlayer Velocity: " << m_playerController.getVelocity().y;
 
 	if (timeSinceAttack.getElapsedTime().asSeconds() > 0.5)
 	{
@@ -52,13 +51,11 @@ void Player::updateAnimationState() {
 			runPlayed = false;
 			m_state = new GlideRunningRightPlayerState;
 			m_state->enter(*this);
-			std::cout << "\nGLIDING\n";
 		}
 		else if (!runPlayed && m_playerController.getVelocity().y == 0)
 		{
 			m_state = new RunRightPlayerState;
 			m_state->enter(*this);
-			std::cout << "\nRunning\n";
 			runPlayed = true;
 			m_animated_sprite.setLooped(true);
 		}

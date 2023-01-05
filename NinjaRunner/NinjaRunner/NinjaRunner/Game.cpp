@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-GameState Game::currentState = GameState::License;
+GameState Game::currentState = GameState::GamePlay;
 
 /// <summary>
 /// default constructor
