@@ -577,7 +577,13 @@ void Game::enemyAttackPlayer()
 
 void Game::checkGameText()
 {
-	m_gameScore += 0.5;
+	m_scoreTime = m_scoreClock.getElapsedTime();
+	m_gameScore += scoreIncrement * scoreMultiplier;
+	if (static_cast<int>(m_scoreTime.asSeconds()) % 5 == 0)
+	{
+		m_scoreClock.restart();
+		scoreMultiplier += 0.1;
+	}
 
 	std::ostringstream scoreString;
 	scoreString << std::setw(7) << std::setfill('0') << static_cast<int>(m_gameScore);

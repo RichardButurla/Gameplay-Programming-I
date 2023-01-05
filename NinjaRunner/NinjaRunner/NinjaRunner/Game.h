@@ -49,6 +49,10 @@ private:
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_gameScoreText; // text used for message on screen
 	double m_gameScore = 0;
+	float scoreIncrement = 0.032;
+	float scoreMultiplier = 1;
+	sf::Clock m_scoreClock;
+	sf::Time m_scoreTime;
 
 	sf::RectangleShape testShape;
 
