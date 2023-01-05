@@ -43,7 +43,7 @@ private:
 	void checkPlayerOffPosition();
 	void checkPlayerEnemyDistance();
 	
-
+	bool m_gameOver{ false };
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message

@@ -344,27 +344,30 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	checkTimers();
 
-
-	for (int i = 0; i < MAX_PLATFORMS; i++)
+	if (!m_gameOver)
 	{
-		m_platforms[i].update(t_deltaTime.asSeconds());
-	}
-	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
-	{
-		m_floorPlatforms[i].update(t_deltaTime.asSeconds());
-	}
+		checkTimers();
 
-	m_player.updatePlayer(t_deltaTime.asSeconds());
-	m_enemy.update(t_deltaTime.asSeconds());
-	m_enemy.setSpeed(m_platformSpeed);
 
-	checkGameText();
-	checkCollision();
-	checkPlatformOffScreen();
-	checkPlayerEnemyDistance();
-	
+		for (int i = 0; i < MAX_PLATFORMS; i++)
+		{
+			m_platforms[i].update(t_deltaTime.asSeconds());
+		}
+		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+		{
+			m_floorPlatforms[i].update(t_deltaTime.asSeconds());
+		}
+
+		m_player.updatePlayer(t_deltaTime.asSeconds());
+		m_enemy.update(t_deltaTime.asSeconds());
+		m_enemy.setSpeed(m_platformSpeed);
+
+		checkGameText();
+		checkCollision();
+		checkPlatformOffScreen();
+		checkPlayerEnemyDistance();
+	}
 }
 
 /// <summary>
@@ -805,6 +808,10 @@ void Game::checkPlayerAttack()
 void Game::checkPlayerOffPosition()
 {
 	float returningPlayerSpeed = 50;
+	if (m_player.getX() < 0 - m_playerSize.x)
+	{
+		m_gameOver = true;
+	}
 	if (m_player.getX() < m_playerOriginalPosition.x)
 	{
 		m_player.setVelocity({ returningPlayerSpeed, m_player.getVelocity().y });
