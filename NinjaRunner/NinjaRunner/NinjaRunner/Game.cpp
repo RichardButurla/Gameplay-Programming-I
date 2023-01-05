@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-GameState Game::currentState = GameState::Help;
+GameState Game::currentState = GameState::MainMenu;
 
 /// <summary>
 /// default constructor

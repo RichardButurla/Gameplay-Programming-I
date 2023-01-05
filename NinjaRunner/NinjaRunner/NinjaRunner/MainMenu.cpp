@@ -14,7 +14,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::initialise(sf::Font& t_font)
 {
-	m_yOffset = 350;
+	m_yOffset = 250;
 	m_xOffset = ((SCREEN_WIDTH - m_buttonWidth) / 2) - 175;
 	m_buttonSpacing = 120;
 	m_buttonWidth = 300;
