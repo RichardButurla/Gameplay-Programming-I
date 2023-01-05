@@ -4,6 +4,8 @@
 
 #include "Game.h"
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 
 
 
@@ -342,7 +344,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	checkPlatformTimes();
+	checkTimers();
 
 
 	for (int i = 0; i < MAX_PLATFORMS; i++)
@@ -358,6 +360,7 @@ void Game::update(sf::Time t_deltaTime)
 	m_enemy.update(t_deltaTime.asSeconds());
 	m_enemy.setSpeed(m_platformSpeed);
 
+	checkGameText();
 	checkCollision();
 	checkPlatformOffScreen();
 	checkPlayerEnemyDistance();
@@ -380,7 +383,7 @@ void Game::render()
 		m_floorPlatforms[i].render(m_window);
 	}
 
-
+	m_window.draw(m_gameScoreText);
 	/*testShape.setSize(m_playerSize);
 	testShape.setFillColor(sf::Color::Green);
 	testShape.setPosition({ m_player.getX(), m_player.getY() });
@@ -402,18 +405,18 @@ void Game::render()
 /// </summary>
 void Game::setupFontAndText()
 {
-	// if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\ariblk.ttf"))
-	// {
-	// 	std::cout << "problem loading arial black font" << std::endl;
-	// }
-	m_welcomeMessage.setFont(m_ArialBlackfont);
-	m_welcomeMessage.setString("SFML Game");
-	m_welcomeMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
-	m_welcomeMessage.setPosition(40.0f, 40.0f);
-	m_welcomeMessage.setCharacterSize(80U);
-	m_welcomeMessage.setOutlineColor(sf::Color::Red);
-	m_welcomeMessage.setFillColor(sf::Color::Black);
-	m_welcomeMessage.setOutlineThickness(3.0f);
+	 if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\ariblk.ttf"))
+	 {
+	 	std::cout << "problem loading arial black font" << std::endl;
+	 }
+	m_gameScoreText.setFont(m_ArialBlackfont);
+	m_gameScoreText.setString("Score: 0000000");
+	m_gameScoreText.setStyle(sf::Text::Italic | sf::Text::Bold);
+	m_gameScoreText.setPosition(40.0f, 40.0f);
+	m_gameScoreText.setCharacterSize(40U);
+	m_gameScoreText.setOutlineColor(sf::Color::Black);
+	m_gameScoreText.setFillColor(sf::Color::White);
+	m_gameScoreText.setOutlineThickness(3.0f);
 
 }
 
@@ -514,7 +517,7 @@ void Game::setupSprite()
 	 
 }
 
-void Game::checkPlatformTimes()
+void Game::checkTimers()
 {
 	if (platformNumber < 3)
 	{
@@ -536,7 +539,7 @@ void Game::checkPlatformTimes()
 		if (gameRunTime.asSeconds() > 1)
 		{
 			gameRunClock.restart();
-			m_platformSpeed+= 3;
+			m_platformSpeed+= 2;
 			m_floorPlatformSpeed += 1;
 		}
 		std::cout << "\nPlatform Speed: " << m_platformSpeed;
@@ -550,8 +553,7 @@ void Game::checkPlatformTimes()
 			m_floorPlatforms[i].setSpeed(m_floorPlatformSpeed);
 		}
 	}
-
-
+	
 	
 }
 
@@ -571,6 +573,16 @@ void Game::enemyAttackPlayer()
 
 		}
 	}
+}
+
+void Game::checkGameText()
+{
+	m_gameScore += 0.5;
+
+	std::ostringstream scoreString;
+	scoreString << std::setw(7) << std::setfill('0') << static_cast<int>(m_gameScore);
+
+	m_gameScoreText.setString("Score: " + (scoreString.str()));
 }
 
 void Game::checkPlatformOffScreen()

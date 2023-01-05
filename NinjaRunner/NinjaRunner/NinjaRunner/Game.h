@@ -29,10 +29,11 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
-	void checkPlatformTimes();
+	void checkTimers();
 
 	void enemyAttackPlayer();
 
+	void checkGameText();
 	void checkPlatformOffScreen();
 	void checkCollision();
 	void checkPlatFormCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform);
@@ -46,7 +47,8 @@ private:
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
-	sf::Text m_welcomeMessage; // text used for message on screen
+	sf::Text m_gameScoreText; // text used for message on screen
+	double m_gameScore = 0;
 
 	sf::RectangleShape testShape;
 
