@@ -40,6 +40,8 @@ public:
 
 	void takeDamage(int t_damageValue) { m_health -= t_damageValue; }
 
+	void setPlayerColor(sf::Color t_color) { m_animated_sprite.setColor(t_color); }
+
 	int getHealth() { return m_health; }
 
 	//AnimatedSprite

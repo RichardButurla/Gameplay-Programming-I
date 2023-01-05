@@ -25,6 +25,7 @@ private:
 	void processKeyPressFSM(sf::Event t_event);
 	void processKeyReleaseFSM(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
+	void updateTimers();
 	void render();
 	
 	void setupFontAndText();
@@ -72,6 +73,8 @@ private:
 	Player m_player;
 	PlayerController m_playerController;
 	sf::Vector2f m_playerOriginalPosition{ 300,SCREEN_HEIGHT - 200 };
+	sf::Clock m_playerDamageTimer;
+	sf::Time m_playerDamageTime;
 
 	static const int MAX_FLOOR_PLATFORMS = 2;
 	sf::Vector2f m_platformScale{ 0.2,0.2 };

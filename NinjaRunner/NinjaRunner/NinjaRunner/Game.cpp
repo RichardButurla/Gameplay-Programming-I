@@ -340,6 +340,9 @@ void Game::processKeyReleaseFSM(sf::Event t_event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	updateTimers();
+	
+
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -367,6 +370,23 @@ void Game::update(sf::Time t_deltaTime)
 		checkCollision();
 		checkPlatformOffScreen();
 		checkPlayerEnemyDistance();
+	}
+}
+
+void Game::updateTimers()
+{
+	m_playerDamageTime = m_playerDamageTimer.getElapsedTime();
+	gameRunTime = gameRunClock.getElapsedTime();
+	m_scoreTime = m_scoreClock.getElapsedTime();
+
+	if (m_playerDamageTime.asSeconds() > 0.5)
+	{
+		m_player.setPlayerColor(sf::Color::White);
+	}
+	if (static_cast<int>(m_scoreTime.asSeconds()) % 5 == 0)
+	{
+		m_scoreClock.restart();
+		scoreMultiplier += 0.1;
 	}
 }
 
@@ -551,7 +571,7 @@ void Game::checkTimers()
 	{
 		platformsInOrder = true;
 	}
-	gameRunTime = gameRunClock.getElapsedTime();
+	
 
 	if (platformsInOrder)
 	{
@@ -579,36 +599,32 @@ void Game::checkTimers()
 void Game::enemyAttackPlayer()
 {
 	float enemyAttackCooldownTimer = 1;
+
 	double attackTimer = 0;
 
 	if (m_enemy.isAttackingPlayer())
 	{
 		attackTimer = m_enemy.getTimeSinceLastAttack();
 		if (attackTimer > 2)
-		{
-			
+		{			
 			m_enemy.setEnemyAttacking();
-			m_enemy.restartAttackTimer();
-			
+			m_enemy.restartAttackTimer();		
 		}
 		if (m_enemy.getTimeSinceLastDamageDealt() > 2.24)
 		{
 			m_player.takeDamage(1);
+			m_playerDamageTimer.restart();
 			m_enemy.restartDamageTimer();
+			m_player.setPlayerColor(sf::Color::Red); //makes player look hurt
 		}
 	}
-	
 }
 
 void Game::checkGameText()
 {
-	m_scoreTime = m_scoreClock.getElapsedTime();
+
 	m_gameScore += scoreIncrement * scoreMultiplier;
-	if (static_cast<int>(m_scoreTime.asSeconds()) % 5 == 0)
-	{
-		m_scoreClock.restart();
-		scoreMultiplier += 0.1;
-	}
+	
 
 	std::ostringstream scoreString;
 	scoreString << std::setw(7) << std::setfill('0') << static_cast<int>(m_gameScore);
