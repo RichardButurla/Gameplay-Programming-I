@@ -1,16 +1,100 @@
-﻿  Game.cpp
+﻿  GamePlay.cpp
 C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\PlayerController.h(32,22): warning C4305: 'initializing': truncation from 'const double' to 'float'
 C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Enemy.h(46,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\Enemy.h(46,86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.h(53,23): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.h(69,40): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.h(54,23): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.h(70,40): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.h(79,41): warning C4305: 'argument': truncation from 'double' to 'T'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.h(80,41): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(341,25): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(431,32): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(452,44): warning C4244: '*=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=unsigned int
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(453,44): warning C4244: '*=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=unsigned int
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(463,118): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(463,93): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(469,54): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(469,40): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(487,141): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(487,116): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(608,98): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(608,60): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(612,82): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(612,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(630,42): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(632,73): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(632,50): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(666,36): warning C4305: 'argument': truncation from 'const double' to 'float'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(695,37): warning C4305: 'argument': truncation from 'const double' to 'float'
+C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\NinjaRunner\GamePlay.cpp(732,37): warning C4305: 'argument': truncation from 'const double' to 'float'
   NinjaRunner.vcxproj -> C:\Users\Richie\Desktop\GamePlay\Gameplay-Programming-I\NinjaRunner\NinjaRunner\Debug\NinjaRunner.exe

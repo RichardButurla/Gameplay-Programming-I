@@ -2,7 +2,10 @@
 /// @author Richard Buturla
 /// C00272345
 
+
 #include "GamePlay.h"
+#include "Game.h"
+
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -295,8 +298,11 @@ void GamePlay::update(sf::Time t_deltaTime)
 {
 	updateTimers();
 
-	if (!m_gameOver)
+	if (m_gameOver)
 	{
+		Game::currentState = GameState::MainMenu;
+	}
+	
 		checkTimers();
 
 
@@ -317,7 +323,6 @@ void GamePlay::update(sf::Time t_deltaTime)
 		checkCollision();
 		checkPlatformOffScreen();
 		checkPlayerEnemyDistance();
-	}
 }
 
 void GamePlay::updateTimers()
@@ -774,6 +779,10 @@ void GamePlay::checkPlayerOffPosition()
 {
 	float returningPlayerSpeed = 50;
 	if (m_player.getX() < 0 - m_playerSize.x - 20)
+	{
+		m_gameOver = true;
+	}
+	if (m_player.getY() > SCREEN_HEIGHT)
 	{
 		m_gameOver = true;
 	}
