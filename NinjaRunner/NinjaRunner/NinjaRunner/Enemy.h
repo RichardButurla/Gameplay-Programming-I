@@ -35,8 +35,12 @@ public:
 	bool getAlive() { return m_alive; }
 
 	double getTimeSinceLastAttack() { return attackTimer.getElapsedTime().asSeconds(); }
+	double getTimeSinceLastDamageDealt() { return damageInflictionTimer.getElapsedTime().asSeconds(); }
+
+
 	bool isOffscreen() { return m_enemyController.isOffscreen(); }
 	void restartAttackTimer() { attackTimer.restart(); }
+	void restartDamageTimer() { damageInflictionTimer.restart(); }
 	void setEnemyAttacking();
 
 	void setPos(int t_x, int t_y) { m_enemyController.setX(t_x); m_enemyController.setY(t_y); }
@@ -52,6 +56,7 @@ private:
 	bool attackingAniimationPlayed{ false };
 	bool m_alive{ true };
 	sf::Clock attackTimer;
+	sf::Clock damageInflictionTimer;
 	EnemyController m_enemyController;
 	AnimatedSprite m_animated_sprite;
 	PlayerState* m_state;

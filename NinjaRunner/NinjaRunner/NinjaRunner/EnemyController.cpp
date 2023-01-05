@@ -59,7 +59,6 @@ void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos, float 
 			std::cout << "\nAttacking player: " << attackingPlayer;
 			attackingPlayer = true;
 			trackingPlayer = false;
-			speed = 0;
 		}
 		else
 		{

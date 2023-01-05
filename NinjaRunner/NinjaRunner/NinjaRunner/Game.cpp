@@ -584,14 +584,20 @@ void Game::enemyAttackPlayer()
 	if (m_enemy.isAttackingPlayer())
 	{
 		attackTimer = m_enemy.getTimeSinceLastAttack();
-		if (attackTimer > 1.5)
+		if (attackTimer > 2)
 		{
-			m_enemy.restartAttackTimer();
-			m_player.takeDamage(1);
+			
 			m_enemy.setEnemyAttacking();
-
+			m_enemy.restartAttackTimer();
+			
+		}
+		if (m_enemy.getTimeSinceLastDamageDealt() > 2.24)
+		{
+			m_player.takeDamage(1);
+			m_enemy.restartDamageTimer();
 		}
 	}
+	
 }
 
 void Game::checkGameText()
@@ -812,6 +818,10 @@ void Game::checkPlayerOffPosition()
 	{
 		m_gameOver = true;
 	}
+	if (m_player.getHealth() <= 0)
+	{
+		m_gameOver = true;
+	}
 	if (m_player.getX() < m_playerOriginalPosition.x)
 	{
 		m_player.setVelocity({ returningPlayerSpeed, m_player.getVelocity().y });
@@ -825,6 +835,15 @@ void Game::checkPlayerOffPosition()
 void Game::checkPlayerEnemyDistance()
 {
 	m_enemy.trackPlayer({ m_player.getX(), m_player.getY() },m_platformSpeed );
+
+	if ((m_player.getX() - m_enemy.getX()) < m_playerSize.x + 20)
+	{
+		m_enemy.setScale({ -playerScale.x,playerScale.y });
+	}
+	else
+	{
+		m_enemy.setScale({ playerScale.x,playerScale.y });
+	}
 }
 	
 
