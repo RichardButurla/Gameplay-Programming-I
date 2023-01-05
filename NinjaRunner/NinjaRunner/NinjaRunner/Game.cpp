@@ -835,12 +835,16 @@ void Game::checkPlayerOffPosition()
 void Game::checkPlayerEnemyDistance()
 {
 	m_enemy.trackPlayer({ m_player.getX(), m_player.getY() },m_platformSpeed );
+	float xDistance = (m_player.getX() - m_enemy.getX());
+	float yDistance = abs((m_player.getY() - m_enemy.getY()));
 
-	if ((m_player.getX() - m_enemy.getX()) < m_playerSize.x + 20)
+	std::cout << "Y distance: " << yDistance;
+
+	if (xDistance < m_playerSize.x + 20 && yDistance < 10)
 	{
 		m_enemy.setScale({ -playerScale.x,playerScale.y });
 	}
-	else
+	else if(xDistance > m_playerSize.x + 20 && yDistance > 10)
 	{
 		m_enemy.setScale({ playerScale.x,playerScale.y });
 	}
