@@ -35,12 +35,15 @@
     <ClCompile Include="GlidePlayerState.cpp" />
     <ClCompile Include="GlideRunningRightPlayerState.cpp" />
     <ClCompile Include="HammeringPlayerState.cpp" />
+    <ClCompile Include="HelpScreen.cpp" />
     <ClCompile Include="IdlePlayerState.cpp" />
     <ClCompile Include="JumpAttackPlayerState.cpp" />
     <ClCompile Include="JumpPlayerState.cpp" />
     <ClCompile Include="JumpRunningRightPlayerState.cpp" />
     <ClCompile Include="JumpThrowAttackPlayerState.cpp" />
+    <ClCompile Include="LicenseScreen.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformController.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -52,6 +55,7 @@
     <ClCompile Include="RunRightPlayerState.cpp" />
     <ClCompile Include="ShovelPlayerState.cpp" />
     <ClCompile Include="SlidePlayerState.cpp" />
+    <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="ThrowAttackPlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -74,10 +78,13 @@
     <ClInclude Include="GlideRunningRightPlayerState.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="HammeringPlayerState.h" />
+    <ClInclude Include="HelpScreen.h" />
     <ClInclude Include="IdlePlayerState.h" />
     <ClInclude Include="JumpAttackPlayerState.h" />
     <ClInclude Include="JumpRunningRightPlayerState.h" />
     <ClInclude Include="JumpThrowAttackPlayerState.h" />
+    <ClInclude Include="LicenseScreen.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlatformController.h" />
     <ClInclude Include="Player.h" />
@@ -90,6 +97,7 @@
     <ClInclude Include="RunRightPlayerState.h" />
     <ClInclude Include="ShovelPlayerState.h" />
     <ClInclude Include="SlidePlayerState.h" />
+    <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="ThrowAttackPlayerState.h" />
   </ItemGroup>
   <ItemGroup>

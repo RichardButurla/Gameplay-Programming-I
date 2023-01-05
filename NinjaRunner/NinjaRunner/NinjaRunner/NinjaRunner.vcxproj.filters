@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{d0bfae15-6653-4d22-beb1-7841319e6698}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Screens">
+      <UniqueIdentifier>{7d32f680-b1a7-4d69-a1f8-4c923f9090d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -132,8 +135,20 @@
     <ClCompile Include="EnemyController.cpp">
       <Filter>Source Files\Enitities</Filter>
     </ClCompile>
+    <ClCompile Include="LicenseScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
     <ClCompile Include="GamePlay.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpScreen.cpp">
+      <Filter>Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,7 +258,19 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="GamePlay.h">
-      <Filter>Header Files</Filter>
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="LicenseScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpScreen.h">
+      <Filter>Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

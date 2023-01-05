@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-GameState Game::currentState = GameState::GamePlay;
+GameState Game::currentState = GameState::Help;
 
 /// <summary>
 /// default constructor
@@ -77,6 +77,14 @@ void Game::processEvents()
 		case GameState::None:
 			break;
 
+		case GameState::Splash:
+			m_splashScreen.processInput(newEvent);
+			break;
+
+		case GameState::Help:
+			m_helpScreen.processInput(newEvent);
+			break;
+
 		case GameState::GamePlay:
 			m_gamePlayScreen.processEvents(newEvent);
 			break;
@@ -115,6 +123,23 @@ void Game::update(sf::Time t_deltaTime)
 	case GameState::None:
 		break;
 
+	case GameState::License:
+		m_licenseScreen.update(t_deltaTime, m_window);
+		break;
+
+
+	case GameState::Splash:
+		m_splashScreen.update(t_deltaTime,m_window);
+		break;
+
+	case GameState::MainMenu:
+		m_mainMenuScreen.update(t_deltaTime, m_window);
+		break;
+
+	case GameState::Help:
+		m_helpScreen.update(t_deltaTime);
+		break;
+
 	case GameState::GamePlay:
 		m_gamePlayScreen.update(t_deltaTime);
 		break;
@@ -138,6 +163,22 @@ void Game::render()
 
 	case GameState::GamePlay:
 		m_gamePlayScreen.render(m_window);
+		break;
+
+	case GameState::License:
+		m_licenseScreen.render(m_window);
+		break;
+
+	case GameState::Splash:
+		m_splashScreen.render(m_window);
+		break;
+
+	case GameState::Help:
+		m_helpScreen.render(m_window);
+		break;
+
+	case GameState::MainMenu:
+		m_mainMenuScreen.render(m_window);
 		break;
 
 	default:
@@ -170,8 +211,8 @@ void Game::initialiseScreens()
 	//load fonts and textures first, then initialise
 	
 	m_gamePlayScreen.initialise(m_font, m_backgroundTexture, m_playerTexture, m_platformTexture);
-		
-
-
-
+	m_licenseScreen.initialise(m_font);
+	m_splashScreen.initialise(m_font);
+	m_mainMenuScreen.initialise(m_font);
+	m_helpScreen.initialise(m_font);
 }

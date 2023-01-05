@@ -1,6 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "GamePlay.h"
+#include "LicenseScreen.h"
+#include "SplashScreen.h"
+#include "MainMenu.h"
+#include "HelpScreen.h"
 
 
 
@@ -47,6 +51,10 @@ protected:
 	sf::Font m_font; // apocalyptic style font
 
 	GamePlay m_gamePlayScreen;
+	LicenseScreen m_licenseScreen;
+	SplashScreen m_splashScreen;
+	MainMenu m_mainMenuScreen;
+	HelpScreen m_helpScreen;
 
 	sf::Texture m_playerTexture;
 	sf::Texture m_backgroundTexture;
