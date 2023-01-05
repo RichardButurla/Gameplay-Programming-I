@@ -47,7 +47,7 @@ private:
 	void checkPlayerOffPosition();
 	void checkPlayerEnemyDistance();
 
-	bool m_gameOver{ true };
+	bool m_gameOver{ false };
 
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_gameScoreText; // text used for message on screen

@@ -418,7 +418,9 @@ void GamePlay::resetGame()
 	m_gameScore = 0;
 	scoreMultiplier = 1;
 	m_platformSpeed = 400;
+	platformNumber = 0;
 	m_floorPlatformSpeed = 400;
+	platformsInOrder = false;
 
 	m_playerController.setX(m_playerOriginalPosition.x);
 	m_playerController.setY(m_playerOriginalPosition.y);
@@ -469,6 +471,10 @@ void GamePlay::resetGame()
 	m_enemy.setScale(m_enemyScale);
 
 	m_startOfPlatformsClock.restart();
+	m_floorPlatformClock.restart();
+	gameRunClock.restart();
+	m_scoreClock.restart();
+
 }
 
 /// <summary>
