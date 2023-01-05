@@ -12,6 +12,7 @@
 
 
 
+
 /// <summary>
 /// default constructor
 /// setup the window properties
@@ -21,6 +22,7 @@
 GamePlay::GamePlay() :
 	m_input(input)
 {
+	isGameReset = false;
 }
 
 /// <summary>
@@ -40,25 +42,30 @@ GamePlay::~GamePlay()
 /// </summary>
 void GamePlay::processEvents(sf::Event& t_event)
 {
-
-
-	switch (t_event.type)
+	if (m_gameOver)
 	{
-		// Deal with KeyPressed
-	case sf::Event::KeyPressed:
-		processKeyPress(t_event);
-		break;
-
-		// Deal with KeyReleased
-	case sf::Event::KeyReleased:
-		processKeyRelease(t_event);
-		break;
-
-	default:
-		//m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
-		break;
+		m_gameOverScreen.processInput(t_event);
 	}
-	m_player.handleAnimationInput(input);
+	else
+	{
+		switch (t_event.type)
+		{
+			// Deal with KeyPressed
+		case sf::Event::KeyPressed:
+			processKeyPress(t_event);
+			break;
+
+			// Deal with KeyReleased
+		case sf::Event::KeyReleased:
+			processKeyRelease(t_event);
+			break;
+
+		default:
+			//m_input.setCurrent(gpp::Events::Event::RUN_RIGHT_START_EVENT);
+			break;
+		}
+		m_player.handleAnimationInput(input);
+	}
 }
 
 
@@ -296,16 +303,16 @@ void GamePlay::processKeyReleaseFSM(sf::Event t_event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void GamePlay::update(sf::Time t_deltaTime)
 {
-	updateTimers();
-
 	if (m_gameOver)
 	{
-		Game::currentState = GameState::MainMenu;
+		m_gameOverScreen.update(t_deltaTime, m_gameScore);
+		if (isGameReset)
+		{
+			resetGame();
+		}
 	}
-	
-		checkTimers();
-
-
+	else
+	{
 		for (int i = 0; i < MAX_PLATFORMS; i++)
 		{
 			m_platforms[i].update(t_deltaTime.asSeconds());
@@ -319,11 +326,14 @@ void GamePlay::update(sf::Time t_deltaTime)
 		m_enemy.update(t_deltaTime.asSeconds());
 		m_enemy.setSpeed(m_platformSpeed);
 
+		updateTimers();
+		checkTimers();
 		checkGameText();
 		checkCollision();
 		checkPlatformOffScreen();
 		checkPlayerEnemyDistance();
 		checkPlayerOffPosition();
+	}
 }
 
 void GamePlay::updateTimers()
@@ -349,40 +359,48 @@ void GamePlay::updateTimers()
 void GamePlay::render(sf::RenderWindow& t_window)
 {
 	t_window.draw(m_background);
-	for (int i = 0; i < MAX_PLATFORMS; i++)
+	if (m_gameOver)
 	{
-		m_platforms[i].render(t_window);
+		m_gameOverScreen.render(t_window);
 	}
-	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+	else
 	{
-		m_floorPlatforms[i].render(t_window);
+		for (int i = 0; i < MAX_PLATFORMS; i++)
+		{
+			m_platforms[i].render(t_window);
+		}
+		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+		{
+			m_floorPlatforms[i].render(t_window);
+		}
+
+
+
+		///Test code for hit boxes///
+		/*testShape.setSize({m_playerSize.x, m_playerSize.y + 50});
+		testShape.setFillColor(sf::Color::Green);
+		testShape.setPosition({ m_player.getX(), m_player.getY() });
+		m_window.draw(testShape);
+
+		testShape.setSize({m_playerSize.x + 100, m_playerSize.y});
+		testShape.setFillColor(sf::Color::Red);
+		testShape.setPosition({ m_enemy.getX() - 100, m_enemy.getY()});
+		m_window.draw(testShape);*/
+		///                      ///
+
+
+		m_player.renderPlayer(t_window);
+		m_enemy.render(t_window);
+
+		t_window.draw(m_gameScoreText);
+		t_window.draw(m_playerHealthText);
 	}
-
-
-
-	///Test code for hit boxes///
-	/*testShape.setSize({m_playerSize.x, m_playerSize.y + 50});
-	testShape.setFillColor(sf::Color::Green);
-	testShape.setPosition({ m_player.getX(), m_player.getY() });
-	m_window.draw(testShape);
-
-	testShape.setSize({m_playerSize.x + 100, m_playerSize.y});
-	testShape.setFillColor(sf::Color::Red);
-	testShape.setPosition({ m_enemy.getX() - 100, m_enemy.getY()});
-	m_window.draw(testShape);*/
-	///                      ///
-
-
-	m_player.renderPlayer(t_window);
-	m_enemy.render(t_window);
-
-	t_window.draw(m_gameScoreText);
-	t_window.draw(m_playerHealthText);
-
 }
 
 void GamePlay::initialise(sf::Font& t_font, sf::Texture& t_backgroundTex, sf::Texture& t_playerTexture, sf::Texture& t_platformTexture)
 {
+	m_gameOverScreen.initialise(t_font);
+
 	m_ArialBlackfont = t_font;
 	m_backgroundTexture = t_backgroundTex;
 	m_playerTexture = t_playerTexture;
@@ -391,6 +409,66 @@ void GamePlay::initialise(sf::Font& t_font, sf::Texture& t_backgroundTex, sf::Te
 
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+}
+
+void GamePlay::resetGame()
+{
+	isGameReset = false;
+	m_gameOver = false;
+	m_gameScore = 0;
+	scoreMultiplier = 1;
+	m_platformSpeed = 400;
+	m_floorPlatformSpeed = 400;
+
+	m_playerController.setX(m_playerOriginalPosition.x);
+	m_playerController.setY(m_playerOriginalPosition.y);
+	m_player = Player(m_playerAnimatedSprite, m_playerController);
+	m_player.setPlayerScale(playerScale.x, playerScale.y);
+
+	sf::Vector2f testPos[MAX_FLOOR_PLATFORMS]
+	{
+		{0, static_cast<float>(SCREEN_HEIGHT - m_platformTextureSize.y)},
+		{static_cast<float>((MAX_PLATFORM_BLOCKS)*m_platformTextureSize.x) ,static_cast<float>(SCREEN_HEIGHT - m_platformTextureSize.y)}
+	};
+
+	int platformSize = MAX_FLOOR_PLATFORMS; //amount of tiles/blocks
+	m_platFormController = PlatformController(testPos[0].x, testPos[0].y, m_platformTextureSize.x, m_platformTextureSize.y, platformSize);
+	//m_platFormController.setSpeed(m_platformSpeed);
+
+	for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
+	{
+		m_floorPlatforms[i] = Platform(m_platformTexture,  m_platFormController);
+		m_floorPlatforms[i].setPos(testPos[i].x, testPos[i].y);
+		m_floorPlatforms[i].setNumberOfBlocks(MAX_PLATFORM_BLOCKS);
+		m_floorPlatforms[i].setPlatformScale(m_platformScale);
+	}
+
+	sf::Vector2f initialPlatformPos[MAX_PLATFORMS] //set initial positiions off screen
+	{
+		{SCREEN_WIDTH,100},
+		{SCREEN_WIDTH,325},
+		{SCREEN_WIDTH,550}
+	};
+
+	platformSize = 6;
+	for (int i = 0; i < MAX_PLATFORMS; i++)
+	{
+
+		m_platFormController = PlatformController(initialPlatformPos[i].x, initialPlatformPos[i].y, m_platformTextureSize.x, m_platformTextureSize.y, platformSize);
+		m_platFormController.setSpeed(0);
+		m_platforms[i] = Platform(m_platformTexture, m_platFormController);
+		m_platforms[i].setNumberOfBlocks(platformSize);
+		m_platforms[i].setPlatformScale(m_platformScale);
+	}
+
+	//Setup Enemy
+	m_enemyController.setX(m_floorPlatforms[1].getX());
+	m_enemyController.setY(m_floorPlatforms[1].getY() - m_playerSize.y + 20);
+	m_enemyController.setSpeed(m_floorPlatforms[1].getPlatformSpeed());
+	m_enemy = Enemy(m_playerAnimatedSprite, m_enemyController);
+	m_enemy.setScale(m_enemyScale);
+
+	m_startOfPlatformsClock.restart();
 }
 
 /// <summary>

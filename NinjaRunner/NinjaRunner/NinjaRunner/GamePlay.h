@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Globals.h"
+#include "GameOverScreen.h"
 #include "Player.h"
 #include "Platform.h"
 #include "Events.h"
@@ -24,6 +25,9 @@ public:
 	void render(sf::RenderWindow& t_window);
 	void initialise(sf::Font& t_font, sf::Texture& t_backgroundTex, sf::Texture& t_playerTexture,sf::Texture& t_platformTexture);
 
+	void resetGame();
+	static bool isGameReset;
+
 
 private:
 
@@ -43,7 +47,7 @@ private:
 	void checkPlayerOffPosition();
 	void checkPlayerEnemyDistance();
 
-	bool m_gameOver{ false };
+	bool m_gameOver{ true };
 
 	sf::Font m_ArialBlackfont; // font used by message
 	sf::Text m_gameScoreText; // text used for message on screen
@@ -54,6 +58,7 @@ private:
 	sf::Clock m_scoreClock;
 	sf::Time m_scoreTime;
 
+	GameOverScreen m_gameOverScreen;
 
 	sf::RectangleShape testShape;
 
@@ -91,7 +96,6 @@ private:
 	float m_floorPlatformSpeed = 400;
 	bool platformsInOrder{ false };
 	int platformNumber = 0;
-	bool firstOffscreenOccurance{ false };
 
 	sf::Texture m_enemyTexture;
 	sf::Vector2f m_enemyScale{ -playerScale.x,playerScale.y };

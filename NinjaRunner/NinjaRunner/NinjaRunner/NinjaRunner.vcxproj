@@ -31,6 +31,7 @@
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="GlidePlayerState.cpp" />
     <ClCompile Include="GlideRunningRightPlayerState.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="GamePlay.h" />
     <ClInclude Include="GlidePlayerState.h" />
     <ClInclude Include="GlideRunningRightPlayerState.h" />
