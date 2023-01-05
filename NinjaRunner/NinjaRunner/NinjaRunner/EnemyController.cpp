@@ -37,7 +37,7 @@ bool EnemyController::isOffscreen()
 /// </summary>
 /// <param name="t_playerXPos"> players X position</param>
 /// <param name="t_playerYPos"> players Y Position</param>
-void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos)
+void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos, float t_platformSpeed)
 {
 	float yDetectionDistance = 20;
 	float xDetectionDistance = 600;
@@ -52,11 +52,11 @@ void EnemyController::trackPlayer(float t_playerXPos, float t_playerYPos)
 		trackingPlayer = true;
 		if (xDistance < 0)
 		{
-			speed = chaseSpeed;
+			speed = t_platformSpeed;
 		}
 		else
 		{
-			speed = -chaseSpeed;
+			speed = -t_platformSpeed;
 		}
 		if (fabs(xDistance) < attackDistance && fabs(yDistance) < yDetectionDistance)
 		{

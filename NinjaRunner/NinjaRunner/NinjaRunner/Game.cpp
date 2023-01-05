@@ -356,6 +356,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	m_player.updatePlayer(t_deltaTime.asSeconds());
 	m_enemy.update(t_deltaTime.asSeconds());
+	m_enemy.setSpeed(m_platformSpeed);
 
 	checkCollision();
 	checkPlatformOffScreen();
@@ -547,7 +548,6 @@ void Game::checkPlatformTimes()
 		for (int i = 0; i < MAX_FLOOR_PLATFORMS; i++)
 		{
 			m_floorPlatforms[i].setSpeed(m_floorPlatformSpeed);
-			m_enemy.setSpeed(m_floorPlatformSpeed);
 		}
 	}
 
@@ -602,14 +602,14 @@ void Game::checkPlatformOffScreen()
 
 			if (m_enemy.getAlive() == false)
 			{
-				m_enemy.setPos(m_platforms[i].getX(), m_platforms[i].getY() - m_playerSize.y);
+				m_enemy.setPos(m_platforms[i].getX(), m_platforms[i].getY() - m_playerSize.y + 20);
 				m_enemy.setSpeed(m_platformSpeed);
+				m_enemy.setEnemyState(new IdlePlayerState);
 				m_enemy.setAlive(true);
 			}
 			if (m_enemy.isOffscreen())
 			{
-				m_enemy.setPos(m_platforms[i].getX(), m_platforms[i].getY() - m_playerSize.y);
-				m_enemy.setSpeed(m_platformSpeed);
+				m_enemy.setAlive(false);
 			}
 
 		}
@@ -741,20 +741,27 @@ void Game::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCol
 void Game::checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider)
 {
 	std::cout << "\nPlayer Health: " << m_player.getHealth();
-	if (t_playerCollider.checkCollision(t_enemyCollider))
+	if (m_enemy.getAlive() == true)
 	{
-		enemyAttackPlayer();
+		if (t_playerCollider.checkCollision(t_enemyCollider))
+		{
+			enemyAttackPlayer();
+		}
 	}
+	
 }
 
 void Game::checkPlayerAttack()
 {
+	m_player.setAttacking(true);
+
 	RectangleCollider playerCollider(m_player.getX(), m_player.getY(), m_playerSize.x, m_playerSize.y);
 	RectangleCollider enemyCollider(m_enemy.getX() - 100, m_enemy.getY(), m_playerSize.x + 100, m_playerSize.y); //well give enemy a bigger collider for attacking to the left
 
 	if (playerCollider.checkCollision(enemyCollider))
 	{
 		m_enemy.setAlive(false);
+		m_enemy.setEnemyState(new IdlePlayerState);
 	}
 	
 }
@@ -774,7 +781,7 @@ void Game::checkPlayerOffPosition()
 
 void Game::checkPlayerEnemyDistance()
 {
-	m_enemy.trackPlayer({ m_player.getX(), m_player.getY() });
+	m_enemy.trackPlayer({ m_player.getX(), m_player.getY() },m_platformSpeed );
 }
 	
 

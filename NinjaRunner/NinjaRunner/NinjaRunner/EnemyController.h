@@ -16,7 +16,7 @@ public:
 	void setSpeed(float t_speed) { speed = t_speed; }
 
 	bool isOffscreen();
-	void trackPlayer(float t_x, float t_y);
+	void trackPlayer(float t_x, float t_y, float t_platformSpeed);
 
 	bool isTrackingPlayer() { return trackingPlayer; }
 	bool isAttackingPlayer() { return attackingPlayer; }
@@ -30,7 +30,6 @@ private:
 	float width = 0;
 	float height = 0;
 	float speed = 0;
-	float chaseSpeed = 200;
 	bool trackingPlayer{ false };
 	bool attackingPlayer{ false };
 };

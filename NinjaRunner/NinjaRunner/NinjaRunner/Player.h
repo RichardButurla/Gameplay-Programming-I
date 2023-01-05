@@ -16,6 +16,8 @@ private:
 	AnimatedSprite m_animated_sprite;
 	PlayerController m_playerController;
 	bool runPlayed{ false };
+	bool attackPlayed{ false };
+	sf::Clock timeSinceAttack;
 	int m_health = 3;
 
 public:
@@ -56,6 +58,7 @@ public:
 	void setX(float t_x) { m_playerController.setX(t_x); }
 	void setY(float t_y) { m_playerController.setY(t_y); }
 
+	void setAttacking(bool t_boolean) { attackPlayed = true; timeSinceAttack.restart(); }
 	void setInAir(bool t_boolean) { m_playerController.setInAir(t_boolean); }
 	void setGrounded(bool t_boolean) { m_playerController.setGrounded(t_boolean); }
 

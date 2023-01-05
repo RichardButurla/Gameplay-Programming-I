@@ -5,9 +5,15 @@
 #include "DiedPlayerState.h"
 #include "IdlePlayerState.h"
 #include "RunRightPlayerState.h"
+#include "AttackPlayerState.h"
 
 PlayerState* GlideRunningRightPlayerState::handleInput(gpp::Events& input)
 {
+	if (input.getCurrent() == gpp::Events::Event::ATTACK_START_EVENT)
+	{
+		DEBUG_MSG("GlideRunningRightPlayerState -> AttackPlayerState");
+		return new AttackPlayerState();
+	}
 	if (input.getCurrent() == gpp::Events::Event::HIT_GROUND_EVENT)
 	{
 		DEBUG_MSG("GlideRunningRightPlayerState -> IdlePlayerState");

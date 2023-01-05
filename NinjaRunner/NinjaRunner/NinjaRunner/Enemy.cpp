@@ -25,6 +25,7 @@ Enemy::~Enemy()
 
 void Enemy::updateAnimationState()
 {
+	
 	m_animated_sprite.update();
 	m_state->update(*this);
 }
@@ -54,6 +55,7 @@ PlayerState* Enemy::getEnemyState()
 void Enemy::setEnemyState(PlayerState* state)
 {
 	this->m_state = state;
+	m_state->enter(*this);
 }
 
 void Enemy::setEnemyScale(float t_x, float t_y)
@@ -63,13 +65,9 @@ void Enemy::setEnemyScale(float t_x, float t_y)
 
 void Enemy::update(double t_deltaTime)
 {
-	if (m_alive)
-	{
 		m_enemyController.update(t_deltaTime);
 		updateAnimationState();
-		m_animated_sprite.setPosition(m_enemyController.getX() + 90, m_enemyController.getY()); //Sprite is flipped so distance is off
-	}
-	
+		m_animated_sprite.setPosition(m_enemyController.getX() + 90, m_enemyController.getY()); //Sprite is flipped so distance is off	
 }
 
 void Enemy::render(sf::RenderWindow& t_window)
@@ -81,9 +79,9 @@ void Enemy::render(sf::RenderWindow& t_window)
 	
 }
 
-void Enemy::trackPlayer(sf::Vector2f t_playerPos)
+void Enemy::trackPlayer(sf::Vector2f t_playerPos, float t_platformSpeed)
 {
-	m_enemyController.trackPlayer(t_playerPos.x, t_playerPos.y);
+	m_enemyController.trackPlayer(t_playerPos.x, t_playerPos.y,t_platformSpeed );
 
 	if (m_enemyController.isTrackingPlayer() && !m_enemyController.isAttackingPlayer())
 	{

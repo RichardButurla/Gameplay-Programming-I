@@ -26,7 +26,7 @@ public:
 	void update(double t_deltaTime);
 	void render(sf::RenderWindow& t_window);
 
-	void trackPlayer(sf::Vector2f t_playerPos);
+	void trackPlayer(sf::Vector2f t_playerPos, float t_platformSpeed);
 	bool isAttackingPlayer() { return m_enemyController.isAttackingPlayer(); }
 
 
