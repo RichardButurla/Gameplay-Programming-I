@@ -30,7 +30,7 @@ void LicenseScreen::initialise(sf::Font& t_font)
 void LicenseScreen::update(sf::Time& t_deltaTime, sf::RenderWindow& t_window)
 {
 	m_licenseTime = m_clock.getElapsedTime();
-	if (m_licenseTime.asSeconds() > 6)
+	if (m_licenseTime.asSeconds() > 3)
 	{
 		Game::currentState = GameState::Splash;
 	}

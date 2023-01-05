@@ -323,6 +323,7 @@ void GamePlay::update(sf::Time t_deltaTime)
 		checkCollision();
 		checkPlatformOffScreen();
 		checkPlayerEnemyDistance();
+		checkPlayerOffPosition();
 }
 
 void GamePlay::updateTimers()
@@ -527,7 +528,6 @@ void GamePlay::checkTimers()
 			m_platformSpeed += 2;
 			m_floorPlatformSpeed += 1;
 		}
-		std::cout << "\nPlatform Speed: " << m_platformSpeed;
 
 		for (int i = 0; i < MAX_PLATFORMS; i++)
 		{
@@ -701,10 +701,7 @@ void GamePlay::checkPlatFormCollision(RectangleCollider& t_playerCollider, Recta
 			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y });
 			m_player.setPlayerGravity(300);
 		}
-		else
-		{
-			checkPlayerOffPosition();
-		}
+
 
 	}
 
@@ -738,10 +735,6 @@ void GamePlay::checkFloorCollision(RectangleCollider& t_playerCollider, Rectangl
 			m_player.setVelocity({ -(t_platform.getPlatformSpeed()),m_player.getVelocity().y });
 			m_player.setPlayerGravity(0);
 		}
-		else
-		{
-			checkPlayerOffPosition();
-		}
 
 
 	}
@@ -749,7 +742,6 @@ void GamePlay::checkFloorCollision(RectangleCollider& t_playerCollider, Rectangl
 
 void GamePlay::checkEnemyCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_enemyCollider)
 {
-	std::cout << "\nPlayer Health: " << m_player.getHealth();
 	if (m_enemy.getAlive() == true)
 	{
 		if (t_playerCollider.checkCollision(t_enemyCollider))
@@ -782,6 +774,7 @@ void GamePlay::checkPlayerOffPosition()
 	{
 		m_gameOver = true;
 	}
+	std::cout << "PLAYER Y: " << m_player.getY();
 	if (m_player.getY() > SCREEN_HEIGHT)
 	{
 		m_gameOver = true;
@@ -805,8 +798,6 @@ void GamePlay::checkPlayerEnemyDistance()
 	m_enemy.trackPlayer({ m_player.getX(), m_player.getY() }, m_platformSpeed);
 	float xDistance = (m_player.getX() - m_enemy.getX());
 	float yDistance = abs((m_player.getY() - m_enemy.getY()));
-
-	std::cout << "Y distance: " << yDistance;
 
 	if (xDistance < m_playerSize.x + 20 && yDistance < 10)
 	{

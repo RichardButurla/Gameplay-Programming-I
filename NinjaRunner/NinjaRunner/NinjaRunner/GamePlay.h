@@ -27,8 +27,6 @@ public:
 
 private:
 
-	
-
 	void setupFontAndText();
 	void setupSprite();
 	void checkTimers();
