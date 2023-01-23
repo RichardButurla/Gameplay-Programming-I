@@ -72,14 +72,53 @@ void Game::draw()
 		glEnd();
 		break;
 	case Shapes::TriangleStrip:
+		glBegin(GL_TRIANGLE_STRIP); {
+			glVertex3f(0.0, 2.0, -5.0);
+			glVertex3f(-2.0, -2.0, -8.0);
+			glVertex3f(2.0, -2.0, -10.0);
+			glVertex3f(2.0, 2.0, -13.0);
+			glVertex3f(-2.0, 2.0, -15.0);
+
+		}
+		glEnd();
 		break;
 	case Shapes::TriangleFan:
+		glBegin(GL_TRIANGLE_FAN); {
+			glVertex3f(0.0, 2.0, -5.0);
+			glVertex3f(-1.0, 0.0, -5.0);
+			glVertex3f(1.0, 0.0, -5.0);
+			glVertex3f(0, -1.0, -5.0);
+			glVertex3f(-1, 1, -5.0);
+			glVertex3f(1, 1, -5.0);
+		}
+		glEnd();
 		break;
 	case Shapes::Quads:
+		glBegin(GL_QUADS); {
+			glVertex3f(-1.0, 1.0, -5.0);
+			glVertex3f(1.0, 1.0, -5.0);
+			glVertex3f(1.0, -1.0, -5.0);
+			glVertex3f(-1.0, -1.0, -5.0);
+			
+		}
+		glEnd();
 		break;
 	case Shapes::QuadStrip:
+		glBegin(GL_QUAD_STRIP); 
+			glVertex3f(-2.0f, -2.0f, -10.0f); 
+			glVertex3f(-2.0f, 2.0f, -10.0f); 
+			glVertex3f(0.0f, -2.0f, -10.0f);
+			glVertex3f(0.0f, 2.0f, -10.0f); 
+			glEnd();
+		glEnd();
 		break;
 	case Shapes::Polygon:
+		glBegin(GL_POLYGON); {
+		glVertex3f(0.0, 2.0, -5.0);
+		glVertex3f(-2.0, -2.0, -15.0);
+		glVertex3f(2.0, -2.0, -10.0);
+		}
+		glEnd();
 		break;
 	default:
 		break;

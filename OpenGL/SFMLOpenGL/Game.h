@@ -35,7 +35,7 @@ private:
 	void draw();
 	void unload();
 
-	Shapes m_currentShape = Shapes::Point;
+	Shapes m_currentShape = Shapes::QuadStrip;
 
 	// // Uncomment for Part 2
 	// // ********************
