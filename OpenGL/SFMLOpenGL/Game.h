@@ -35,7 +35,7 @@ private:
 	void draw();
 	void unload();
 
-	Shapes m_currentShape = Shapes::QuadStrip;
+	Shapes m_currentShape = Shapes::Polygon;
 
 	// // Uncomment for Part 2
 	// // ********************
