@@ -56,8 +56,25 @@ void Game::draw()
 	switch (m_currentShape)
 	{
 	case Shapes::Point:
+		glBegin(GL_POINT); {
+			glVertex3f(0.0, 0.0, -5.0);
+			glVertex3f(2.0, 0.0, -5.0);
+		}
+		glEnd();
 		break;
 	case Shapes::Lines:
+		glBegin(GL_LINES); {
+			glVertex3f(0.0, 0.0, -5.0);
+			glVertex3f(1.0, 0.0, -5.0);
+			//
+			glVertex3f(1.0, 0.0, -5.0);
+			glVertex3f(1.0, 1.0, -5.0);
+			//
+
+			glVertex3f(1.0, 1.0, -5.0);
+			glVertex3f(-1.0, 1.0, -5.0);
+		}
+		glEnd();
 		break;
 	case Shapes::LineStrip:
 		break;

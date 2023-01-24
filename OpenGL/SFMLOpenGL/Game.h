@@ -35,7 +35,7 @@ private:
 	void draw();
 	void unload();
 
-	Shapes m_currentShape = Shapes::Polygon;
+	Shapes m_currentShape = Shapes::Lines;
 
 	// // Uncomment for Part 2
 	// // ********************
