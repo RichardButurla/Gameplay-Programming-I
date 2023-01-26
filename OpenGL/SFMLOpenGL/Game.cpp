@@ -1,7 +1,8 @@
 #include <Game.h>
 
-Game::Game() : window(VideoMode(800, 600), "OpenGL")
+Game::Game() : window(VideoMode(800, 600), "OpenGL"), primatives(2)
 {
+	index = glGenLists(primatives);
 }
 
 Game::~Game() {}
@@ -44,7 +45,38 @@ void Game::initialize()
 void Game::update()
 {
 	
+	 // Uncomment for Part 2
+	 // ********************
+	elapsed = clock.getElapsedTime();
 
+	if (elapsed.asSeconds() >= 1.0f)
+	{
+		clock.restart();
+
+		if (!flip)
+		{
+			flip = true;
+			current++;
+			if (current > primatives)
+			{
+				current = 1;
+			}
+		}
+		else
+			flip = false;
+	}
+
+	if (flip)
+	{
+		rotationAngle += 0.005f;
+
+		if (rotationAngle > 360.0f)
+		{
+			rotationAngle -= 360.0f;
+		}
+	}
+	 // ********************
+	rotationAngle = 0.0005;
 	cout << "Update up" << endl;
 }
 
@@ -94,8 +126,15 @@ void Game::draw()
 			glVertex3f(2.0, 0.0, -5.0);
 			glVertex3f(1.0, -1.0, -5.0);
 			glVertex3f(-1.0, -1.0, -5.0);
+
+
 		}
 		glEnd();
+
+		glRotatef(rotationAngle, 0.0, 0.0, -5.0);
+		glRotatef(rotationAngle, 2.0, 0.0, -5.0);
+		glRotatef(rotationAngle, 1.0, -1.0, -5.0);
+		glRotatef(rotationAngle, -1.0, -1.0, -5.0);
 
 		break;
 	case Shapes::Triangle:
@@ -169,10 +208,66 @@ void Game::draw()
 		}
 		glEnd();
 		break;
+
+	case Shapes::Cube:
+		glBegin(GL_LINE_STRIP); {
+			//5 is zero
+			glVertex3f(0, 0, -5.0);
+			glVertex3f(0, 1, -5.0);
+			glVertex3f(1, 1, -5.0);
+			glVertex3f(1, 0, -5.0);
+			glVertex3f(0, 0, -5.0);
+		}
+		glEnd();
+
+		glBegin(GL_LINE_STRIP); {
+			//5 is zero
+			glVertex3f(0.5, -0.5, -5.0);
+			glVertex3f(0.5, 0.5, -5.0);
+			glVertex3f(1.5, 0.5, -5.0);
+			glVertex3f(1.5, -0.5, -5.0);
+			glVertex3f(0.5, -0.5, -5.0);
+		}
+		glEnd();
+
+		glBegin(GL_LINE_STRIP); {
+			glVertex3f(0, 0, -5.0);
+			glVertex3f(0.5, -0.5, -5.0);
+		}
+		glEnd();
+
+		glBegin(GL_LINE_STRIP); {
+			//5 is zero
+			glVertex3f(0, 1, -5.0);
+			glVertex3f(0.5, 0.5, -5.0);
+		}
+		glEnd();
+
+		glBegin(GL_LINE_STRIP); {
+			//5 is zero
+			glVertex3f(1, 1, -5.0);
+			glVertex3f(1.5, 0.5, -5.0);
+		}
+		glEnd();
+
+		glBegin(GL_LINE_STRIP); {
+			//5 is zero
+			glVertex3f(1, 0, -5.0);
+			glVertex3f(1.5, -0.5, -5.0);
+		}
+		glEnd();
+
+		glBegin(GL_LINE_STRIP); {
+			//5 is zero
+			glVertex3f(0, 0, -5.0);
+			glVertex3f(0.5, -0.5, -5.0);
+		}
+		glEnd();
+		
+		break;
 	default:
 		break;
 	}
-
 	
 	window.display();
 }

@@ -18,7 +18,8 @@ enum class Shapes
 	TriangleFan,
 	Quads,
 	QuadStrip,
-	Polygon
+	Polygon,
+	Cube
 };
 
 class Game
@@ -35,16 +36,18 @@ private:
 	void draw();
 	void unload();
 
-	Shapes m_currentShape = Shapes::LineLoop;
+	Shapes m_currentShape = Shapes::Cube;
+	 // Uncomment for Part 2
+	 // ********************
+	 const int primatives;
 
-	// // Uncomment for Part 2
-	// // ********************
-	// const int primatives;
+	GLuint index;
+	Clock clock;
+	Time elapsed;
 
-	//GLuint index;
-	//Clock clock;
-	//Time elapsed;
+	bool flip{ false };
+	int current = 1;
 
-	//float rotationAngle = 0.0f;
-	// // ********************
+	float rotationAngle = 0.0f;
+	 // ********************
 };
