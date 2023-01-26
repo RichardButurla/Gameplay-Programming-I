@@ -77,8 +77,26 @@ void Game::draw()
 		glEnd();
 		break;
 	case Shapes::LineStrip:
+		glBegin(GL_LINE_STRIP); {
+			glVertex3f(0.0, 0.0, -5.0);
+			glVertex3f(1.0, 0.0, -5.0);
+			glVertex3f(1.0, -1.0, -5.0);
+			glVertex3f(0.0, -1.0, -5.0);
+			glVertex3f(-2.0, -1.0, -5.0);
+			glVertex3f(-2.0, 0.0, -5.0);
+			
+		}
+		glEnd();
 		break;
 	case Shapes::LineLoop:
+		glBegin(GL_LINE_LOOP); {
+			glVertex3f(0.0, 0.0, -5.0);
+			glVertex3f(2.0, 0.0, -5.0);
+			glVertex3f(1.0, -1.0, -5.0);
+			glVertex3f(-1.0, -1.0, -5.0);
+		}
+		glEnd();
+
 		break;
 	case Shapes::Triangle:
 		glBegin(GL_TRIANGLES); {

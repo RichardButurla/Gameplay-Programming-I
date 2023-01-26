@@ -35,7 +35,7 @@ private:
 	void draw();
 	void unload();
 
-	Shapes m_currentShape = Shapes::Lines;
+	Shapes m_currentShape = Shapes::LineLoop;
 
 	// // Uncomment for Part 2
 	// // ********************
