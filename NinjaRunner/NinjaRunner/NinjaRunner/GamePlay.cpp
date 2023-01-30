@@ -799,12 +799,7 @@ void GamePlay::checkPlatFormCollision(RectangleCollider& t_playerCollider, Recta
 			m_player.setPlayerGravity(300);
 			std::cout << "\nPushing back player";
 		}
-
-
 	}
-	
-	
-
 }
 
 void GamePlay::checkFloorCollision(RectangleCollider& t_playerCollider, RectangleCollider& t_platformCollider, int& t_numberOfCollisions, Platform& t_platform)

@@ -60,7 +60,6 @@ void Player::updateAnimationState() {
 			m_animated_sprite.setLooped(true);
 		}
 	}
-	
 
 	m_animated_sprite.update();
 	m_state->update(*this);

@@ -20,10 +20,7 @@ void Game::run()
 
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
-			{
-				isRunning = false;
-			}
+			processEvents(event);
 		}
 		update();
 		draw();
@@ -52,7 +49,79 @@ void Game::draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	
+		   
+	glBegin(GL_TRIANGLE_FAN); {
+		// Set OpenGL Vertices
+		for (int i = 0; i < 6; i++)
+		{
+			glVertex3f(m_pyramidPoints[i].x, m_pyramidPoints[i].y, m_pyramidPoints[i].z);
+			glColor3f(m_pyramidColors[i].x, m_pyramidColors[i].y, m_pyramidColors[i].z);		
+		}
+	}
+	glEnd();
+
+	
+	
 	window.display();
+}
+
+void Game::processEvents(Event event)
+{
+	if (event.type == Event::Closed)
+	{
+		isRunning = false;
+	}
+
+	switch (event.type)
+	{
+	case sf::Event::Closed:
+		window.close();
+		break;
+	case sf::Event::KeyPressed:
+		
+
+		MyMatrix yRotation;
+		
+		switch (event.key.code)
+		{
+		case sf::Keyboard::Left:
+			yRotation = MyMatrix::rotationAntiClockwiseZ(rotation);
+
+			for (int i = 0; i < 6; i++)
+			{
+				MyVector3 originVector{ MyVector3{0,0,0} - m_pyramidPoints[i] };
+				MyVector3 returningVector{ m_pyramidPoints[i] };
+
+				MyMatrix translateToOrigin = MyMatrix::translationXY(originVector);
+				MyMatrix translateBack = MyMatrix::translationXY(returningVector);
+
+				m_pyramidPoints[i] = translateToOrigin * m_pyramidPoints[i];
+				m_pyramidPoints[i] = yRotation * m_pyramidPoints[i] ;
+				m_pyramidPoints[i] = translateBack * m_pyramidPoints[i];
+			}
+			
+			break;
+		case sf::Keyboard::Right:
+			yRotation = MyMatrix::rotationAntiClockwiseZ(-rotation);
+
+			for (int i = 0; i < 6; i++)
+			{
+				MyVector3 originVector{ MyVector3{0,0,0} - m_pyramidPoints[i] };
+				MyVector3 returningVector{ m_pyramidPoints[i] };
+
+				MyMatrix translateToOrigin = MyMatrix::translationXY(originVector);
+				MyMatrix translateBack = MyMatrix::translationXY(returningVector);
+
+				m_pyramidPoints[i] = translateToOrigin * m_pyramidPoints[i];
+				m_pyramidPoints[i] = yRotation * m_pyramidPoints[i];
+				m_pyramidPoints[i] = translateBack * m_pyramidPoints[i];
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
 }
 
 void Game::unload()
