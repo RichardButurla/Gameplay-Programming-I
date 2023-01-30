@@ -10,20 +10,7 @@
 using namespace std;
 using namespace sf;
 
-enum class Shapes
-{
-	Point,
-	Lines,
-	LineStrip,
-	LineLoop,
-	Triangle,
-	TriangleStrip,
-	TriangleFan,
-	Quads,
-	QuadStrip,
-	Polygon,
-	Cube
-};
+
 
 class Game
 {
@@ -38,18 +25,6 @@ private:
 	void update();
 	void draw();
 	void unload();
-
-	Shapes m_currentShape = Shapes::Cube;
-	 // Uncomment for Part 2
-	 // ********************
-	 const int primatives;
-
-	GLuint index;
-	Clock clock;
-	Time elapsed;
-
-	bool flip{ false };
-	int current = 1;
 
 	float rotationAngle = 0.0f;
 	 // ********************
