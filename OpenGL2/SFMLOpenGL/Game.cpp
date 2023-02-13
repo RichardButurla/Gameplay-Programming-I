@@ -71,6 +71,7 @@ void Game::processEvents(Event event)
 	{
 		isRunning = false;
 	}
+	MyVector3 moveVector{ 0,0,0 };
 
 	switch (event.type)
 	{
@@ -117,9 +118,29 @@ void Game::processEvents(Event event)
 				m_pyramidPoints[i] = translateBack * m_pyramidPoints[i];
 			}
 			break;
+		case sf::Keyboard::W:
+			moveVector = { 0,0.1,0 };					
+			break;
+
+		case sf::Keyboard::A:
+			moveVector = { -0.1,0,0 };
+			break;
+
+		case sf::Keyboard::S:
+			moveVector = { 0,-0.1,0 };
+			break;
+
+		case sf::Keyboard::D:
+			moveVector = { 0.1,0,0 };
+			break;
 
 		default:
 			break;
+		}
+
+		for (int i = 0; i < 6; i++)
+		{
+			m_pyramidPoints[i] += moveVector;
 		}
 	}
 }
