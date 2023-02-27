@@ -27,39 +27,39 @@ private:
 	void processEvents(Event event);
 	void unload();
 
-	float rotation = 1.f;
+	float rotation = 0.5f;
 
 	MyVector3 m_cubePoints[6][4]
 	{
 		{//left
 			{0,0,-5},
 			{1,0,-5},
-			{1,0,-7},
-			{0,0,-7}
+			{1,0,-6},
+			{0,0,-6}
 		},
 		{//front
 			{1,0,-5},
 			{1,1,-5},
-			{1,1,-7},
-			{1,0,-7}
+			{1,1,-6},
+			{1,0,-6}
 		},
 		{//right
 			{1,1,-5},
 			{0,1,-5},
-			{0,1,-7},
-			{1,1,-7}
+			{0,1,-6},
+			{1,1,-6}
 		},
 		{//back
 			{0,1,-5},
 			{0,0,-5},
-			{0,0,-7},
-			{0,1,-7}
+			{0,0,-6},
+			{0,1,-6}
 		},
 		{//top
-			{1,0,-7},
-			{1,1,-7},
-			{0,1,-7},
-			{0,0,-7}
+			{1,0,-6},
+			{1,1,-6},
+			{0,1,-6},
+			{0,0,-6}
 		},
 		{//bottom
 			{1,0,-5},
@@ -101,6 +101,6 @@ private:
 	MyVector3 baseOfPyramid;
 	MyVector3 centroidOfPyramid;
 
-	float rotationAngle = 0.005f;
+	float rotationAngle = 0.05f;
 	 // ********************
 };

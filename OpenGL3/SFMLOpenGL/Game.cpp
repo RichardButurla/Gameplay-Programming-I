@@ -99,6 +99,7 @@ void Game::processEvents(Event event)
 		MyMatrix xRotation;
 		MyMatrix yRotation;
 		MyMatrix zRotation;
+		MyMatrix scaleMatrix;
 		
 		switch (event.key.code)
 		{
@@ -199,6 +200,7 @@ void Game::processEvents(Event event)
 				}
 
 			}
+			break;
 		case sf::Keyboard::V:
 			zRotation = MyMatrix::rotationAntiClockwiseZ(rotation);
 
@@ -222,7 +224,50 @@ void Game::processEvents(Event event)
 				}
 
 			}
+			break;
 		case sf::Keyboard::B:
+			zRotation = MyMatrix::rotationAntiClockwiseZ(-rotation);
+
+			for (int i = 0; i < 6; i++)
+			{
+				MyVector3 originVector{ MyVector3{0,0,0} - m_pyramidPoints[i] };
+				MyVector3 returningVector{ m_pyramidPoints[i] };
+
+				MyMatrix translateToOrigin = MyMatrix::translationXY(originVector);
+				MyMatrix translateBack = MyMatrix::translationXY(returningVector);
+
+
+				//m_pyramidPoints[i] = zRotation * m_pyramidPoints[i];
+
+				for (int i = 0; i < 6; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						m_cubePoints[i][j] = zRotation * m_cubePoints[i][j];
+					}
+				}
+
+			}
+
+		case sf::Keyboard::N:
+			yRotation = MyMatrix::rotationAntiClockwiseY(-rotation);
+			moveVector = { 0,-0.1,0 };
+				for (int i = 0; i < 6; i++)
+				{
+					for (int j = 0; j < 4; j++)
+					{
+						MyVector3 returningVector{ m_cubePoints[i][j] };
+						MyMatrix translateForward = MyMatrix::translationXY(m_cubePoints[i][j] + moveVector);
+						MyMatrix translateBack = MyMatrix::translationXY(-returningVector);
+
+						m_cubePoints[i][j] = translateForward * m_cubePoints[i][j];
+						m_cubePoints[i][j] = yRotation * m_cubePoints[i][j];
+						m_cubePoints[i][j] = translateBack * m_cubePoints[i][j];
+					}
+				}
+			break;
+
+		case sf::Keyboard::M:
 			zRotation = MyMatrix::rotationAntiClockwiseZ(-rotation);
 
 			for (int i = 0; i < 6; i++)
@@ -260,6 +305,28 @@ void Game::processEvents(Event event)
 
 		case sf::Keyboard::D:
 			moveVector = { 0.1,0,0 };
+			break;
+
+		case sf::Keyboard::I:
+			scaleMatrix = MyMatrix::scale(0.5);
+			for (int i = 0; i < 6; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					m_cubePoints[i][j] = scaleMatrix * m_cubePoints[i][j];
+				}
+			}
+			break;
+
+		case sf::Keyboard::O:
+			scaleMatrix = MyMatrix::scale(1.5);
+			for (int i = 0; i < 6; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					m_cubePoints[i][j] = scaleMatrix * m_cubePoints[i][j];
+				}
+			}
 			break;
 
 		default:
