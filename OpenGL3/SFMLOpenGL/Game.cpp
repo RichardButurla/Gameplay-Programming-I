@@ -37,6 +37,18 @@ void Game::initialize()
 	gluPerspective(45.0, window.getSize().x /
 		window.getSize().y, 1.0, 500.0);
 	glMatrixMode(GL_MODELVIEW);
+
+
+	for (int i = 0; i < 6; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			m_centerOfCube += m_cubePoints[i][j];
+		}
+	}
+	m_centerOfCube.x /= 8.f;
+	m_centerOfCube.y /= 8.f;
+	m_centerOfCube.z /= 8.f;
 }
 
 void Game::update()
@@ -256,13 +268,13 @@ void Game::processEvents(Event event)
 				{
 					for (int j = 0; j < 4; j++)
 					{
-						MyVector3 returningVector{ m_cubePoints[i][j] };
-						MyMatrix toOrigin = MyMatrix::translationXY( MyVector3{ 0, 0, 0 } - m_cubePoints[i][j]);
-						MyMatrix translateBack = MyMatrix::translationXY(returningVector);
+						MyVector3 vToOrigin = MyVector3{ 0,0,0 } - m_centerOfCube;
+						MyMatrix toOrigin = MyMatrix::translationXY(vToOrigin);
+						MyMatrix translateBack = MyMatrix::translationXY(-vToOrigin);
 
 						m_cubePoints[i][j] = toOrigin * m_cubePoints[i][j];
-						//m_cubePoints[i][j] = xRotation * m_cubePoints[i][j];
-						//m_cubePoints[i][j] = translateBack * m_cubePoints[i][j];
+						m_cubePoints[i][j] = xRotation * m_cubePoints[i][j];
+						m_cubePoints[i][j] = translateBack * m_cubePoints[i][j];
 					}
 				}
 			break;

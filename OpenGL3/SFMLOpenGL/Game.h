@@ -77,6 +77,8 @@ private:
 		{0.0f, 1.0f, 0.0f}, //V3(green)
 	};
 
+	MyVector3 m_centerOfCube;
+
 	MyVector3 m_pyramidPoints[6]
 	{
 		{0.0f, 1.0f, -15.0f},
