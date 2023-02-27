@@ -41,7 +41,7 @@ void Game::initialize()
 
 void Game::update()
 {
-	
+	std::cout << "One cube Point X: " << m_cubePoints[0][0].x << "Point Y: " << m_cubePoints[0][0].y << "One cube Point Z: " << m_cubePoints[0][0].z;
 }
 
 void Game::draw()
@@ -248,21 +248,21 @@ void Game::processEvents(Event event)
 				}
 
 			}
-
+			break;
 		case sf::Keyboard::N:
-			yRotation = MyMatrix::rotationAntiClockwiseY(-rotation);
+			xRotation = MyMatrix::rotationAntiClockwiseX(-rotation);
 			moveVector = { 0,-0.1,0 };
 				for (int i = 0; i < 6; i++)
 				{
 					for (int j = 0; j < 4; j++)
 					{
 						MyVector3 returningVector{ m_cubePoints[i][j] };
-						MyMatrix translateForward = MyMatrix::translationXY(m_cubePoints[i][j] + moveVector);
-						MyMatrix translateBack = MyMatrix::translationXY(-returningVector);
+						MyMatrix toOrigin = MyMatrix::translationXY( MyVector3{ 0, 0, 0 } - m_cubePoints[i][j]);
+						MyMatrix translateBack = MyMatrix::translationXY(returningVector);
 
-						m_cubePoints[i][j] = translateForward * m_cubePoints[i][j];
-						m_cubePoints[i][j] = yRotation * m_cubePoints[i][j];
-						m_cubePoints[i][j] = translateBack * m_cubePoints[i][j];
+						m_cubePoints[i][j] = toOrigin * m_cubePoints[i][j];
+						//m_cubePoints[i][j] = xRotation * m_cubePoints[i][j];
+						//m_cubePoints[i][j] = translateBack * m_cubePoints[i][j];
 					}
 				}
 			break;
@@ -346,6 +346,7 @@ void Game::processEvents(Event event)
 			}
 		}
 	}
+	
 }
 
 void Game::unload()

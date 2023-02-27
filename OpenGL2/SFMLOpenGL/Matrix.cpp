@@ -368,5 +368,5 @@ MyMatrix MyMatrix::scale(const float t_scalingfactor)
 	return MyMatrix{
 		t_scalingfactor, 0.0f , 0.0f,
 		0.0f ,t_scalingfactor, 0.0f,
-		0.0f , 0.0f ,t_scalingfactor };
+		0.0f , 0.0f ,1 };
 }

@@ -82,6 +82,7 @@ void Game::processEvents(Event event)
 		
 
 		MyMatrix yRotation;
+		MyMatrix scaleMatrix;
 		
 		switch (event.key.code)
 		{
@@ -132,6 +133,23 @@ void Game::processEvents(Event event)
 
 		case sf::Keyboard::D:
 			moveVector = { 0.1,0,0 };
+			break;
+
+		case sf::Keyboard::I:
+			scaleMatrix = MyMatrix::scale(0.5);
+			for (int i = 0; i < 6; i++)
+			{
+				m_pyramidPoints[i] = scaleMatrix * m_pyramidPoints[i];				
+			}
+			break;
+
+		case sf::Keyboard::O:
+			scaleMatrix = MyMatrix::scale(1.5);
+			for (int i = 0; i < 6; i++)
+				for (int i = 0; i < 6; i++)
+				{
+					m_pyramidPoints[i] = scaleMatrix * m_pyramidPoints[i];
+				}
 			break;
 
 		default:
